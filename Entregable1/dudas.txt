@@ -1,0 +1,84 @@
+DUDAS
+
+. Proyecto en general
+La clase Sistema sería la aplicación corriendo en un dispositivo
+particular y por lo tanto hay un solo usuario o el Sistema estaría corriendo 
+en la nube y puede haber más de un usuario?
+RTA:
+
+
+
+3.1 Gestión de Cuentas de Usuario
+Sobre KYC y 2FA, cómo es su estructura de datos? Son simplemente algoritmos?
+Es algo que tomamos como una clase o como una especie de librería a la que
+accedemos? 
+Otra cosa, quién guarda el tipo de autenticación que eligió, el usuario o
+2FA?
+RTA:
+
+3.2
+Que el sistema proporcione al usuario la capacidad de poder ver su saldo
+crypto en la moneda fiduciaria deseada significa que cambie el valor de
+los atributos del objeto Billetera?
+RTA:
+
+Teníamos la idea que la moneda fiduciaria con la que cuenta la Billetera es 
+solo una y es la que haya elegido el usuario. De este forma si el usuario 
+elige cambiar de moneda fiduciaria solamente hace falta cambiar el tipo de
+moneda fiduciaria que tiene la Billetera y haciendo un getMonedaEnDolar se
+hace la conversión y a esa moneda y se almacena en el atributo "fiat" de
+la clase Billetera.
+RTA:
+
+Sobre la Clase MonedaFiduciaria, asumimos que puede acceder a alguna especie
+de base de datos para cambiar sus valores a la moneda elegida o tenemos que
+crear clases específicas para cada moneda a partir de MonedaFiduciaria?
+RTA:
+
+Una duda que surge de esto es cómo hacer que el usuario comunique que desea
+cambiar de moneda:
+1) En el caso que tengamos que crear una clase para cada
+tipo de moneda fiduciaria:
+a) Se encarga el Sistema de dar al usuario la posibilidad de elegir el tipo
+de moneda y en base a un input elige él mismo qué tipo de moneda crear y
+pasar a la Billetera.
+b) El input del usuario lo pasa a la Billetera y es la Billetera quién se
+encarga de crear esa moneda fiduciaria específica.
+2) En el caso de que MonedaFiduciaria pueda acceder a una base de datos o 
+algo por el estilo y cambiar sus atributos:
+a) Se llamaría a un método de MonedaFiduciaria que se encargue de pedir un
+input al usuario y en base a eso hacer el cambio de moneda fiduciaria o 
+debería ser el sistema quién administre estos inputs?
+RTA:
+
+3.3 Compra y Venta de Criptomonedas
+Sobre el Stock de Criptomonedas, cómo hacemos que el Sistema sepa el stock
+que hay de cada Criptomoneda? Una cosa que se nos ocurre es que cada
+Criptomoneda tenga su stock y entonces el Sistema tenga una lista de
+criptomonedas y que pueda consultarle a ellas el stock que hay disponible.
+RTA:
+
+3.5 Envío y Recepción de Criptomonedas
+En la sección de "Envío de criptomonedas" se menciona que cada usuario tiene
+una dirección pública a la que recibir criptomonedas pero a la vez dice que
+existe una dirección única por tipo de criptomoneda a la cual se envían ese
+mismo tipo de criptomonedas. En qué quedamos entonces?
+RTA:
+
+
+UML
+Cómo usar flechas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
