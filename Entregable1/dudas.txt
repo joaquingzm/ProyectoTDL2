@@ -103,34 +103,26 @@ mismo tipo de criptomonedas. En qué quedamos entonces?
 RTA: Cada moneda tiene su propia dirección. Sería como una especie de identificador que posee cada moneda. (Esperar a que la profe corrija por las
 dudas, pero lo de que el usuario tiene una dirección está directamente mal)
 
+3.2 Gestión de Criptomonedas, visualización de saldo total
+Cómo hacemos que se seleccione el tipo de moneda fiduciaria en la que el usuario 
+quiere que se refleje su saldo? Misma duda con cómo hacer que el usuario elija de qué
+criptomoneda ver su saldo. Tenemos que pasarle el objeto MonedaFiduciaria/Criptomoneda?
+No son objetos estáticos sino clases, por lo tanto tendríamos que pasar instancias enteras
+para poder comunicar una clase con otra, es correcto eso?
+RTA: Dijo que le pasemos Strings a los métodos para seleccionar monedas y que el método
+se comunica con la blackbox y que se encargue de devolverle el valor actual de esa moneda.
+
 
 UML
-Cómo usar flechas
+Cómo usar flechas, es necesario que todo atributo de una clase que sea otra clase
+estén conectados por una flecha?
+RTA: Sí, está mal no hacerlo
 
-
-
-Clases Nuevas (Por las dudas que nos olvidemos)
-
-
-Moneda: Super clase de Criptomoneda y MonedaFiduciaria. Tiene los atributos
-estáticos nombre y sigla y un atributo dinámico que sea el precio en 
-dólar de la Moneda (estos precios se van a actualizar mágicamente y no hay
-que pensar demasiado como)
-Criptomoneda: Tiene como atributo dinámico adicional la dirección. Ésta va
-a ser única a cada billetera por lo tanto es importante que sea única.
-MonedaFiduciaria:
- 
-Activos: Clase que contiene como atributos a distintas monedas (tipo Moneda)
-siendo estas las criptomonedas y monedas fiduciarias.
-
-Stock: (Profe checked) es una clase que tiene como atributo un tipo de 
-criptomoneda y una cantidad disponible que hay de ella. Ésta clase va
-a ser instanciada por la billetera del usuario para saber cuánto de qué
-tipo de moneda tiene y por el gestor de transacciones (aún a definir esta
-clase) para saber cuánto de qué tipo de moneda tiene disponible para la
-venta.
-
-GestorDeTransacciones: idea de clase que capaz tengamos que implementar.
+Conceptos
+Está bien "pensar a futuro" sobre las clases? Por ejemplo en el caso de Activos, la clase
+general Activos no tiene diferencia con la clase específica ActivosMonedaFiduciaria pero
+la creamos en el caso hipotético de que en el futuro se le añada algo a los activos fiduciarios.
+RTA: Sí, está bien.
 
 
 
