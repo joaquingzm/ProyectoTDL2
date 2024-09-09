@@ -1,130 +1,81 @@
 DUDAS
 Sobre los activos:
-Realmente las cripto y las monedas fiduciarias son ambas tipos de
-monedas entonces podemos hacer una superclase con los atributos
-sigla y nombre estáticos. Tiene a cuántas de esas monedas 1 dolár
-equivale (no estático) y ahí parten las subclases criptomoneda y
-moneda fiduciaria.
+Realmente las cripto y las monedas fiduciarias son ambas tipos de monedas entonces podemos hacer una superclase con los atributos sigla y nombre estáticos. Tiene a cuántas de esas monedas 1 dolár equivale (no estático) y ahí parten las subclases criptomoneda y moneda fiduciaria.
 
 Sobre Persona:
-La profe dijo que puede existir un objeto persona (y que es mejor) en el que 
-esté guardada la información personal. Una cosa es una persona, otra cosa es
-un usuario y otra cosa es que una persona TENGA un usuario. Por ejemplo el
-país de nacimiento de la persona puede ser distinto al país donde opera.
+La profe dijo que puede existir un objeto persona (y que es mejor) en el que esté guardada la información personal. Una cosa es una persona, otra cosa es un usuario y otra cosa es que una persona TENGA un usuario. Por ejemplo el país de nacimiento de la persona puede ser distinto al país donde opera.
 
 Sobre Base de Datos:
-RTA: Por ahora nos dijeron que asumamos que hay una base de datos a la que se
-accede mágicamente y que ni siquiera la metamos en el diagrama.
+RTA: Por ahora nos dijeron que asumamos que hay una base de datos a la que se accede mágicamente y que ni siquiera la metamos en el diagrama.
+
 
 . Proyecto en general
-La clase Sistema sería la aplicación corriendo en un dispositivo
-particular y por lo tanto hay un solo usuario o el Sistema estaría corriendo 
-en la nube y puede haber más de un usuario?
-RTA: La profe respondió que no habría mucha diferencia si estuviera en la nube
-o en el celular porque a lo sumo instancia más usuarios. Por ahora quedamos
-que habría un sólo usuario.
+La clase Sistema sería la aplicación corriendo en un dispositivo particular y por lo tanto hay un solo usuario o el Sistema estaría corriendo en la nube y puede haber más de un usuario?
+RTA: La profe respondió que no habría mucha diferencia si estuviera en la nube o en el celular porque a lo sumo instancia más usuarios. Por ahora quedamos que habría un sólo usuario.
 
 
 3.1 Gestión de Cuentas de Usuario
-Sobre KYC y 2FA, cómo es su estructura de datos? Son simplemente algoritmos?
-Es algo que tomamos como una clase o como una especie de librería a la que
-accedemos? 
-Otra cosa, quién guarda el tipo de autenticación que eligió, el usuario o
-2FA? Y quién guarda las preguntas y las respuestas?
-RTA: La profe dijo que por ahora no tengamos en cuenta la base de datos y
-que las clases KYC y 2FA guardan la información con la que fue 
-autenticado y también qué tipo de preguntas eligió. Hay una clase 
-(creemos que el 2FA) que guarda las preguntas y respuestas elegidas por
-el usuario.
+Sobre KYC y 2FA, cómo es su estructura de datos? Son simplemente algoritmos? Es algo que tomamos como una clase o como una especie de librería a la que accedemos? Otra cosa, quién guarda el tipo de autenticación que eligió, el usuario o 2FA? Y quién guarda las preguntas y las respuestas?
+RTA: La profe dijo que por ahora no tengamos en cuenta la base de datos y que las clases KYC y 2FA guardan la información con la que fue autenticado y también qué tipo de preguntas eligió. Hay una clase (creemos que el 2FA) que guarda las preguntas y respuestas elegidas por el usuario.
 
+Sobre la clase Gestión de Cuenta de Usuario deberíamos dejaerla como está o separar por ejemplo la parte de preguntas,respuestas y si están habilitadas o no en otra clase?
+RTA:
+
+Y cómo guardaría la información el 2FA? Y está bien que el KYC guarde objetos de clase "Imagen"?
+RTA: Para el 2FA hacer un clase tipo y de esa clase salgan si es por SMS o si es por EMAIL. Para el KYC esta bien aso como lo hicimos.
+
+Sobre el OFAC (El sistema que mediante el que se verifica regularmente que el usuario no esté dentro de una lista de personas inhabilitadas) está bien que la clase Gestión de Cuentas de Usuario tenga simplemente un método para verificar esto o hay que modelar algo más?
+RTA: La profe dijo que hagamos una clase abstracta que sea MétodoVerificación y que tenga como subclases a SMS y EMAIL. De esta forma se tiene un atributo MétodoVerificación en la clase GestiónDeCuentaDeUsuario.
+      
 3.2
-Que el sistema proporcione al usuario la capacidad de poder ver su saldo
-crypto en la moneda fiduciaria deseada significa que cambie el valor de
-los atributos del objeto Billetera?
-RTA: Los activos de la billetera quedan expresados en dólares pero para el
-usuario es transparente ya que la billetera guarda en una instancia el 
-tipo de moneda fiduciaria elegida y cuando elige ver su saldo con una
-cuenta se pasan sus activos de dólares a la moneda elegida. 
+Que el sistema proporcione al usuario la capacidad de poder ver su saldo crypto en la moneda fiduciaria deseada significa que cambie el valor de los atributos del objeto Billetera?
+RTA: Los activos de la billetera quedan expresados en dólares pero para el usuario es transparente ya que la billetera guarda en una instancia el tipo de moneda fiduciaria elegida y cuando elige ver su saldo con una cuenta se pasan sus activos de dólares a la moneda elegida. 
 
-Teníamos la idea que la moneda fiduciaria con la que cuenta la Billetera es 
-solo una y es la que haya elegido el usuario. De este forma si el usuario 
-elige cambiar de moneda fiduciaria solamente hace falta cambiar el tipo de
-moneda fiduciaria que tiene la Billetera y haciendo un getMonedaEnDolar se
-hace la conversión y a esa moneda y se almacena en el atributo "fiat" de
-la clase Billetera.
-RTA: El atributo fiat pasa a ser una clase activo la cual tiene como 
-atributos a las monedas cripto y fiduciarias. Ambos tipos de monedas
-(como está ya explicado arriba) se dividen en sus subclases de los
-tipos de moneda con los cuales trabaja la aplicación.
+Teníamos la idea que la moneda fiduciaria con la que cuenta la Billetera es solo una y es la que haya elegido el usuario. De este forma si el usuario elige cambiar de moneda fiduciaria solamente hace falta cambiar el tipo de moneda fiduciaria que tiene la Billetera y haciendo un getMonedaEnDolar se hace la conversión y a esa moneda y se almacena en el atributo "fiat" de la clase Billetera.
+RTA: El atributo fiat pasa a ser una clase activo la cual tiene como atributos a las monedas cripto y fiduciarias. Ambos tipos de monedas (como está ya explicado arriba) se dividen en sus subclases de los tipos de moneda con los cuales trabaja la aplicación.
 
-Sobre la Clase MonedaFiduciaria, asumimos que puede acceder a alguna especie
-de base de datos para cambiar sus valores a la moneda elegida o tenemos que
-crear clases específicas para cada moneda a partir de MonedaFiduciaria?
-Mismo para crypto.
-RTA: Hablando con la profe nos dijo que hagamos clases específicas para cada
-tipo de criptomoneda. Podemos hacer que el nombre y sigla sea un atributo
-estático y listo. Asumo que lo mismo para monedas fiduciarias. Lo que no 
-tiene que ser estático es la dirección de cada criptomoneda ya que es única
-a cada usuario.
+Sobre la Clase MonedaFiduciaria, asumimos que puede acceder a alguna especie de base de datos para cambiar sus valores a la moneda elegida o tenemos que crear clases específicas para cada moneda a partir de MonedaFiduciaria? Mismo para crypto.
+RTA: Hablando con la profe nos dijo que hagamos clases específicas para cada tipo de criptomoneda. Podemos hacer que el nombre y sigla sea un atributo estático y listo. Asumo que lo mismo para monedas fiduciarias. Lo que no tiene que ser estático es la dirección de cada criptomoneda ya que es única a cada usuario.
 
-Una duda que surge de esto es cómo hacer que el usuario comunique que desea
-cambiar de moneda:
-1) En el caso que tengamos que crear una clase para cada
-tipo de moneda fiduciaria:
-a) Se encarga el Sistema de dar al usuario la posibilidad de elegir el tipo
-de moneda y en base a un input elige él mismo qué tipo de moneda crear y
-pasar a la Billetera.
-b) El input del usuario lo pasa a la Billetera y es la Billetera quién se
-encarga de crear esa moneda fiduciaria específica.
-2) En el caso de que MonedaFiduciaria pueda acceder a una base de datos o 
-algo por el estilo y cambiar sus atributos:
-a) Se llamaría a un método de MonedaFiduciaria que se encargue de pedir un
-input al usuario y en base a eso hacer el cambio de moneda fiduciaria o 
-debería ser el sistema quién administre estos inputs?
-RTA: Según los diagramas de secuencia esto nace de un mensaje que no 
-se refleja en el diagrama de clases. A partir de este disparador sí
+Una duda que surge de esto es cómo hacer que el usuario comunique que desea cambiar de moneda:
+1) En el caso que tengamos que crear una clase para cada tipo de moneda fiduciaria:
+a) Se encarga el Sistema de dar al usuario la posibilidad de elegir el tipo de moneda y en base a un input elige él mismo qué tipo de moneda crear y pasar a la Billetera.
+b) El input del usuario lo pasa a la Billetera y es la Billetera quién se encarga de crear esa moneda fiduciaria específica.
+2) En el caso de que MonedaFiduciaria pueda acceder a una base de datos o  algo por el estilo y cambiar sus atributos:
+a) Se llamaría a un método de MonedaFiduciaria que se encargue de pedir un input al usuario y en base a eso hacer el cambio de moneda fiduciaria o debería ser el sistema quién administre estos inputs?
+RTA: Según los diagramas de secuencia esto nace de un mensaje que no se refleja en el diagrama de clases. A partir de este disparador sí
 se lanza un método el cuál sí hay que modelar.
 
 3.3 Compra y Venta de Criptomonedas
-Sobre el Stock de Criptomonedas, cómo hacemos que el Sistema sepa el stock
-que hay de cada Criptomoneda? Una cosa que se nos ocurre es que cada
-Criptomoneda tenga su stock y entonces el Sistema tenga una lista de
-criptomonedas y que pueda consultarle a ellas el stock que hay disponible.
-RTA: Crear una clase Stock, que tenga como atributos la cantidad de monedas
-y el tipo de moneda (profe checked). De esta forma la billetera del usuario
-tendría stocks de distintas criptomonedas y el sistema(este sistema
-seguramente termine siendo una clase gestor de criptomonedas/transacciones) por otro lado tendría el stock de criptomonedas disponibles para vender.
+Sobre el Stock de Criptomonedas, cómo hacemos que el Sistema sepa el stock que hay de cada Criptomoneda? Una cosa que se nos ocurre es que cada Criptomoneda tenga su stock y entonces el Sistema tenga una lista de criptomonedas y que pueda consultarle a ellas el stock que hay disponible.
+RTA: Crear una clase Stock, que tenga como atributos la cantidad de monedas y el tipo de moneda (profe checked). De esta forma la billetera del usuario tendría stocks de distintas criptomonedas y el sistema(este sistema seguramente termine siendo una clase gestor de criptomonedas/transacciones) por otro lado tendría el stock de criptomonedas disponibles para vender.
 
 3.5 Envío y Recepción de Criptomonedas
-En la sección de "Envío de criptomonedas" se menciona que cada usuario tiene
-una dirección pública a la que recibir criptomonedas pero a la vez dice que
-existe una dirección única por tipo de criptomoneda a la cual se envían ese
-mismo tipo de criptomonedas. En qué quedamos entonces?
-RTA: Cada moneda tiene su propia dirección. Sería como una especie de identificador que posee cada moneda. (Esperar a que la profe corrija por las
-dudas, pero lo de que el usuario tiene una dirección está directamente mal)
+En la sección de "Envío de criptomonedas" se menciona que cada usuario tiene una dirección pública a la que recibir criptomonedas pero a la vez dice que existe una dirección única por tipo de criptomoneda a la cual se envían ese mismo tipo de criptomonedas. En qué quedamos entonces?
+RTA: Cada moneda tiene su propia dirección. Sería como una especie de identificador que posee cada moneda. (Esperar a que la profe corrija por las dudas, pero lo de que el usuario tiene una dirección está directamente mal)
 
 3.2 Gestión de Criptomonedas, visualización de saldo total
-Cómo hacemos que se seleccione el tipo de moneda fiduciaria en la que el usuario 
-quiere que se refleje su saldo? Misma duda con cómo hacer que el usuario elija de qué
-criptomoneda ver su saldo. Tenemos que pasarle el objeto MonedaFiduciaria/Criptomoneda?
-No son objetos estáticos sino clases, por lo tanto tendríamos que pasar instancias enteras
-para poder comunicar una clase con otra, es correcto eso?
-RTA: Dijo que le pasemos Strings a los métodos para seleccionar monedas y que el método
-se comunica con la blackbox y que se encargue de devolverle el valor actual de esa moneda.
+Cómo hacemos que se seleccione el tipo de moneda fiduciaria en la que el usuario quiere que se refleje su saldo? Misma duda con cómo hacer que el usuario elija de qué criptomoneda ver su saldo. Tenemos que pasarle el objeto MonedaFiduciaria/Criptomoneda? No son objetos estáticos sino clases, por lo tanto tendríamos que pasar instancias enteras para poder comunicar una clase con otra, es correcto eso?
+RTA: Dijo que le pasemos Strings a los métodos para seleccionar monedas y que el método se comunica con la blackbox y que se encargue de devolverle el valor actual de esa moneda.
 
 
 UML
-Cómo usar flechas, es necesario que todo atributo de una clase que sea otra clase
-estén conectados por una flecha?
+Cómo usar flechas, es necesario que todo atributo de una clase que sea otra clase estén conectados por una flecha?
 RTA: Sí, está mal no hacerlo
 
+Cómo nombramos a las clases y a los atributos de otras clases que lo son? Podemos dejar puestos los espacios?
+RTA: Todo junto CamelCase
+
 Conceptos
-Está bien "pensar a futuro" sobre las clases? Por ejemplo en el caso de Activos, la clase
-general Activos no tiene diferencia con la clase específica ActivosMonedaFiduciaria pero
-la creamos en el caso hipotético de que en el futuro se le añada algo a los activos fiduciarios.
+Está bien "pensar a futuro" sobre las clases? Por ejemplo en el caso de Activos, la clase general Activos no tiene diferencia con la clase específica ActivosMonedaFiduciaria pero la creamos en el caso hipotético de que en el futuro se le añada algo a los activos fiduciarios.
 RTA: Sí, está bien.
 
+Hay que hacer una lista de las criptomonedas con las que trabaja el sistema para que clases como stock puedan buscar en una estructura de datos sobre que criptomoneda es el stock? Ya que la clase stock contendria solamente cantidad y sigla de la criptomoneda de manera que pueda identificarla.
+RTA: Sí, la lista es estática y guarda instancias únicas de cada criptomoneda a la que apuntan el resto de objetos que lo usan (o sea cada objeto apunta a esa instancia dinámica)
 
+IMPORTANTE
+Seguramente haya que hacer una clase swap siendo su funcionamiento parecido al de una foto que saco octa. 
+RTA: Segun la profe, hacer un metodo que sea devolver instancia en cada criptomoneda y no hacer una lista estatica de solo esas instancias, sino quedarnos con la lista de Stocks en una nueva clase que NO sea estetica.
 
 
 
