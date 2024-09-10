@@ -50,6 +50,7 @@ se lanza un método el cuál sí hay que modelar.
 Sobre el Stock de Criptomonedas, cómo hacemos que el Sistema sepa el stock que hay de cada Criptomoneda? Una cosa que se nos ocurre es que cada Criptomoneda tenga su stock y entonces el Sistema tenga una lista de criptomonedas y que pueda consultarle a ellas el stock que hay disponible.
 RTA: Crear una clase Stock, que tenga como atributos la cantidad de monedas y el tipo de moneda (profe checked). De esta forma la billetera del usuario tendría stocks de distintas criptomonedas y el sistema(este sistema seguramente termine siendo una clase gestor de criptomonedas/transacciones) por otro lado tendría el stock de criptomonedas disponibles para vender.
 
+
 3.5 Envío y Recepción de Criptomonedas
 En la sección de "Envío de criptomonedas" se menciona que cada usuario tiene una dirección pública a la que recibir criptomonedas pero a la vez dice que existe una dirección única por tipo de criptomoneda a la cual se envían ese mismo tipo de criptomonedas. En qué quedamos entonces?
 RTA: Cada moneda tiene su propia dirección. Sería como una especie de identificador que posee cada moneda. (Esperar a que la profe corrija por las dudas, pero lo de que el usuario tiene una dirección está directamente mal)
@@ -72,6 +73,7 @@ RTA: Sí, está bien.
 
 Hay que hacer una lista de las criptomonedas con las que trabaja el sistema para que clases como stock puedan buscar en una estructura de datos sobre que criptomoneda es el stock? Ya que la clase stock contendria solamente cantidad y sigla de la criptomoneda de manera que pueda identificarla.
 RTA: Sí, la lista es estática y guarda instancias únicas de cada criptomoneda a la que apuntan el resto de objetos que lo usan (o sea cada objeto apunta a esa instancia dinámica)
+RTA2: Tremenda peteada, usamos singleton y ahora siempre devuelven una misma instancia de si mismas y todas las clases apuntan a esa sola instancia.
 
 IMPORTANTE
 Seguramente haya que hacer una clase swap siendo su funcionamiento parecido al de una foto que saco octa. 
