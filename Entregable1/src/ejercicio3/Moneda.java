@@ -45,13 +45,13 @@ public class Moneda {
 		this.nombre = nombre;
 	}
 	/**
-	 * @return la sigla
+	 * @return la sigla de la moneda.
 	 */
 	public String getSigla() {
 		return sigla;
 	}
 	/**
-	 * @param sigla la sigla 
+	 * @param sigla la sigla de la moneda
 	 */
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
