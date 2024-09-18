@@ -1,60 +1,44 @@
 ﻿Entidad Persona llama a registrarse() de Persona sin esperar respuesta
 
-
 Persona inicia proceso de registro llamando a registrarPersona() de GestionDeCuentaDeUsuario sin esperar respuesta y finaliza
-
 
 GestionDeCuentaDeUsuario llama a registrarPersona() de RegistroYAutenticacion sin esperar respuesta y finaliza
 
-
 RegistroYAutenticacion toma los datos de registro básico para personas y los guarda en Persona utilizando guardarDatosRegistroPersona() sin esperar respuesta y finaliza
-
 
 Persona después de guardar los datos de la persona, llama a registrarUsuario() en GestionDeCuentaDeUsuario y espera respuesta
 
-
 GestionDeCuentaDeUsuario llama a registrarUsuario() en RegistroYAutenticacion y espera respuesta
-
 
 RegistroYAutenticacion crea un Usuario  y lo carga con los datos de registro básico para usuarios
 
-
 RegistroYAutenticacion retorna la instancia de Usuario a GestionDeCuentaDeUsuario y finaliza
-
 
 GestionDeCuentaDeUsuario retorna la instancia de Usuario a Persona
 
-
 Persona se guarda esa instancia de Usuario y finaliza
-
 
 GestionDeCuentaDeUsuario después de haber recibido instancia de Usuario llama a su propio método elegir2FA()
 
 
 si (elige Email)
         GestionDeUsuario crea una instancia de Email 
-GestionDeUsuario llama a set2FA() de Usuario y pasa la instancia de Email 
+        GestionDeUsuario llama a set2FA() de Usuario y pasa la instancia de Email 
 else 
-GestionDeUsuario crea una instancia de SMS
-GestionDeUsuario llama a set2FA() de Usuario y pasa la instancia de SMS
-
+        GestionDeUsuario crea una instancia de SMS
+        GestionDeUsuario llama a set2FA() de Usuario y pasa la instancia de SMS
 
 GestionDeCuentaDeUsuario después de guardar el 2FA elegido llama a su propio método confirmarCuenta()
 
-
 GestionDeCuentaDeUsuario llama a enviarCodigo() a la instancia en usuario de Email/SMS sin esperar respuesta y finaliza
-
 
 Entidad Persona llama a corroborarCodigo() de GestionDeCuentaDeUsuario
 
-
 GestionDeCuentaDeUsuario llama a corroborarCodigo() de Email/SMS y espera respuesta
-
 
 si (el código es correcto)
         GestionDeCuentaDeUsuario pasa el parámetro true a setCuentaConfirmada() a la instancia de Usuario de Persona
 else
         GestionDeCuentaDeUsuario pasa el parámetro false a setCuentaConfirmada() a la instancia de Usuario de Persona
-
 
 GestionDeCuentaDeUsuario finaliza
