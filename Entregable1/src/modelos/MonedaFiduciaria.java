@@ -1,4 +1,4 @@
-package ejercicio3;
+package modelos;
 
 /**
  * Esta clase abstrae una moneda fiduciaria, como por ejeplo el dolar o el euro.
@@ -17,8 +17,8 @@ public class MonedaFiduciaria extends Moneda{
 	 * @param precioEnDolar el precio en dolares de la moneda fiduciaria.
 	 * @param paisEmisor el pais que emite la moneda fiduciaria.
 	 */
-	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor) {
-		super(nombre, sigla, precioEnDolar);
+	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor, double volatilidad) {
+		super(nombre, sigla, precioEnDolar, volatilidad);
 		this.paisEmisor = paisEmisor;
 	}
 

@@ -1,4 +1,4 @@
-package ejercicio3;
+package modelos;
 
 import java.util.LinkedList;
 

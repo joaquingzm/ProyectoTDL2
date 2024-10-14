@@ -1,4 +1,4 @@
-package ejercicio3;
+package modelos;
 
 /**
  * Esta clase representa un activo criptomoneda, el cual hereda las caracteristicas

@@ -1,4 +1,4 @@
-package ejerciciosDB;
+package dao_interfaces;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

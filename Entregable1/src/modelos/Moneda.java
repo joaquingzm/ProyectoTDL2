@@ -1,4 +1,4 @@
-package ejercicio3;
+package modelos;
 
 /**
  * Esta clase representa una moneda, caracterizando su nombre, su sigla y su precio en dolares.
@@ -12,17 +12,19 @@ public class Moneda {
 	private String nombre;
 	private String sigla;
 	private double precioEnDolar;
+	private double volatilidad;
 	
 	/**
 	 * @param nombre nombre de la moneda
 	 * @param sigla sigla de la moneda
 	 * @param precioEnDolar precio en dolares
 	 */
-	public Moneda(String nombre, String sigla, double precioEnDolar) {
+	public Moneda(String nombre, String sigla, double precioEnDolar, double volatilidad) {
 		super();
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.precioEnDolar = precioEnDolar;
+		this.volatilidad = volatilidad;
 	}
 	
 	/**
@@ -68,5 +70,15 @@ public class Moneda {
 	public void setPrecioEnDolar(double precioEnDolar) {
 		this.precioEnDolar = precioEnDolar;
 	}
+
+	public double getVolatilidad() {
+		return volatilidad;
+	}
+
+	public void setVolatilidad(double volatilidad) {
+		this.volatilidad = volatilidad;
+	}
+	
+	
 	
 }

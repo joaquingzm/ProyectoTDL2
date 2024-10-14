@@ -1,4 +1,4 @@
-package ejercicio3;
+package modelos;
 
 /**
  * Esta clase modela una criptomoneda, como puede ser BitCoin o USDT.
@@ -14,8 +14,8 @@ public class Criptomoneda extends Moneda{
 	 * @param sigla la sigla de la criptomoneda.
 	 * @param precioEnDolar el precio en dolares de la criptomoneda.
 	 */
-	public Criptomoneda(String nombre, String sigla, double precioEnDolar) {
-		super(nombre, sigla, precioEnDolar);
+	public Criptomoneda(String nombre, String sigla, double precioEnDolar, double volatilidad) {
+		super(nombre, sigla, precioEnDolar, volatilidad);
 	}
 
 	/**
