@@ -5,11 +5,11 @@ import java.util.List;
 
 import modelos.Stock;
 
-public interface StockDAO<T> {
+public interface StockDAO {
 
 	void generarStock();
 	
-	List<Stock> listarStock(Comparator<T> c);
+	List<Stock> listarStock(Comparator<Stock> c);
 	
 	//void eliminar();
 	
