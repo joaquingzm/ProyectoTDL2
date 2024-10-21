@@ -8,6 +8,8 @@ public interface MonedaDAO {
 	
 	void insertarMoneda(Moneda m);
 	
+	//Moneda leerMoneda(String nomenclatura);
+	
 	List<Moneda> listar(Comparator c);
 	
 	void actualizarMoneda(Moneda m);
