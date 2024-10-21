@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"ejercicio3","l":"Activo"},{"p":"ejercicio3","l":"ActivoCripto"},{"p":"ejercicio3","l":"ActivoMonedaFiduciaria"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ejercicio3","l":"Billetera"},{"p":"ejercicio3","l":"Criptomoneda"},{"p":"ejercicio3","l":"Moneda"},{"p":"ejercicio3","l":"MonedaFiduciaria"}];updateSearchResults();
