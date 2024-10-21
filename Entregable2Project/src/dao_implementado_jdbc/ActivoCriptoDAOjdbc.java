@@ -15,7 +15,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO{
 	}
 
 	@Override
-	public List listarActivosCripto(Comparator c) {
+	public List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) {
 		// TODO Auto-generated method stub
 		return null;
 	}

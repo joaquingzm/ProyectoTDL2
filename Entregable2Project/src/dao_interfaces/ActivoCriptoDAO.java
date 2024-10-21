@@ -6,7 +6,7 @@ import java.util.List;
 
 import modelos.ActivoCripto;
 
-public interface ActivoCriptoDAO<T> {
+public interface ActivoCriptoDAO {
 	
 	void insertarActivoCripto(ActivoCripto act);
 	
@@ -19,5 +19,5 @@ public interface ActivoCriptoDAO<T> {
 	
 	//void eliminarActivoCripto(String nomenclatura);
 	
-	List<ActivoCripto> listarActivosCripto(Comparator<T> c);
+	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c);
 }

@@ -10,7 +10,7 @@ public interface MonedaDAO {
 	
 	//Moneda leerMoneda(String nomenclatura);
 	
-	List<Moneda> listar(Comparator c);
+	List<Moneda> listar(Comparator<Moneda> c);
 	
 	void actualizarMoneda(Moneda m);
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 import modelos.ActivoMonedaFiduciaria;
 
-public interface ActivoMonedaFiduciariaDAO<T> {
+public interface ActivoMonedaFiduciariaDAO {
 	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act);
 	
 	//Activo leerActivoMonedaFiduciaria(String nomenclatura);
@@ -17,5 +17,5 @@ public interface ActivoMonedaFiduciariaDAO<T> {
 	
 	//void eliminarActivoMonedaFiduciaria(String nomenclatura);
 	
-	List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<T> c);
+	List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<ActivoMonedaFiduciaria> c);
 }

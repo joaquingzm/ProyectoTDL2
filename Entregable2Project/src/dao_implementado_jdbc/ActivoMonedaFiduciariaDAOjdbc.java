@@ -15,7 +15,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	}
 
 	@Override
-	public List listarActivosCripto(Comparator c) {
+	public List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<ActivoMonedaFiduciaria> c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
