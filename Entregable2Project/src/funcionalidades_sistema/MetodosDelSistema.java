@@ -21,7 +21,9 @@ public class MetodosDelSistema {
 		sql = "CREATE TABLE ACTIVO_CRIPTO" 
 				+ "(" 
 				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "
-				+ " CANTIDAD	REAL    NOT NULL " + ")";
+				+ " CANTIDAD	REAL    NOT NULL " 
+				//En nuestro modelo tenemos un campo que es dirección, lo añadimos?
+				+ " DIRECCION VARCHAR(20) NULL" + ")";
 		stmt.executeUpdate(sql);
 		sql = "CREATE TABLE ACTIVO_FIAT" 
 				+ "(" 
@@ -33,6 +35,12 @@ public class MetodosDelSistema {
 				+ " RESUMEN VARCHAR(1000)   NOT NULL, "
 				+ " FECHA_HORA		DATETIME  NOT NULL " + ")";
 		stmt.executeUpdate(sql);
+		sql = "CREAT TABLE STOCK"
+				+ "("
+				+ " ID INTEGER PRIMARY KEY"
+				+ " CANTIDAD INTEGER NOT NULL"
+				+ " NOMENCLATURA_CRIPTO VARCHAR(10) NOT NULL "
+				+ " FOREIGN KEY (NOMRECLATURA_CRIPTO) REFERENCES MONEDA(NOMENCLATURA)" + ")";
 		stmt.close();
 	}
 
