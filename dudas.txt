@@ -1,3 +1,8 @@
+Nos conviene hacer alguna modificacion a la clase Moneda para que tenga
+coherencia con la tabla y sea más fácil implementar el DAOjdbc? O trabajamos
+con las clases de Criptomoneda por un lado y MonedaFiduciaria por el otro?
+
+
 Las clases DAOjdbc deberían tener los métodos estáticos? Supone un problema
 tener que instanciarlas a todo momento, digo esto por que así parecen
 estar definidas las clases DAOjdbc en los ejemplos de los pdfs.
