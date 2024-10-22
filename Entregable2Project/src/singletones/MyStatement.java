@@ -28,7 +28,7 @@ public class MyStatement {
 		return stmt;
 	}
 	
-	public static void cerrarCon() {
+	public static void cerrarStmt() {
 		try {
 			
 			if (stmt != null) stmt.close();
