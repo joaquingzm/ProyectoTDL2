@@ -1,0 +1,25 @@
+Las clases DAOjdbc deberían tener los métodos estáticos? Supone un problema
+tener que instanciarlas a todo momento, digo esto por que así parecen
+estar definidas las clases DAOjdbc en los ejemplos de los pdfs.
+
+En la clase ActivoCriptoDAOjdbc deberia haber alguna forma de que el 
+metodo de insertar activo cripto devuelva cómo salió todo? Tiene que
+ser throw SQLException? Eso no haría manejar las excepciones a lo largo
+de tooodo el programa.
+
+Las SQLException es mejor manejarlas dentro del mismo lugar donde se pueden
+generar o siempre tiene que estar el throws SQLException?
+
+En la misma clase, el tema de "recuperar" el objeto criptomoneda de la
+tabla moneda debería hacerlo desde ahi con algo del FOREIG KEY o deberia
+dejar que MonedaDAOjdbc se encargue? 
+
+Sobre cosas como por ejemplo el tema monedas, la idea es depender totalmente
+de una base de datos para acceder a la informacion de monedas? O sea cuando
+no las necesito más elimino el objeto creado? Si no es el caso, entonces 
+muchas clases deberían instanciar estas clases moneda para poder
+acceder a los datos, no conviene alguna lista estática? Aunque entiendo que
+con eso se perdería la posibilidad de mantenerse actualizado con cosas como
+la volatibilidad de las monedas. Más que nada en el caso de listar stock
+y listar activos habría 2 listas de objetos de los cuales un atributo
+apuntan a lo que es escencialmente el mismo objeto con distinto ID.
