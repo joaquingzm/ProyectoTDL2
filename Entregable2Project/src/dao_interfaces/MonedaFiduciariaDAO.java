@@ -1,4 +1,5 @@
 package dao_interfaces;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -6,16 +7,16 @@ import modelos.MonedaFiduciaria;
 
 public interface MonedaFiduciariaDAO {
 	
-	void insertarMonedaFiduciaria(MonedaFiduciaria m);
+	void insertarMonedaFiduciaria(MonedaFiduciaria m) throws SQLException;
 	
-	//MonedaFiduciaria leerMonedaFiduciaria(String sigla);
+	//MonedaFiduciaria leerMonedaFiduciaria(String sigla) throws SQLException;
 	
-	List<MonedaFiduciaria> listarMonedasFiduciarias(Comparator<MonedaFiduciaria> c);
+	List<MonedaFiduciaria> listarMonedasFiduciarias(Comparator<MonedaFiduciaria> c) throws SQLException;
 	
-	//void actualizarMonedaFiduciaria(MonedaFiduciaria m);
+	//void actualizarMonedaFiduciaria(MonedaFiduciaria m) throws SQLException;
 	
-	//void eliminarMonedaFiduciaria(MonedaFiduciaria m);
+	//void eliminarMonedaFiduciaria(MonedaFiduciaria m) throws SQLException;
 	
-	MonedaFiduciaria buscarMonedaFiduciaria(String sigla);
+	MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException;
 	
 }

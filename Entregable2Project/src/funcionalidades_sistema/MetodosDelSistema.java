@@ -17,7 +17,7 @@ public class MetodosDelSistema {
 					+ "(" 
 					+ " TIPO       VARCHAR(1)    NOT NULL, "
 					+ " NOMBRE       VARCHAR(50)    NOT NULL, " 
-					+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
+					+ " SIGLA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
 					+ " VALOR_DOLAR	REAL     NOT NULL, " 
 					+ " VOLATILIDAD	REAL     NULL, "
 					+ " STOCK	REAL     NULL "  + ")";

@@ -15,23 +15,18 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 
 	@Override
 	public void insertarCriptomoneda(Criptomoneda cm) throws SQLException{
-		try {
-			Statement stmt = MyStatement.getStmt();
-			String sql = "INSERT CRIPTOMONEDA (nombre,sigla,precioEnDolar,volatilidad) VALUES ("
-						+ cm.getNombre()
-						+ ","
-						+ cm.getSigla()
-						+ ","
-						+ cm.getPrecioEnDolar()
-						+ ","
-						+ cm.getVolatilidad()
-						+ ")";
-		
-			stmt.executeUpdate(sql);
-			
-		} catch (SQLException e) {
-			System.out.println("ERROR: " + e.getMessage());
-		}
+		Statement stmt = MyStatement.getStmt();
+		String sql = "INSERT CRIPTOMONEDA (nombre,sigla,precioEnDolar,volatilidad) VALUES ("
+				+ cm.getNombre()
+				+ ","
+				+ cm.getSigla()
+				+ ","
+				+ cm.getPrecioEnDolar()
+				+ ","
+				+ cm.getVolatilidad()
+				+ ")";
+
+		stmt.executeUpdate(sql);
 	}
 
 	@Override
@@ -39,47 +34,45 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		Statement stmt = MyStatement.getStmt();
 		String sql = " SELECT * FROM CRIPTOMONEDA";
 		LinkedList<Criptomoneda> listaCriptomonedas = new LinkedList<Criptomoneda>();
-		
-		try {
-		
-			ResultSet resul = stmt.executeQuery(sql);
-			
-			while(resul.next()) {		
-				Criptomoneda cm = new Criptomoneda(resul.getString("nombre"), resul.getString("sigla"), resul.getDouble("precioEnDolar"), resul.getDouble("volatilidad"));
-				listaCriptomonedas.add(cm);
-			}
-		
-		}
-		catch (SQLException e) {
-			System.out.println("ERROR: " + e.getMessage());
-			return null;
+
+		ResultSet resul = stmt.executeQuery(sql);
+
+		while(resul.next()) {		
+			Criptomoneda cm = new Criptomoneda(resul.getString("nombre"), resul.getString("sigla"), resul.getDouble("precioEnDolar"), resul.getDouble("volatilidad"));
+			listaCriptomonedas.add(cm);
 		}
 		
 		listaCriptomonedas.sort(c);
-		
 		return listaCriptomonedas;
 	}
-	
-/*
+
+	/*
 	@Override
 	public void actualizarCriptomoneda(Criptomoneda m) throws SQLException{
 		// TODO Auto-generated method stub
->>>>>>> 8c7526ccd0023b79295be6b981b87fe5758f75ad
-		
+
 	}
 
 	@Override
 	public void eliminarCriptomoneda(Criptomoneda m) throws SQLException{
 		// TODO Auto-generated method stub
-		
+
 	}
-*/
-	
+	 */
+
 	@Override
 	public Criptomoneda buscarCriptomoneda(String sigla) throws SQLException{
+		Statement stmt = MyStatement.getStmt();
+		String sql = "SELECT * WHERE sigla = '"+sigla+"'";
+		Criptomoneda cm = null;
 		
-		return null;
+		ResultSet resul = stmt.executeQuery(sql);
+		if (resul.next()) {
+			cm = new Criptomoneda(resul.getString("nombre"),resul.getString("sigla"),resul.getDouble("precioEnDolar"),resul.getDouble("volatilidad"));
+		}
+		
+		return cm;
 	}
 
-	
+
 }
