@@ -6,7 +6,8 @@ import java.util.List;
 import modelos.Criptomoneda;
 
 public interface CriptomonedaDAO {
-void insertarCriptomoneda(Criptomoneda m);
+	
+	void insertarCriptomoneda(Criptomoneda m);
 	
 	//Criptomoneda leerCriptomoneda(String sigla);
 	
