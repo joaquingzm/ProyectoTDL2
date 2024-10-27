@@ -16,7 +16,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	@Override
 	public void insertarCriptomoneda(Criptomoneda cm) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "INSERT CRIPTOMONEDA (nombre,sigla,precioEnDolar,volatilidad) VALUES ("
+		String sql = "INSERT INTO CRIPTOMONEDA (nombre,sigla,precioEnDolar,volatilidad) VALUES ("
 				+ cm.getNombre()
 				+ ","
 				+ cm.getSigla()
@@ -63,7 +63,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	@Override
 	public Criptomoneda buscarCriptomoneda(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT * WHERE sigla = '"+sigla+"'";
+		String sql = "SELECT * FROM CRIPTOMONEDA WHERE sigla = '"+sigla+"'";
 		Criptomoneda cm = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);

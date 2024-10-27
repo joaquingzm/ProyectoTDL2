@@ -9,9 +9,7 @@ import java.util.List;
 
 import dao_interfaces.ActivoMonedaFiduciariaDAO;
 import dao_interfaces.MonedaFiduciariaDAO;
-import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
-import modelos.Criptomoneda;
 import modelos.FactoryDAO;
 import modelos.MonedaFiduciaria;
 import singletones.MyStatement;
