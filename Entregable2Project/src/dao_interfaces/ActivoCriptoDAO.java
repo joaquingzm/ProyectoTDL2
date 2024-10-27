@@ -1,5 +1,6 @@
 package dao_interfaces;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 
 import java.util.List;
@@ -8,16 +9,16 @@ import modelos.ActivoCripto;
 
 public interface ActivoCriptoDAO {
 	
-	void insertarActivoCripto(ActivoCripto act);
+	void insertarActivoCripto(ActivoCripto act) throws SQLException;
 	
-	//Activo leerActivoCripto(String nomenclatura);
+	//Activo buscarActivoCripto(String sigla) ;
 
-	//void actualizarActivoCripto(String nomenclatura);
+	//void actualizarActivoCripto(String sigla);
 	
 	//Pensar si los eliminar no tendrían que devolver algun parametro que indique si
 	//realmente se pudo eliminar
 	
-	//void eliminarActivoCripto(String nomenclatura);
+	//void eliminarActivoCripto(String sigla);
 	
-	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c);
+	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) throws SQLException;
 }
