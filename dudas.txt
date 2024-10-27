@@ -1,3 +1,7 @@
+Sobre el factory dao, cómo clasificaría? Es un modelo? Para saber en qué 
+paquete meterlo.
+
+
 Nos conviene hacer alguna modificacion a la clase Moneda para que tenga
 coherencia con la tabla y sea más fácil implementar el DAOjdbc? O trabajamos
 con las clases de Criptomoneda por un lado y MonedaFiduciaria por el otro?
