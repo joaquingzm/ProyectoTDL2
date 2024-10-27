@@ -1,12 +1,13 @@
 package dao_interfaces;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
 import modelos.ActivoMonedaFiduciaria;
 
 public interface ActivoMonedaFiduciariaDAO {
-	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act);
+	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException;
 	
 	//Activo leerActivoMonedaFiduciaria(String nomenclatura);
 
@@ -17,5 +18,5 @@ public interface ActivoMonedaFiduciariaDAO {
 	
 	//void eliminarActivoMonedaFiduciaria(String nomenclatura);
 	
-	List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<ActivoMonedaFiduciaria> c);
+	List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<ActivoMonedaFiduciaria> c) throws SQLException;
 }

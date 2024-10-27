@@ -12,11 +12,6 @@ import modelos.FactoryDAO;
 import singletones.MyStatement;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
-
-	/* deberia devolver algo para indicar que algo salió bien o mal?
-	 * o una SQLException ya supone "tirar todo a la basura" y la excepcion
-	 * corta el programa?
-	 */
 	@Override
 	public void insertarActivoCripto(ActivoCripto act) throws SQLException{
 
@@ -30,7 +25,6 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 				+ ")";
 
 		stmt.executeUpdate(sql);
-
 	}
 
 	@Override
@@ -41,15 +35,9 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		LinkedList<ActivoCripto> listaActivosCripto = new LinkedList<ActivoCripto>();
 		CriptomonedaDAO cm = FactoryDAO.getCriptomonedaDAO();
 
-
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			/* CAMBIAR, TENGO QUE VER DE HACER ALGUN METODO EN
-			 * MonedaDAOjdbc, que sea algo asi como seleccionar
-			 * moneda segun la nomenclatura, o debería utilizar
-			 * la FOREIGN KEY de criptomoneda que tiene el ActivoCripto? 
-			 */
 			String sigla = resul.getString("sigla");
 			Criptomoneda cripto = cm.buscarCriptomoneda(sigla);
 
