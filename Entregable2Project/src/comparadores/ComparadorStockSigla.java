@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import modelos.Stock;
 
-public class ComparadorStockNomenclatura implements Comparator<Stock> {
+public class ComparadorStockSigla implements Comparator<Stock> {
 
 	@Override
 	public int compare(Stock s1, Stock s2) {
