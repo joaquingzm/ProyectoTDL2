@@ -11,16 +11,15 @@ import modelos.Criptomoneda;
 import modelos.FactoryDAO;
 import singletones.MyStatement;
 
-public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO{
+public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 	/* deberia devolver algo para indicar que algo salió bien o mal?
 	 * o una SQLException ya supone "tirar todo a la basura" y la excepcion
 	 * corta el programa?
 	 */
 	@Override
-	public void insertarActivoCripto(ActivoCripto act) {
-		//CONSIDERAR CAMBIAR ATRIBUTO SIGLA A NOMENCLATURA
-		
+	public void insertarActivoCripto(ActivoCripto act) throws SQLException{
+
 		try {
 			Statement stmt = MyStatement.getStmt();
 			String sql = "INSERT INTO ACTIVO_CRIPTO (sigla,cantidad,direccion) VALUES ("
@@ -40,7 +39,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO{
 	}
 
 	@Override
-	public List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) {
+	public List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) throws SQLException {
 		
 		Statement stmt = MyStatement.getStmt();
 		String sql = " SELECT * FROM ACTIVO_CRIPTO";

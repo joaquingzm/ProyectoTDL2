@@ -1,22 +1,23 @@
 package dao_interfaces;
 
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 
 import modelos.Criptomoneda;
 
 public interface CriptomonedaDAO {
+
+	void insertarCriptomoneda(Criptomoneda m) throws SQLException;
 	
-	void insertarCriptomoneda(Criptomoneda m);
+	//Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
 	
-	//Criptomoneda leerCriptomoneda(String sigla);
+	List<Criptomoneda> listarCriptomonedas(Comparator<Criptomoneda> c) throws SQLException;
 	
-	List<Criptomoneda> listarCriptomonedas(Comparator<Criptomoneda> c);
+	//void actualizarCriptomoneda(Criptomoneda m) throws SQLException;
 	
-	void actualizarCriptomoneda(Criptomoneda m);
+	//void eliminarCriptomoneda(Criptomoneda m) throws SQLException;
 	
-	void eliminarCriptomoneda(Criptomoneda m);
-	
-	Criptomoneda buscarCriptomoneda(String sigla);
+	Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
 	
 }

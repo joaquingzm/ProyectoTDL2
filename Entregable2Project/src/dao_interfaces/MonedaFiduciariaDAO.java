@@ -12,9 +12,9 @@ public interface MonedaFiduciariaDAO {
 	
 	List<MonedaFiduciaria> listarMonedasFiduciarias(Comparator<MonedaFiduciaria> c);
 	
-	void actualizarMonedaFiduciaria(MonedaFiduciaria m);
+	//void actualizarMonedaFiduciaria(MonedaFiduciaria m);
 	
-	void eliminarMonedaFiduciaria(MonedaFiduciaria m);
+	//void eliminarMonedaFiduciaria(MonedaFiduciaria m);
 	
 	MonedaFiduciaria buscarMonedaFiduciaria(String sigla);
 	
