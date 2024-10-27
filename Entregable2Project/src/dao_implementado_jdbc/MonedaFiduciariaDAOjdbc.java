@@ -49,7 +49,6 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		}
 		
 		return mf;
-		return null;
 	}
 
 }
