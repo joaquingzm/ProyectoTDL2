@@ -1,4 +1,4 @@
-package dao_interfaces;
+package daos;
 
 import java.sql.SQLException;
 import java.util.Comparator;
@@ -8,7 +8,9 @@ import modelos.Stock;
 
 public interface StockDAO {
 	
-	public void insertarStock() throws SQLException;
+	public void insertarStock(Stock stock) throws SQLException;
+	
+	public Stock buscarStock(String sigla) throws SQLException;
 	
 	List<Stock> listarStock(Comparator<Stock> c) throws SQLException;
 	

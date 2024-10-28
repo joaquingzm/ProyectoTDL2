@@ -1,14 +1,12 @@
-package dao_implementado_jdbc;
+package daos;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.sql.*;
-import dao_interfaces.ActivoCriptoDAO;
-import dao_interfaces.CriptomonedaDAO;
+
 import modelos.ActivoCripto;
 import modelos.Criptomoneda;
-import modelos.FactoryDAO;
 import singletones.MyStatement;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {

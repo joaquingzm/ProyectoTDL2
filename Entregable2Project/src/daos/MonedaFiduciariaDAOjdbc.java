@@ -1,4 +1,4 @@
-package dao_implementado_jdbc;
+package daos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import dao_interfaces.MonedaFiduciariaDAO;
 import modelos.MonedaFiduciaria;
 import singletones.MyStatement;
 

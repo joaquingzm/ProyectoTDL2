@@ -49,10 +49,9 @@ public class MetodosDelSistema {
 
 		sql = "CREAT TABLE STOCK"
 				+ "("
-				+ " ID INTEGER PRIMARY KEY"
 				+ " CANTIDAD REAL NOT NULL"
-				+ " SIGLA_CRIPTO VARCHAR(10) NOT NULL "
-				+ " FOREIGN KEY (SIGLA_CRIPTO) REFERENCES CRIPTOMONEDA(NOMENCLATURA)" + ")";
+				+ " SIGLA_CRIPTO VARCHAR(10) PRIMARY KEY NOT NULL "
+				+ ")";
 		stmt.executeUpdate(sql);
 
 

@@ -1,4 +1,4 @@
-package dao_interfaces;
+package daos;
 
 import java.sql.SQLException;
 import java.util.Comparator;
