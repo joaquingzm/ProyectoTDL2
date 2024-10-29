@@ -17,14 +17,15 @@ public class MetodosDelSistema {
 				+ " NOMBRE       VARCHAR(50)    NOT NULL, " 
 				+ " SIGLA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
 				+ " PRECIO_EN_DOLAR	REAL     NOT NULL, " 
-				+ " VOLATILIDAD	REAL     NULL, " + ")";
+				+ " VOLATILIDAD	REAL     NULL " + ")";
 		stmt.executeUpdate(sql);
 
 		sql = "CREATE TABLE MONEDA_FIDUCIARIA" 
 				+ "(" 
 				+ " NOMBRE       VARCHAR(50)    NOT NULL, " 
 				+ " SIGLA VARCHAR(10)  PRIMARY KEY   NOT NULL, "
-				+ " PRECIO_EN_DOLAR	REAL     NOT NULL, " + ")";
+				+ " PRECIO_EN_DOLAR	REAL     NOT NULL, " 
+				+ " PAIS_EMISOR 	VARCHAR(50) NOT NULL " + ")";
 		stmt.executeUpdate(sql);
 
 		sql = "CREATE TABLE ACTIVO_CRIPTO" 
@@ -32,7 +33,7 @@ public class MetodosDelSistema {
 				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "
 				+ " CANTIDAD	REAL    NOT NULL " 
 				//En nuestro modelo tenemos un campo que es dirección, lo añadimos?
-				+ " DIRECCION VARCHAR(20) NOT NULL" + ")";
+				+ " DIRECCION VARCHAR(20) NOT NULL " + ")";
 		stmt.executeUpdate(sql);
 
 		sql = "CREATE TABLE ACTIVO_MONEDA_FIDUCIARIA" 
@@ -50,7 +51,7 @@ public class MetodosDelSistema {
 		sql = "CREAT TABLE STOCK"
 				+ "("
 				+ " CANTIDAD REAL NOT NULL"
-				+ " SIGLA_CRIPTO VARCHAR(10) PRIMARY KEY NOT NULL "
+				+ " SIGLA VARCHAR(10) PRIMARY KEY NOT NULL "
 				+ ")";
 		stmt.executeUpdate(sql);
 

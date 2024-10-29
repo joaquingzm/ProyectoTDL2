@@ -17,9 +17,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	public void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException{
 
 		Statement stmt = MyStatement.getStmt();
-		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (sigla,cantidad) VALUES ("
+		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (SIGLA,CANTIDAD) VALUES ('"
 				+ act.getMonedaFIAT().getSigla()
-				+ ","
+				+ "',"
 				+ act.getCantidad() 
 				+ ")";
 
@@ -38,9 +38,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			String sigla = resul.getString("sigla");
+			String sigla = resul.getString("SIGLA");
 			MonedaFiduciaria monedaFiduciaria = mfDAO.buscarMonedaFiduciaria(sigla);
-			double cantidad = resul.getDouble("cantidad");
+			double cantidad = resul.getDouble("CANTIDAD");
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
 			listaActivosMonedaFiduciaria.add(a);
 

@@ -15,11 +15,11 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	@Override
 	public void insertarCriptomoneda(Criptomoneda cm) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "INSERT INTO CRIPTOMONEDA (nombre,sigla,precioEnDolar,volatilidad) VALUES ("
+		String sql = "INSERT INTO CRIPTOMONEDA (NOMBRE,SIGLA,PRECIO_EN_DOLAR,VOLATILIDAD) VALUES ('"
 				+ cm.getNombre()
-				+ ","
+				+ "','"
 				+ cm.getSigla()
-				+ ","
+				+ "',"
 				+ cm.getPrecioEnDolar()
 				+ ","
 				+ cm.getVolatilidad()
@@ -37,7 +37,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			Criptomoneda cm = new Criptomoneda(resul.getString("nombre"), resul.getString("sigla"), resul.getDouble("precioEnDolar"), resul.getDouble("volatilidad"));
+			Criptomoneda cm = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECCIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"));
 			listaCriptomonedas.add(cm);
 		}
 		
@@ -62,12 +62,12 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	@Override
 	public Criptomoneda buscarCriptomoneda(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT * FROM CRIPTOMONEDA WHERE sigla = '"+sigla+"'";
+		String sql = "SELECT * FROM CRIPTOMONEDA WHERE SIGLA = '"+sigla+"'";
 		Criptomoneda cm = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
-			cm = new Criptomoneda(resul.getString("nombre"),resul.getString("sigla"),resul.getDouble("precioEnDolar"),resul.getDouble("volatilidad"));
+			cm = new Criptomoneda(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getDouble("VOLATILIDAD"));
 		}
 		
 		return cm;

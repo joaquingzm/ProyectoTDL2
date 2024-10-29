@@ -15,15 +15,15 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 	@Override
 	public void insertarMonedaFiduciaria(MonedaFiduciaria mf) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "INSERT INTO MONEDA_FIDUCIARIA (nombre,sigla,precioEnDolar,paisEmisor) VALUES ("
+		String sql = "INSERT INTO MONEDA_FIDUCIARIA (NOMBRE,SIGLA,PRECIO_EN_DOLAR,PAIS_EMISOR) VALUES ('"
 				+ mf.getNombre()
-				+ ","
+				+ "','"
 				+ mf.getSigla()
-				+ ","
+				+ "',"
 				+ mf.getPrecioEnDolar()
-				+ ","
+				+ ",'"
 				+ mf.getPaisEmisor()
-				+ ")";
+				+ "')";
 
 		stmt.executeUpdate(sql);
 	}
@@ -37,7 +37,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			MonedaFiduciaria mf = new MonedaFiduciaria(resul.getString("nombre"), resul.getString("sigla"), resul.getDouble("precioEnDolar"), resul.getString("paisEmisor"));
+			MonedaFiduciaria mf = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"));
 			listaMonedaFiduciarias.add(mf);
 		}
 		
@@ -60,12 +60,12 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 	@Override
 	public MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT * WHERE sigla = '"+sigla+"'";
+		String sql = "SELECT * WHERE SIGLA = '"+sigla+"'";
 		MonedaFiduciaria mf = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
-			mf = new MonedaFiduciaria(resul.getString("nombre"),resul.getString("sigla"),resul.getDouble("precioEnDolar"),resul.getString("paisEmisor"));
+			mf = new MonedaFiduciaria(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getString("PAIS_EMISOR"));
 		}
 		return mf;
 	}

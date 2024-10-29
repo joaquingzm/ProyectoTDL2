@@ -14,13 +14,13 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	public void insertarActivoCripto(ActivoCripto act) throws SQLException{
 
 		Statement stmt = MyStatement.getStmt();
-		String sql = "INSERT INTO ACTIVO_CRIPTO (sigla,cantidad,direccion) VALUES ("
+		String sql = "INSERT INTO ACTIVO_CRIPTO (SIGLA,CANTIDAD,DIRECCION) VALUES ('"
 				+ act.getCriptomoneda().getSigla()
-				+ ","
+				+ "',"
 				+ act.getCantidad() 
-				+ ","
+				+ ",'"
 				+ act.getDireccion()
-				+ ")";
+				+ "')";
 
 		stmt.executeUpdate(sql);
 	}
@@ -36,11 +36,11 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			String sigla = resul.getString("sigla");
+			String sigla = resul.getString("SIGLA");
 			Criptomoneda cripto = cm.buscarCriptomoneda(sigla);
 
-			double cantidad = resul.getDouble("cantidad");
-			String direccion = resul.getString("direccion");
+			double cantidad = resul.getDouble("CANTIDAD");
+			String direccion = resul.getString("DIRECCION");
 
 			ActivoCripto a = new ActivoCripto(cantidad,direccion,cripto);
 			listaActivosCripto.add(a);
