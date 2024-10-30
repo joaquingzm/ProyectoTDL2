@@ -1,6 +1,6 @@
+ver si moneda deberia ser abstract
 
-
-
+considerar cambiar los nombres de mystatement a mystatementjdbc y asi
 
 Sobre el factory dao, cómo clasificaría? Es un modelo? Para saber en qué 
 paquete meterlo.

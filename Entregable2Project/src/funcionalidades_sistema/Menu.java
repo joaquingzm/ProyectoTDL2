@@ -1,6 +1,13 @@
 package funcionalidades_sistema;
 
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+import comparadores.ComparadorStockSigla;
+import daos.FactoryDAO;
+import modelos.Stock;
 
 public class Menu {
 	
@@ -32,9 +39,15 @@ public class Menu {
 	}
 	
 	private static void generarStock() throws SQLException{
+		
 	}
 	
 	private static String listarStock() throws SQLException{
+		String str = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla)\n";
+		Scanner in = MyScanner.getScan();
+		Comparator<Stock> c = new ComparadorStockSigla();
+		LinkedList<Stock> listaStocks = (LinkedList<Stock>) FactoryDAO.getStockDAO().listarStock(c);
+		
 	}
 	
 	private static void generarActivos() throws SQLException{

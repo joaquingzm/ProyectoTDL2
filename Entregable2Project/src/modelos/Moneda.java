@@ -69,7 +69,11 @@ public class Moneda {
 		this.precioEnDolar = precioEnDolar;
 	}
 
-	
+	@Override
+	public String toString() {
+		String str = "Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar();
+		return str;
+	}
 	
 	
 }
