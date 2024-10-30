@@ -1,10 +1,13 @@
 package funcionalidades_sistema;
 
 import java.sql.SQLException;
+import java.util.Scanner;
+
+import singletones.MyScanner;
 
 public class Menu {
 	
-	public static void comenzar() {
+	public static void comenzar() throws SQLException{
 		boolean salir = false;
 		String menu = "-- Elija una opción -- \n"
 				+ "1) Crear Moneda\n"
@@ -26,6 +29,18 @@ public class Menu {
 	 */
 	
 	private static void crearMoneda() throws SQLException{
+		Scanner scan = MyScanner.getScan();
+		String tipo;
+		do {
+			System.out.println("Ingrese el tipo de la moneda a crear, (FIAT | CRIPTO):\n ");
+			tipo = scan.nextLine();
+			tipo = tipo.toUpperCase();
+			if ((tipo != "CRIPTO") || (tipo != "FIAT")) {
+				System.out.println("Hubo un error en la eleccion del tipo.");
+			}
+		} while ((tipo != "CRIPTO") || (tipo != "FIAT"));
+		
+		
 	}
 	//Para hacer más fácil esto, considerar meter el toString en monedas
 	private static String listarMonedas() throws SQLException{
