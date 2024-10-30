@@ -2,7 +2,6 @@ package funcionalidades_sistema;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import singletones.MyStatement;
 
 public class MetodosDelSistema {
