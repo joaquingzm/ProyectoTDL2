@@ -71,7 +71,7 @@ public class Moneda {
 
 	@Override
 	public String toString() {
-		String str = "Moneda:{ Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar()+" }";
+		String str = "Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar();
 		return str;
 	}
 	

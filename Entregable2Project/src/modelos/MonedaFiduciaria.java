@@ -45,7 +45,7 @@ public class MonedaFiduciaria extends Moneda{
 	
 	@Override
 	public String toString() {
-		String str = super.toString()+", Moneda Fiduciaria:{ Pais Emisor: "+this.getPaisEmisor()+" }";
+		String str = super.toString()+", Pais Emisor: "+this.getPaisEmisor();
 		return str;
 	}
 	

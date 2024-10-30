@@ -1,18 +1,22 @@
 package funcionalidades_sistema;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import comparadores.*;
+import comparadores.ComparadorCriptomonedaPrecioEnDolar;
+import comparadores.ComparadorCriptomonedaSigla;
+import comparadores.ComparadorMonedaFiduciariaPrecioEnDolar;
+import comparadores.ComparadorMonedaFiduciariaSigla;
+import comparadores.ComparadorStockCantidad;
+import comparadores.ComparadorStockSigla;
 import daos.FactoryDAO;
 import modelos.Criptomoneda;
+import modelos.Moneda;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
 import singletones.MyScanner;
-import singletones.MyStatement;
 
 public class Menu {
 	
@@ -39,17 +43,26 @@ public class Menu {
 	
 	private static void crearMoneda() throws SQLException{
 		Scanner scan = MyScanner.getScan();
-		String tipo, nombre, sigla;
+		String tipo = "", nombre, sigla;
 		double precioEnDolar;
+		boolean esTipo = false;
 		
-		do {
-			System.out.println("Ingrese el tipo de la moneda a crear, (FIAT | CRIPTO):\n ");
+		while (!esTipo) {
+			System.out.println("Ingrese el tipo de la moneda a crear, (FIAT | CRIPTO):\n");
 			tipo = scan.nextLine();
 			tipo = tipo.toUpperCase();
-			if ((tipo != "CRIPTO") || (tipo != "FIAT")) {
-				System.out.println("Hubo un error en la eleccion del tipo.\n\nVuelva a intentarlo.\n\n");
+			
+			switch (tipo) {
+				case "FIAT":
+					esTipo = true;
+					break;
+				case "CRIPTO":
+					esTipo = true;
+					break;
+				default:
+					System.out.println("Hubo un error en la eleccion del tipo.\n\nVuelva a intentarlo.\n\n");
 			}
-		} while ((tipo != "CRIPTO") || (tipo != "FIAT"));
+		}
 		
 		System.out.println("Ingrese el nombre de la moneda:\n");
 		nombre = scan.nextLine();
@@ -67,12 +80,17 @@ public class Menu {
 	private static void crearMonedaFiat(String nombre, String sigla, double precioEnDolar) throws SQLException{
 		
 		Scanner scan = MyScanner.getScan();
-		String paisEmisor;
+		String paisEmisor, decision;
 		
-		System.out.println("Ingrese el pais emisor de la moneda:\n");
+		System.out.println("Ingrese el pais emisor de la moneda fiduciaria:\n");
 		paisEmisor = scan.nextLine();
 		
-		FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(new MonedaFiduciaria(nombre,sigla,precioEnDolar,paisEmisor));
+		MonedaFiduciaria mf = new MonedaFiduciaria(nombre,sigla,precioEnDolar,paisEmisor);
+		
+		if (confirmacionCreacionDeMoneda(mf)) {
+			FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(mf);
+			System.out.println("La moneda Fiduciaria se ha creado exitosamente.");
+		}
 		
 	}
 	
@@ -91,16 +109,53 @@ public class Menu {
 		} while ((volatilidad < 0) && (volatilidad > 100));
 		
 		do {
+			
 			System.out.println("Ingrese el stock disponible de la moneda:\n");
 			stockDisponible = scan.nextDouble();
 			scan.nextLine();
 			if (stockDisponible < 0) System.out.println("Hubo un error al ingresar el stock disponible de la moneda.\n\nVuelva a intentarlo.\n\n");
+			
 		} while (stockDisponible < 0);
 		
 		Criptomoneda cm = new Criptomoneda(nombre,sigla,precioEnDolar,volatilidad);
 		
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(cm);
-		FactoryDAO.getStockDAO().insertarStock(new Stock(stockDisponible, cm));
+		if (confirmacionCreacionDeMoneda(cm)) {
+			FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(cm);
+			FactoryDAO.getStockDAO().insertarStock(new Stock(stockDisponible, cm));
+			
+			System.out.println("La criptomoneda se ha creado exitosamente.");
+		}
+		
+		
+	}
+	
+	private static boolean confirmacionCreacionDeMoneda(Moneda m) {
+		
+		String decision;
+		Scanner scan = MyScanner.getScan();
+		boolean confirmacion = false, controlador = false;
+		
+		System.out.println("Los datos ingresados son:\n" + m.toString() + "\n\n");
+		
+		while (!controlador) {
+			System.out.println("¿Desea Continuar? (SI/NO): ");
+			decision = scan.nextLine();
+			decision = decision.toUpperCase();
+			
+			switch (decision) {
+				case "SI":
+					confirmacion = true;
+					controlador = true;
+					break;
+				case "NO":
+					controlador = true;
+					break;
+				default:
+					System.out.println("Hubo un error al ingresar la respuesta.\n\n");
+			}
+		}
+		
+		return confirmacion;
 		
 	}
 	
