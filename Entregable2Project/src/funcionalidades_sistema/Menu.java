@@ -5,8 +5,10 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import comparadores.ComparadorStockSigla;
+import comparadores.*;
 import daos.FactoryDAO;
+import modelos.Criptomoneda;
+import modelos.MonedaFiduciaria;
 import modelos.Stock;
 import singletones.MyScanner;
 
@@ -49,6 +51,43 @@ public class Menu {
 	}
 	//Para hacer más fácil esto, considerar meter el toString en monedas
 	private static String listarMonedas() throws SQLException{
+		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(PrecioEnDolar/Sigla/Salir)\n";
+		Scanner in = MyScanner.getScan();
+		Comparator<MonedaFiduciaria> cFiat = null;
+		Comparator<Criptomoneda> cCripto = null;
+		String str = null;
+		boolean terminar = false;
+		
+		String entrada = in.toString();
+		entrada.toLowerCase();
+		while(!terminar) {
+			switch (entrada) {
+				case "precioendolar":
+					cFiat = new ComparadorMonedaFiduciariaPrecioEnDolar();
+					cCripto = new ComparadorCriptomonedaPrecioEnDolar();
+					terminar = true;
+					break;
+				case "sigla":
+					cFiat = new ComparadorMonedaFiduciariaSigla();
+					cCripto = new ComparadorCriptomonedaSigla();
+					terminar = true;
+					break;
+				case "salir":
+					return entrada;
+				default:
+					System.out.println("Por favor, elegir una opción adecuada");
+			}
+		}
+		
+		LinkedList<MonedaFiduciaria> listaMonedasFiat = (LinkedList<MonedaFiduciaria>) FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias(cFiat);
+		LinkedList<Criptomoneda> listaCriptomonedas = (LinkedList<Criptomoneda>) FactoryDAO.getCriptomonedaDAO().listarCriptomonedas(cCripto);
+		//Quedó medio chancho, ver que hago
+		str+="Monedas Fiduciarias: "
+		for(MonedaFiduciaria e : listaMonedasFiat) {
+			str+=e.toString();
+		}
+		
+		return str;
 	}
 	
 	private static void generarStock() throws SQLException{
@@ -56,11 +95,38 @@ public class Menu {
 	}
 	
 	private static String listarStock() throws SQLException{
-		String str = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla)\n";
+		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla/Salir)\n";
 		Scanner in = MyScanner.getScan();
-		Comparator<Stock> c = new ComparadorStockSigla();
+		Comparator<Stock> c = null;
+		String str = null;
+		boolean terminar = false;
+		
+		String entrada = in.toString();
+		entrada.toLowerCase();
+		while(!terminar) {
+			switch (entrada) {
+				case "cantidad":
+					c = new ComparadorStockCantidad();
+					terminar = true;
+					break;
+				case "sigla":
+					c = new ComparadorStockSigla();
+					terminar = true;
+					break;
+				case "salir":
+					return entrada;
+				default:
+					System.out.println("Por favor, elegir una opción adecuada");
+			}
+		}
+		
 		LinkedList<Stock> listaStocks = (LinkedList<Stock>) FactoryDAO.getStockDAO().listarStock(c);
 		
+		for(Stock e : listaStocks) {
+			str+=e.toString();
+		}
+		
+		return str;
 	}
 	
 	private static void generarActivos() throws SQLException{

@@ -38,7 +38,7 @@ public class Criptomoneda extends Moneda{
 	
 	@Override
 	public String toString() {
-		String str = super.toString()+", Volatilidad: "+this.getVolatilidad();
+		String str = super.toString()+", Criptomoneda:{ Volatilidad: "+this.getVolatilidad()+" }";
 		return str;
 	}
 	

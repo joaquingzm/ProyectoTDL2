@@ -57,7 +57,11 @@ public class ActivoCripto extends Activo{
 		this.criptomoneda = criptomoneda;
 	}
 
-
+	@Override
+	public String toString() {
+		String str = super.toString()+", Activo Criptomoneda:{ Direccion: "+this.getDireccion()+", Criptomoneda: "+this.getCriptomoneda().toString()+" }";
+		return str;
+	}
 	
 	
 }

@@ -28,5 +28,9 @@ public class Stock {
 		this.criptomoneda = criptomoneda;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String str = "Stock:{ Cantidad: "+this.getCantidad()+", Criptomoneda: "+this.getCriptomoneda().toString()+" }";
+		return str;
+	}
 }
