@@ -12,6 +12,8 @@ import comparadores.ComparadorMonedaFiduciariaSigla;
 import comparadores.ComparadorStockCantidad;
 import comparadores.ComparadorStockSigla;
 import daos.FactoryDAO;
+import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.Moneda;
 import modelos.MonedaFiduciaria;
@@ -43,12 +45,31 @@ public class Menu {
 	
 	private static void crearMoneda() throws SQLException{
 		Scanner scan = MyScanner.getScan();
-		String tipo = "", nombre, sigla;
+		String tipo = confirmacionDeTipo();
+		String nombre, sigla;
 		double precioEnDolar;
+		
+		System.out.println("Ingrese el nombre de la moneda:\n");
+		nombre = scan.nextLine();
+		System.out.println("Ingrese la sigla de la moneda:\n");
+		sigla = scan.nextLine();
+		System.out.println("Ingrese el precio en dolares de la moneda:\n");
+		precioEnDolar = scan.nextDouble();
+		scan.nextLine();
+		
+		if (tipo.equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
+		else crearMonedaCripto(nombre, sigla, precioEnDolar);
+		
+	}
+	
+	private static String confirmacionDeTipo() {
+		
+		Scanner scan = MyScanner.getScan();
 		boolean esTipo = false;
+		String tipo = null;
 		
 		while (!esTipo) {
-			System.out.println("Ingrese el tipo de la moneda a crear, (FIAT | CRIPTO):\n");
+			System.out.println("Ingrese el tipo, (FIAT | CRIPTO):\n");
 			tipo = scan.nextLine();
 			tipo = tipo.toUpperCase();
 			
@@ -64,16 +85,8 @@ public class Menu {
 			}
 		}
 		
-		System.out.println("Ingrese el nombre de la moneda:\n");
-		nombre = scan.nextLine();
-		System.out.println("Ingrese la sigla de la moneda:\n");
-		sigla = scan.nextLine();
-		System.out.println("Ingrese el precio en dolares de la moneda:\n");
-		precioEnDolar = scan.nextDouble();
-		scan.nextLine();
-		
-		if (tipo.equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
-		else crearMonedaCripto(nombre, sigla, precioEnDolar);
+		System.out.println("\n\n");
+		return tipo;
 		
 	}
 	
@@ -87,7 +100,7 @@ public class Menu {
 		
 		MonedaFiduciaria mf = new MonedaFiduciaria(nombre,sigla,precioEnDolar,paisEmisor);
 		
-		if (confirmacionCreacionDeMoneda(mf)) {
+		if (confirmacionMonedas(mf)) {
 			FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(mf);
 			System.out.println("La moneda Fiduciaria se ha creado exitosamente.");
 		}
@@ -119,7 +132,7 @@ public class Menu {
 		
 		Criptomoneda cm = new Criptomoneda(nombre,sigla,precioEnDolar,volatilidad);
 		
-		if (confirmacionCreacionDeMoneda(cm)) {
+		if (confirmacionMonedas(cm)) {
 			FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(cm);
 			FactoryDAO.getStockDAO().insertarStock(new Stock(stockDisponible, cm));
 			
@@ -129,13 +142,13 @@ public class Menu {
 		
 	}
 	
-	private static boolean confirmacionCreacionDeMoneda(Moneda m) {
+	private static boolean confirmacionMonedas(Moneda m) {
 		
 		String decision;
 		Scanner scan = MyScanner.getScan();
 		boolean confirmacion = false, controlador = false;
 		
-		System.out.println("Los datos ingresados son:\n" + m.toString() + "\n\n");
+		System.out.println("Los datos de la moneda son:\n" + m.toString() + "\n\n");
 		
 		while (!controlador) {
 			System.out.println("¿Desea Continuar? (SI/NO): ");
@@ -240,6 +253,42 @@ public class Menu {
 	}
 	
 	private static void generarActivos() throws SQLException{
+		
+		Scanner scan = MyScanner.getScan();
+		String tipo = confirmacionDeTipo();
+		String sigla, direccion = null;
+		double cantidad;
+		Moneda m = null;
+		
+		System.out.println("Ingrese la sigla del activo a generar: ");
+		sigla = scan.nextLine();
+		
+		if (tipo.equals("FIAT")) m = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
+		else m = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
+		
+		if (m == null) {
+			System.out.println("ERROR, no se ha encontrado la moneda en el stock de monedas.");
+			return;
+		}
+		
+		do {
+			
+			System.out.println("Ingrese la cantidad del activo correspondiente: ");
+			cantidad = scan.nextDouble();
+			scan.nextLine();
+			if (cantidad < 0) System.out.println("Hubo un error al ingresar el stock disponible de la moneda.\n\nVuelva a intentarlo.\n\n");
+			
+		} while (cantidad < 0);
+		
+		if (tipo.equals("CRIPTO")) {
+			System.out.println("Ingrese la direccion de la criptomoneda: ");
+			direccion = scan.nextLine();
+		}
+		
+		if (confirmacionMonedas(m)) {
+			if (tipo.equals("FIAT")) FactoryDAO.getActivoMonedaFiduciariaDAO().insertarActivoMonedaFiduciaria(new ActivoMonedaFiduciaria(cantidad, (MonedaFiduciaria) m));	
+			else FactoryDAO.getActivoCriptoDAO().insertarActivoCripto(new ActivoCripto(cantidad, direccion, (Criptomoneda) m));
+		}
 	}
 	
 	private static String listarActivos() throws SQLException{
