@@ -1,3 +1,10 @@
+Hay que cambiar el diagrama de secuencia?
+
+Tema dirección para los activos, los tiene que ingresar el usuario 
+o los generamos? Si es así los generamos random o qué? Había pensado
+hacer un AUTOINCREMENT en la base de datos para la dirección, cosa
+que cada una sea única, el problema es que capaz es muy simple?
+
 ver si moneda deberia ser abstract
 
 considerar cambiar los nombres de mystatement a mystatementjdbc y asi

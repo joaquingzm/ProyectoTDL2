@@ -3,14 +3,10 @@ package funcionalidades_sistema;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
-import comparadores.ComparadorCriptomonedaPrecioEnDolar;
-import comparadores.ComparadorCriptomonedaSigla;
-import comparadores.ComparadorMonedaFiduciariaPrecioEnDolar;
-import comparadores.ComparadorMonedaFiduciariaSigla;
-import comparadores.ComparadorStockCantidad;
-import comparadores.ComparadorStockSigla;
+import comparadores.*;
 import daos.FactoryDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
@@ -104,7 +100,9 @@ public class Menu {
 			FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(mf);
 			System.out.println("La moneda Fiduciaria se ha creado exitosamente.");
 		}
-		
+		else {
+			System.out.println("La moneda Fiduciaria no se ha creado.");
+		}
 	}
 	
 	private static void crearMonedaCripto(String nombre, String sigla, double precioEnDolar) throws SQLException{
@@ -117,9 +115,9 @@ public class Menu {
 			System.out.println("Ingrese la volatilidad de la moneda, (1..100):\n");
 			volatilidad = scan.nextDouble();
 			scan.nextLine();
-			if ((volatilidad < 0) && (volatilidad > 100)) System.out.println("Hubo un error al ingresar la volatilidad de la moneda.\n\nVuelva a intentarlo.\n\n");
+			if ((volatilidad < 0) || (volatilidad > 100)) System.out.println("Hubo un error al ingresar la volatilidad de la moneda.\n\nVuelva a intentarlo.\n\n");
 			
-		} while ((volatilidad < 0) && (volatilidad > 100));
+		} while ((volatilidad < 0) || (volatilidad > 100));
 		
 		do {
 			
@@ -138,7 +136,9 @@ public class Menu {
 			
 			System.out.println("La criptomoneda se ha creado exitosamente.");
 		}
-		
+		else {
+			System.out.println("La criptomoneda no se ha creado.");
+		}
 		
 	}
 	
@@ -205,16 +205,40 @@ public class Menu {
 		LinkedList<MonedaFiduciaria> listaMonedasFiat = (LinkedList<MonedaFiduciaria>) FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias(cFiat);
 		LinkedList<Criptomoneda> listaCriptomonedas = (LinkedList<Criptomoneda>) FactoryDAO.getCriptomonedaDAO().listarCriptomonedas(cCripto);
 		//Quedó medio chancho, ver que hago
-		str+="Monedas Fiduciarias: "
+		str="Monedas Fiduciarias: \n";
 		for(MonedaFiduciaria e : listaMonedasFiat) {
-			str+=e.toString();
+			str+=e.toString()+"\n";
 		}
-		
+		System.out.println(str);
+		str+="\n\nCriptomonedas; \n";
+		for(Criptomoneda e : listaCriptomonedas) {
+			str+=e.toString()+"\n";
+		}
 		return str;
 	}
 	
 	private static void generarStock() throws SQLException{
 		
+		Scanner scan = MyScanner.getScan();
+		String sigla = null;
+		boolean seCreo = false;
+		Random random = new Random();
+		double cantidadStock = random.nextDouble();
+		Stock stock = null;
+		boolean terminar = false;
+		
+		System.out.println("Ingrese la sigla del stock a generar de manera aleatoria: ");
+		sigla = scan.nextLine();
+		stock = FactoryDAO.getStockDAO().buscarStock(sigla);
+		while(!terminar) {
+			if(stock != null) {
+				FactoryDAO.getStockDAO().cambiarCantidadStock(sigla, cantidadStock);
+				terminar = true;
+			}	
+			else {
+				System.out.println("Por favor, elegir una sigla adecuada.");
+			}
+		}
 	}
 	
 	private static String listarStock() throws SQLException{
@@ -301,11 +325,54 @@ public class Menu {
 			
 		}
 		
-		if (seCreo) System.out.println("Se creó exitosamente el activo.");
-		
+		if (seCreo) System.out.println("El activo se creó exitosamente.");
+		else {
+			System.out.println("El activo no se ha creado.");
+		}
 	}
 	
 	private static String listarActivos() throws SQLException{
+		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla/Salir)\n";
+		Scanner in = MyScanner.getScan();
+		Comparator<ActivoMonedaFiduciaria> cMF = null;
+		Comparator<ActivoCripto> cCripto = null;
+		String str = null;
+		boolean terminar = false;
+		
+		String entrada = in.toString();
+		entrada.toLowerCase();
+		while(!terminar) {
+			switch (entrada) {
+				case "cantidad":
+					cCripto = new ComparadorActivoCriptoCantidad();
+					cMF = new ComparadorActivoMonedaFiduciariaCantidad();
+					terminar = true;
+					break;
+				case "sigla":
+					cCripto = new ComparadorActivoCriptoSigla();
+					cMF = new ComparadorActivoMonedaFiduciariaSigla();
+					terminar = true;
+					break;
+				case "salir":
+					return entrada;
+				default:
+					System.out.println("Por favor, elegir una opción adecuada");
+			}
+		}
+		
+		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiat = (LinkedList<ActivoMonedaFiduciaria>) FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(cMF);
+		LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(cCripto);
+		//Quedó medio chancho, ver que hago
+		str="Monedas Fiduciarias: \n";
+		for(ActivoMonedaFiduciaria e : listaActivosMonedaFiat) {
+			str+=e.toString()+"\n";
+		}
+		System.out.println(str);
+		str+="\n\nCriptomonedas; \n";
+		for(ActivoCripto e : listaActivosCripto) {
+			str+=e.toString()+"\n";
+		}
+		return str;
 	}
 	
 	private static void realizarCompraDeCriptomoneda() throws SQLException{

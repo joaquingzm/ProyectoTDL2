@@ -14,6 +14,9 @@ public interface StockDAO {
 	
 	List<Stock> listarStock(Comparator<Stock> c) throws SQLException;
 	
+	public void sumarCantidadStock(String sigla,double cantidad) throws SQLException;
+	 
+	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException;
 	//void eliminarStock() throws SQLException;
 	
 	//void actualizarStock() throws SQLException;

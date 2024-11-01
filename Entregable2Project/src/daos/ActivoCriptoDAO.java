@@ -11,6 +11,8 @@ public interface ActivoCriptoDAO {
 	
 	void insertarActivoCripto(ActivoCripto act) throws SQLException;
 	
+	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException;
+	
 	//Activo buscarActivoCripto(String sigla) ;
 
 	//void actualizarActivoCripto(String sigla);

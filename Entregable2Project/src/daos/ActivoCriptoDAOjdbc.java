@@ -52,4 +52,15 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		return listaActivosCripto;
 	}
 
+	@Override
+	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException {
+
+		Statement stmt = MyStatement.getStmt();
+		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = "+sigla+"'";
+		ResultSet resul = stmt.executeQuery(sql);
+		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = '"+(resul.getDouble("cantidad")+cantidad)+"' WHERE SIGLA = '"+sigla+"'";
+		stmt.executeQuery(sql);
+
+	}
+
 }
