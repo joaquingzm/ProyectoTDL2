@@ -62,9 +62,9 @@ public class StockDAOjdbc implements StockDAO{
 	@Override
 	public void sumarCantidadStock(String sigla, double cantidad) throws SQLException {
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = "+sigla+"'";
+		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
-		sql = "UPDATE STOCK SET CANTIDAD = '"+(resul.getDouble("cantidad")+cantidad)+"' WHERE SIGLA = '"+sigla+"'";
+		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
 		stmt.executeQuery(sql);
 	}
 	

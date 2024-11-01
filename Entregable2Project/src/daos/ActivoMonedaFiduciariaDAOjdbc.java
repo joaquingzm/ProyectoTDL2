@@ -53,9 +53,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	@Override
 	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException {
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = "+sigla+"'";
+		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
-		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = '"+(resul.getDouble("cantidad")+cantidad)+"' WHERE SIGLA = '"+sigla+"'";
+		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
 		stmt.executeQuery(sql);
 	}
 	@Override

@@ -1,6 +1,7 @@
 package funcionalidades_sistema;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -380,7 +381,7 @@ public class Menu {
 		
 		Scanner scan = MyScanner.getScan();
 		String siglaDeCriptoAComprar, siglaDeFiatAUtilizar, resumen;
-		double montoFiduciario, montoComprado;
+		double montoFiduciario, montoCompradoDeCripto;
 		
 		System.out.println("Ingrese la sigla de la criptomoneda a comprar: ");
 		siglaDeCriptoAComprar = scan.nextLine();
@@ -403,24 +404,35 @@ public class Menu {
 			return;
 		}
 		
-		montoComprado = (montoFiduciario*amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
+		montoCompradoDeCripto = (montoFiduciario*amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
 		
 		ActivoCripto ac = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaDeCriptoAComprar);
 		
 		if (ac == null) {
 			
-			CrearActivoCriptoPorCompra(montoComprado);
+			CrearActivoCriptoPorCompra(montoCompradoDeCripto);
 			
 		} else {
 			
+			FactoryDAO.getActivoCriptoDAO().sumarCantidadActivoCripto(cm.getSigla(), montoCompradoDeCripto);
+			
 		}
 		
-		//resumen = "" //cuanto se puso y cuanto se compro, de que moneda y con cual fiat
-		//Transaccion t = new Transaccion()
+		FactoryDAO.getStockDAO().sumarCantidadStock(siglaDeCriptoAComprar, -montoCompradoDeCripto);
+		FactoryDAO.getActivoMonedaFiduciariaDAO().sumarCantidadActivoFiduciaria(siglaDeFiatAUtilizar, -montoFiduciario);
+		
+		resumen = "Se han comprado " + montoCompradoDeCripto + " de " + siglaDeCriptoAComprar 
+				+ " por " + montoFiduciario + " de " + siglaDeFiatAUtilizar + ".";
+		
+		Transaccion t = new Transaccion(resumen, LocalDate.now());
+		
+		FactoryDAO.getTransaccionDAO().insertarTransaccion(t);
+		
+		System.out.println("Se ha completado la compra.");
+		
 	}
 	
 	private static void CrearActivoCriptoPorCompra(double montoComprado) {
-		// TODO Auto-generated method stub
 		
 	}
 
