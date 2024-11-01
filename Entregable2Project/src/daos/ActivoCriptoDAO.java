@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 
 public interface ActivoCriptoDAO {
 	
@@ -21,4 +22,7 @@ public interface ActivoCriptoDAO {
 	//void eliminarActivoCripto(String sigla);
 	
 	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) throws SQLException;
+	
+	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException;
+
 }

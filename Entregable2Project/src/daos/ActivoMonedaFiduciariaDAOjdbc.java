@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import modelos.ActivoMonedaFiduciaria;
+import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
+import modelos.Stock;
 import singletones.MyStatement;
 
 public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
@@ -48,6 +50,21 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 		listaActivosMonedaFiduciaria.sort(c);
 		return listaActivosMonedaFiduciaria;
+	}
+
+	@Override
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException {
+		Statement stmt = MyStatement.getStmt();
+		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		ActivoMonedaFiduciaria amf = null;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		if (resul.next()) {
+			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
+			amf = new ActivoMonedaFiduciaria(resul.getDouble("CANTIDAD"), mf);
+		}
+		
+		return amf;
 	}
 
 }

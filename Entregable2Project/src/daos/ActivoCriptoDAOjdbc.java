@@ -6,7 +6,9 @@ import java.util.List;
 import java.sql.*;
 
 import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.MonedaFiduciaria;
 import singletones.MyStatement;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
@@ -50,6 +52,21 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		listaActivosCripto.sort(c);
 
 		return listaActivosCripto;
+	}
+
+	@Override
+	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException {
+		Statement stmt = MyStatement.getStmt();
+		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"'";
+		ActivoCripto ac = null;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		if (resul.next()) {
+			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
+			ac = new ActivoCripto(resul.getDouble("CANTIDAD"), resul.getString("DIRECCION"), cm);
+		}
+		
+		return ac;
 	}
 
 }

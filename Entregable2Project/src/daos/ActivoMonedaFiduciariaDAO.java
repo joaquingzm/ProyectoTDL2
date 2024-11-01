@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import modelos.ActivoMonedaFiduciaria;
+import modelos.Stock;
 
 public interface ActivoMonedaFiduciariaDAO {
 	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException;
@@ -19,4 +20,6 @@ public interface ActivoMonedaFiduciariaDAO {
 	//void eliminarActivoMonedaFiduciaria(String nomenclatura);
 	
 	List<ActivoMonedaFiduciaria> listarActivosCripto(Comparator<ActivoMonedaFiduciaria> c) throws SQLException;
+	
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException;
 }
