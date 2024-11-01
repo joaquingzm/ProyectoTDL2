@@ -21,4 +21,8 @@ public class FactoryDAO {
 	public static StockDAO getStockDAO() {
 		return new StockDAOjdbc();
 	}
+	
+	public static TransaccionDAO getTransaccionDAO() {
+		return new TransaccionDAOjdbc();
+	}
 }
