@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class Menu {
 				+ "4) Listar Stock\n"
 				+ "5) Generar mis activos\n"
 				+ "6) Listar mis activos\n"
-				+ "7) Realizar compra de criptomoneda"
+				+ "7) Realizar compra de criptomoneda\n"
 				+ "8) Realizar swap\n"
 				+ "9) Finalizar";
 
@@ -428,17 +429,19 @@ public class Menu {
 			}
 		}
 		
-		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiat = (LinkedList<ActivoMonedaFiduciaria>) FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(cMF);
-		LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(cCripto);
-		//Quedó medio chancho, ver que hago
+		List<ActivoMonedaFiduciaria> listaActivosMonedaFiat = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(cMF);
+		//LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(cCripto);
+		
 		str="Activos Monedas Fiduciarias: \n";
 		for(ActivoMonedaFiduciaria e : listaActivosMonedaFiat) {
 			str+=e.toString()+"\n";
 		}
 		str+="\n\nActivos Criptomonedas; \n";
+		/*
 		for(ActivoCripto e : listaActivosCripto) {
 			str+=e.toString()+"\n";
 		}
+		*/
 		return str;
 	}
 	
