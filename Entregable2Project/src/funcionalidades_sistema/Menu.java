@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import comparadores.*;
+import daos.ActivoCriptoDAO;
 import daos.FactoryDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
@@ -521,11 +522,12 @@ public class Menu {
 		String siglaActivoCriptoAIntercambiar, siglaActivoCriptoIntercambiado;
 		double cantidadAIntercambiar, cantidadIntercambiada;
 		ActivoCripto activoCriptoAIntercambiar = null, activoCriptoIntercambiado = null;
+		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
 		
 		System.out.println("Ingrese la sigla de la criptomoneda a intercambiar:\n");
 		siglaActivoCriptoAIntercambiar = scan.nextLine();
 		
-		activoCriptoAIntercambiar = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaActivoCriptoAIntercambiar);
+		activoCriptoAIntercambiar = acDAO.buscarActivoCripto(siglaActivoCriptoAIntercambiar);
 		
 		if (activoCriptoAIntercambiar == null) {
 			System.out.println("Ha habido un error porque no existe entre sus activos el activo cripto a intercambiar.\n");
@@ -535,7 +537,7 @@ public class Menu {
 		System.out.println("Ingrese la sigla de la criptomoneda a la que desea intercambiar:\n");
 		siglaActivoCriptoIntercambiado = scan.nextLine();
 		
-		activoCriptoIntercambiado = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaActivoCriptoIntercambiado);
+		activoCriptoIntercambiado = acDAO.buscarActivoCripto(siglaActivoCriptoIntercambiado);
 		
 		if (activoCriptoIntercambiado == null) {
 			System.out.println("Ha habido un error porque no existe entre sus activos el activo cripto al cual desea intercambiar.\n");
@@ -550,6 +552,13 @@ public class Menu {
 			
 		} while (cantidadAIntercambiar < 0);
 		
+		if (activoCriptoAIntercambiar.getCantidad() < cantidadAIntercambiar) {
+			
+			System.out.println("Ha habido un error porque no cuenta con las suficientes criptomonedas para continuar con el intercambio.");
+			return;
+			
+		}
+		
 		cantidadIntercambiada = (cantidadAIntercambiar * activoCriptoAIntercambiar.getCriptomoneda().getPrecioEnDolar()) / activoCriptoIntercambiado.getCriptomoneda().getPrecioEnDolar();
 		
 		String resumen = "Se han intercambiado " + cantidadAIntercambiar + " de " + siglaActivoCriptoAIntercambiar 
@@ -559,13 +568,14 @@ public class Menu {
 		
 		if (confirmacionDelUsuario(t)) {
 			
-			
-			
-			
+			acDAO.sumarCantidadActivoCripto(siglaActivoCriptoAIntercambiar, -cantidadAIntercambiar);
+			acDAO.sumarCantidadActivoCripto(siglaActivoCriptoIntercambiado, cantidadIntercambiada);
+			FactoryDAO.getTransaccionDAO().insertarTransaccion(t);
+			System.out.println("Se ha completado el intercambio.\n");
 			
 		} else {
 			
-			System.out.println("Se ha cancelado el intercambio.");
+			System.out.println("Se ha cancelado el intercambio.\n");
 			
 		}
 		
