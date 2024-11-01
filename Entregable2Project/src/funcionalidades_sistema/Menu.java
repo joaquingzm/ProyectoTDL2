@@ -445,7 +445,7 @@ public class Menu {
 	private static void realizarCompraDeCriptomoneda() throws SQLException{
 		
 		Scanner scan = MyScanner.getScan();
-		String siglaDeCriptoAComprar, siglaDeFiatAUtilizar, resumen;
+		String siglaDeCriptoAComprar, siglaDeFiatAUtilizar;
 		double montoFiduciario, montoCompradoDeCripto;
 		
 		System.out.println("Ingrese la sigla de la criptomoneda a comprar: ");
@@ -471,36 +471,100 @@ public class Menu {
 		
 		montoCompradoDeCripto = (montoFiduciario*amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
 		
-		ActivoCripto ac = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaDeCriptoAComprar);
-		
-		if (ac == null) {
-			
-			CrearActivoCriptoPorCompra(montoCompradoDeCripto);
-			
-		} else {
-			
-			FactoryDAO.getActivoCriptoDAO().sumarCantidadActivoCripto(cm.getSigla(), montoCompradoDeCripto);
-			
-		}
-		
-		FactoryDAO.getStockDAO().sumarCantidadStock(siglaDeCriptoAComprar, -montoCompradoDeCripto);
-		FactoryDAO.getActivoMonedaFiduciariaDAO().sumarCantidadActivoFiduciaria(siglaDeFiatAUtilizar, -montoFiduciario);
-		
-		resumen = "Se han comprado " + montoCompradoDeCripto + " de " + siglaDeCriptoAComprar 
+		String resumen = "Se han comprado " + montoCompradoDeCripto + " de " + siglaDeCriptoAComprar 
 				+ " por " + montoFiduciario + " de " + siglaDeFiatAUtilizar + ".";
 		
 		Transaccion t = new Transaccion(resumen, LocalDate.now());
 		
-		FactoryDAO.getTransaccionDAO().insertarTransaccion(t);
-		
-		System.out.println("Se ha completado la compra.");
+		if (confirmacionDelUsuario(t)) {
+			
+			ActivoCripto ac = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaDeCriptoAComprar);
+			
+			if (ac == null) {
+				
+				CrearActivoCriptoPorCompra(montoCompradoDeCripto, cm);
+				
+			} else {
+				
+				FactoryDAO.getActivoCriptoDAO().sumarCantidadActivoCripto(cm.getSigla(), montoCompradoDeCripto);
+				
+			}
+			
+			FactoryDAO.getStockDAO().sumarCantidadStock(siglaDeCriptoAComprar, -montoCompradoDeCripto);
+			FactoryDAO.getActivoMonedaFiduciariaDAO().sumarCantidadActivoFiduciaria(siglaDeFiatAUtilizar, -montoFiduciario);
+			
+			FactoryDAO.getTransaccionDAO().insertarTransaccion(t);
+			System.out.println("Se ha completado la compra.");
+			
+		} else {
+			
+			System.out.println("Se ha cancelado la compra.");
+			
+		}
 		
 	}
 	
-	private static void CrearActivoCriptoPorCompra(double montoComprado) {
+	private static void CrearActivoCriptoPorCompra(double montoComprado, Criptomoneda cm) throws SQLException{
 		
+		String direccion = "RANDOM";
+		ActivoCripto ac = new ActivoCripto(montoComprado, direccion, cm);
+		FactoryDAO.getActivoCriptoDAO().insertarActivoCripto(ac);
+	
 	}
 
 	private static void realizarSwap() throws SQLException{
+	
+		Scanner scan = MyScanner.getScan();		
+		String siglaActivoCriptoAIntercambiar, siglaActivoCriptoIntercambiado;
+		double cantidadAIntercambiar, cantidadIntercambiada;
+		ActivoCripto activoCriptoAIntercambiar = null, activoCriptoIntercambiado = null;
+		
+		System.out.println("Ingrese la sigla de la criptomoneda a intercambiar:\n");
+		siglaActivoCriptoAIntercambiar = scan.nextLine();
+		
+		activoCriptoAIntercambiar = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaActivoCriptoAIntercambiar);
+		
+		if (activoCriptoAIntercambiar == null) {
+			System.out.println("Ha habido un error porque no existe entre sus activos el activo cripto a intercambiar.\n");
+			return;
+		}
+		
+		System.out.println("Ingrese la sigla de la criptomoneda a la que desea intercambiar:\n");
+		siglaActivoCriptoIntercambiado = scan.nextLine();
+		
+		activoCriptoIntercambiado = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaActivoCriptoIntercambiado);
+		
+		if (activoCriptoIntercambiado == null) {
+			System.out.println("Ha habido un error porque no existe entre sus activos el activo cripto al cual desea intercambiar.\n");
+			return;
+		}
+		
+		do {
+			
+			System.out.println("Ingrese la cantidad de " + siglaActivoCriptoAIntercambiar + " que quiere intercambiar por " + siglaActivoCriptoIntercambiado + ": \n");
+			cantidadAIntercambiar = scan.nextDouble();
+			if (cantidadAIntercambiar < 0) System.out.println("Ha habido un error en el ingreso de la cantidad a intercambiar.\n");
+			
+		} while (cantidadAIntercambiar < 0);
+		
+		cantidadIntercambiada = (cantidadAIntercambiar * activoCriptoAIntercambiar.getCriptomoneda().getPrecioEnDolar()) / activoCriptoIntercambiado.getCriptomoneda().getPrecioEnDolar();
+		
+		String resumen = "Se han intercambiado " + cantidadAIntercambiar + " de " + siglaActivoCriptoAIntercambiar 
+				+ " por " + cantidadIntercambiada + " de " + siglaActivoCriptoIntercambiado + ".";
+		
+		Transaccion t = new Transaccion(resumen, LocalDate.now());
+		
+		if (confirmacionDelUsuario(t)) {
+			
+			
+			
+			
+			
+		} else {
+			
+			System.out.println("Se ha cancelado el intercambio.");
+			
+		}
+		
 	}
 }

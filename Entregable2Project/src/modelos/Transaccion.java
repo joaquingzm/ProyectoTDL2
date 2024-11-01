@@ -38,6 +38,14 @@ public class Transaccion {
 		this.fecha = fechaHora;
 	}
 	
+	public String toString() {
+		String str = "La Transacción consistió en:\n"
+				     + this.resumen + "\n"
+				     + "En la fecha: " + this.fecha.toString();
+		
+		return str;
+	}
+	
 	
 	
 }
