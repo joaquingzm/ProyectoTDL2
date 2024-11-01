@@ -60,7 +60,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 	@Override
 	public MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();
-		String sql = "SELECT * WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT * FROM MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
 		MonedaFiduciaria mf = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);

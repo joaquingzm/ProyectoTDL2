@@ -284,18 +284,19 @@ public class Menu {
 		
 		Scanner scan = MyScanner.getScan();
 		String sigla = null;
-		boolean seCreo = false;
 		Random random = new Random();
 		double cantidadStock = random.nextDouble();
 		Stock stock = null;
 		boolean terminar = false;
 		
-		System.out.println("Ingrese la sigla del stock a generar de manera aleatoria: ");
-		sigla = scan.nextLine();
-		stock = FactoryDAO.getStockDAO().buscarStock(sigla);
 		while(!terminar) {
+			System.out.println("Ingrese la sigla del stock a generar de manera aleatoria: ");
+			sigla = scan.nextLine();
+			stock = FactoryDAO.getStockDAO().buscarStock(sigla);
 			if(stock != null) {
 				FactoryDAO.getStockDAO().cambiarCantidadStock(sigla, cantidadStock);
+				//Considerar poner alguna fase de confirmación
+				System.out.println("Cantidad de stock generada: "+cantidadStock);
 				terminar = true;
 			}	
 			else {

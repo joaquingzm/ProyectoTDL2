@@ -70,13 +70,13 @@ public class StockDAOjdbc implements StockDAO{
 		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
 		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
-		stmt.executeQuery(sql);
+		stmt.executeUpdate(sql);
 	}
 	
 	@Override
 	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException {
 		Statement stmt = MyStatement.getStmt();
 		String sql = "UPDATE STOCK SET CANTIDAD = "+cantidad+" WHERE SIGLA = '"+sigla+"'";
-		stmt.executeQuery(sql);
+		stmt.executeUpdate(sql);
 	}
 }

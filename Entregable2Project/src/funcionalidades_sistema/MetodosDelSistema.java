@@ -29,7 +29,7 @@ public class MetodosDelSistema {
 
 		sql = "CREATE TABLE IF NOT EXISTS ACTIVO_CRIPTO" 
 				+ "(" 
-				+ " NOMENCLATURA VARCHAR(10)  PRIMARY KEY     NOT NULL, "
+				+ " SIGLA VARCHAR(10)  PRIMARY KEY     NOT NULL, "
 				+ " CANTIDAD	REAL    NOT NULL, " 
 				//En nuestro modelo tenemos un campo que es dirección, lo añadimos?
 				+ " DIRECCION VARCHAR(20) NOT NULL " + ")";
