@@ -34,7 +34,7 @@ public class StockDAOjdbc implements StockDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
 			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
-			stock = new Stock(resul.getDouble("cantidad"),cm);
+			stock = new Stock(resul.getDouble("CANTIDAD"),cm);
 		}
 		
 		return stock;

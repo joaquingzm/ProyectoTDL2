@@ -58,5 +58,20 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = '"+(resul.getDouble("cantidad")+cantidad)+"' WHERE SIGLA = '"+sigla+"'";
 		stmt.executeQuery(sql);
 	}
+	@Override
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException {
+		Statement stmt = MyStatement.getStmt();
+		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		ActivoMonedaFiduciaria amf = null;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		if (resul.next()) {
+			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
+			amf = new ActivoMonedaFiduciaria(resul.getDouble("CANTIDAD"), mf);
+		}
+		
+		return amf;
+	}
+
 
 }

@@ -14,6 +14,7 @@ import modelos.Criptomoneda;
 import modelos.Moneda;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
+import modelos.Transaccion;
 import singletones.MyScanner;
 
 public class Menu {
@@ -376,8 +377,53 @@ public class Menu {
 	}
 	
 	private static void realizarCompraDeCriptomoneda() throws SQLException{
+		
+		Scanner scan = MyScanner.getScan();
+		String siglaDeCriptoAComprar, siglaDeFiatAUtilizar, resumen;
+		double montoFiduciario, montoComprado;
+		
+		System.out.println("Ingrese la sigla de la criptomoneda a comprar: ");
+		siglaDeCriptoAComprar = scan.nextLine();
+		System.out.println("Ingrese la sigla de la moneda fiduciaria a utilizar en la compra: ");
+		siglaDeFiatAUtilizar = scan.nextLine();
+		System.out.println("Ingrese la cantidad de moneda fiduciaria a utilizar: ");
+		montoFiduciario = scan.nextDouble();
+		
+		ActivoMonedaFiduciaria amf = FactoryDAO.getActivoMonedaFiduciariaDAO().buscarActivoMonedaFiduciaria(siglaDeFiatAUtilizar);
+		
+		if ((amf == null) ||  (amf.getCantidad() < montoFiduciario)) {
+			System.out.println("Ha habido un error en la compra, porque no le alcanza el dinero o porque la moneda fiduciaria a utilizar no se encuentra disponible.\n\n");
+			return;
+		}
+		
+		Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(siglaDeCriptoAComprar);
+		
+		if (cm == null) {
+			System.out.println("Ha habido un error en la compra, porque la Criptomoneda no se encuentra registrada en el sistema.");
+			return;
+		}
+		
+		montoComprado = (montoFiduciario*amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
+		
+		ActivoCripto ac = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaDeCriptoAComprar);
+		
+		if (ac == null) {
+			
+			CrearActivoCriptoPorCompra(montoComprado);
+			
+		} else {
+			
+		}
+		
+		//resumen = "" //cuanto se puso y cuanto se compro, de que moneda y con cual fiat
+		//Transaccion t = new Transaccion()
 	}
 	
+	private static void CrearActivoCriptoPorCompra(double montoComprado) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private static void realizarSwap() throws SQLException{
 	}
 }

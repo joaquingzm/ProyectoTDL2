@@ -21,5 +21,8 @@ public interface ActivoMonedaFiduciariaDAO {
 	
 	//void eliminarActivoMonedaFiduciaria(String nomenclatura);
 	
+
 	List<ActivoMonedaFiduciaria> listarActivosFiduciarios(Comparator<ActivoMonedaFiduciaria> c) throws SQLException;
+	
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException;
 }
