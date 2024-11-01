@@ -21,6 +21,8 @@ public class Menu {
 	
 	public static void comenzar() throws SQLException{
 		boolean salir = false;
+		String eleccion = null;
+		Scanner scan = MyScanner.getScan();
 		String menu = "-- Elija una opción -- \n"
 				+ "1) Crear Moneda\n"
 				+ "2) Listar monedas\n"
@@ -30,7 +32,56 @@ public class Menu {
 				+ "6) Listar mis activos\n"
 				+ "7) Realizar compra de criptomoneda"
 				+ "8) Realizar swap\n";
-		
+		boolean finalizar = false;
+		while(!finalizar) {
+			System.out.println(menu);
+			eleccion = scan.nextLine();
+			eleccion.toLowerCase();
+			switch (eleccion) {
+				case "1":
+			    case "crear moneda":
+			        break;
+			        
+			    case "2":
+			    case "listar monedas":
+			        // Código para listar monedas
+			        break;
+			        
+			    case "3":
+			    case "generar stock":
+			        // Código para generar stock
+			        break;
+			        
+			    case "4":
+			    case "listar stock":
+			        // Código para listar stock
+			        break;
+			        
+			    case "5":
+			    case "generar mis activos":
+			        // Código para generar mis activos
+			        break;
+			        
+			    case "6":
+			    case "listar mis activos":
+			        // Código para listar mis activos
+			        break;
+			        
+			    case "7":
+			    case "realizar compra de criptomoneda":
+			        // Código para realizar compra de criptomoneda
+			        break;
+			        
+			    case "8":
+			    case "realizar swap":
+			        // Código para realizar swap
+			        break;
+			        
+			    default:
+			        System.out.println("Opción no válida. Por favor, elige una opción del menú.");
+			        break;
+			}
+		}
 	}
 	
 	/* Considerar separar estos métodos en paquetes, por ejemplo
