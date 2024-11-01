@@ -12,7 +12,6 @@ import daos.FactoryDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
-import modelos.Moneda;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
 import modelos.Transaccion;
@@ -21,7 +20,8 @@ import singletones.MyScanner;
 public class Menu {
 	
 	public static void comenzar() throws SQLException{
-		boolean salir = false;
+		
+		boolean finalizar = false;
 		String eleccion = null;
 		Scanner scan = MyScanner.getScan();
 		String menu = "-- Elija una opción -- \n"
@@ -32,52 +32,61 @@ public class Menu {
 				+ "5) Generar mis activos\n"
 				+ "6) Listar mis activos\n"
 				+ "7) Realizar compra de criptomoneda"
-				+ "8) Realizar swap\n";
-		boolean finalizar = false;
+				+ "8) Realizar swap\n"
+				+ "9) Finalizar";
+
+		
 		while(!finalizar) {
 			System.out.println(menu);
 			eleccion = scan.nextLine();
 			eleccion.toLowerCase();
 			switch (eleccion) {
+			
 				case "1":
 			    case "crear moneda":
-			        break;
+			    	crearMoneda();
+			    	break;
 			        
 			    case "2":
 			    case "listar monedas":
-			        // Código para listar monedas
-			        break;
+			    	System.out.println(listarMonedas());
+			    	break;
 			        
 			    case "3":
 			    case "generar stock":
-			        // Código para generar stock
+			        generarStock();
 			        break;
 			        
 			    case "4":
 			    case "listar stock":
-			        // Código para listar stock
+			        System.out.println(listarStock());
 			        break;
-			        
+			      
 			    case "5":
 			    case "generar mis activos":
-			        // Código para generar mis activos
+			        generarActivos();
 			        break;
 			        
 			    case "6":
 			    case "listar mis activos":
-			        // Código para listar mis activos
+			        System.out.println(listarActivos());
 			        break;
 			        
 			    case "7":
 			    case "realizar compra de criptomoneda":
-			        // Código para realizar compra de criptomoneda
-			        break;
+			        realizarCompraDeCriptomoneda();
+			    	break;
 			        
 			    case "8":
 			    case "realizar swap":
-			        // Código para realizar swap
+			        realizarSwap();
 			        break;
 			        
+			    case "9":
+			    case "finalizar":
+			    	finalizar = true;
+			    	break;
+			    	
 			    default:
 			        System.out.println("Opción no válida. Por favor, elige una opción del menú.");
 			        break;
@@ -134,7 +143,6 @@ public class Menu {
 			}
 		}
 		
-		System.out.println("\n\n");
 		return tipo;
 		
 	}
@@ -151,10 +159,10 @@ public class Menu {
 		
 		if (confirmacionDelUsuario(mf)) {
 			FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(mf);
-			System.out.println("La moneda Fiduciaria se ha creado exitosamente.");
+			System.out.println("La moneda Fiduciaria se ha creado exitosamente.\n");
 		}
 		else {
-			System.out.println("La moneda Fiduciaria no se ha creado.");
+			System.out.println("La moneda Fiduciaria no se ha creado.\n");
 		}
 	}
 	
@@ -187,10 +195,10 @@ public class Menu {
 			FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(cm);
 			FactoryDAO.getStockDAO().insertarStock(new Stock(stockDisponible, cm));
 			
-			System.out.println("La criptomoneda se ha creado exitosamente.");
+			System.out.println("La criptomoneda se ha creado exitosamente.\n");
 		}
 		else {
-			System.out.println("La criptomoneda no se ha creado.");
+			System.out.println("La criptomoneda no se ha creado.\n");
 		}
 		
 	}
@@ -228,15 +236,18 @@ public class Menu {
 	//Para hacer más fácil esto, considerar meter el toString en monedas
 	private static String listarMonedas() throws SQLException{
 		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(PrecioEnDolar/Sigla/Salir)\n";
-		Scanner in = MyScanner.getScan();
+		Scanner scan = MyScanner.getScan();
 		Comparator<MonedaFiduciaria> cFiat = null;
 		Comparator<Criptomoneda> cCripto = null;
 		String str = null;
 		boolean terminar = false;
+		String entrada = null;
 		
-		String entrada = in.toString();
-		entrada.toLowerCase();
+		
 		while(!terminar) {
+			System.out.println(opciones);
+			entrada = scan.nextLine();
+			entrada.toLowerCase();
 			switch (entrada) {
 				case "precioendolar":
 					cFiat = new ComparadorMonedaFiduciariaPrecioEnDolar();
@@ -249,7 +260,7 @@ public class Menu {
 					terminar = true;
 					break;
 				case "salir":
-					return entrada;
+					return "Saliendo...\n";
 				default:
 					System.out.println("Por favor, elegir una opción adecuada");
 			}
@@ -262,7 +273,6 @@ public class Menu {
 		for(MonedaFiduciaria e : listaMonedasFiat) {
 			str+=e.toString()+"\n";
 		}
-		System.out.println(str);
 		str+="\n\nCriptomonedas; \n";
 		for(Criptomoneda e : listaCriptomonedas) {
 			str+=e.toString()+"\n";
@@ -296,14 +306,16 @@ public class Menu {
 	
 	private static String listarStock() throws SQLException{
 		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla/Salir)\n";
-		Scanner in = MyScanner.getScan();
+		Scanner scan = MyScanner.getScan();
 		Comparator<Stock> c = null;
-		String str = null;
+		String str = "Stocks: \n";
 		boolean terminar = false;
+		String entrada = null;
 		
-		String entrada = in.toString();
-		entrada.toLowerCase();
 		while(!terminar) {
+			System.out.println(opciones);
+			entrada = scan.nextLine();
+			entrada.toLowerCase();
 			switch (entrada) {
 				case "cantidad":
 					c = new ComparadorStockCantidad();
@@ -314,7 +326,7 @@ public class Menu {
 					terminar = true;
 					break;
 				case "salir":
-					return entrada;
+					return "Saliendo...\n";
 				default:
 					System.out.println("Por favor, elegir una opción adecuada");
 			}
@@ -325,7 +337,7 @@ public class Menu {
 		for(Stock e : listaStocks) {
 			str+=e.toString();
 		}
-		
+		str+="\n";
 		return str;
 	}
 	
@@ -386,15 +398,17 @@ public class Menu {
 	
 	private static String listarActivos() throws SQLException{
 		String opciones = "Listar tomando como criterio de orden la cantidad o sigla?(Cantidad/Sigla/Salir)\n";
-		Scanner in = MyScanner.getScan();
+		Scanner scan = MyScanner.getScan();
 		Comparator<ActivoMonedaFiduciaria> cMF = null;
 		Comparator<ActivoCripto> cCripto = null;
 		String str = null;
 		boolean terminar = false;
+		String entrada = null;
 		
-		String entrada = in.toString();
-		entrada.toLowerCase();
 		while(!terminar) {
+			System.out.println(opciones);
+			entrada = scan.nextLine();
+			entrada.toLowerCase();
 			switch (entrada) {
 				case "cantidad":
 					cCripto = new ComparadorActivoCriptoCantidad();
@@ -407,7 +421,7 @@ public class Menu {
 					terminar = true;
 					break;
 				case "salir":
-					return entrada;
+					return "Saliendo...\n";
 				default:
 					System.out.println("Por favor, elegir una opción adecuada");
 			}
@@ -416,12 +430,11 @@ public class Menu {
 		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiat = (LinkedList<ActivoMonedaFiduciaria>) FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(cMF);
 		LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(cCripto);
 		//Quedó medio chancho, ver que hago
-		str="Monedas Fiduciarias: \n";
+		str="Activos Monedas Fiduciarias: \n";
 		for(ActivoMonedaFiduciaria e : listaActivosMonedaFiat) {
 			str+=e.toString()+"\n";
 		}
-		System.out.println(str);
-		str+="\n\nCriptomonedas; \n";
+		str+="\n\nActivos Criptomonedas; \n";
 		for(ActivoCripto e : listaActivosCripto) {
 			str+=e.toString()+"\n";
 		}

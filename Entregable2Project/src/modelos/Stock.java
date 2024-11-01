@@ -6,7 +6,7 @@ public class Stock {
 	private Criptomoneda criptomoneda;
 	
 	public Stock(double cantidad, Criptomoneda criptomoneda) {
-		super();
+		//super();
 		this.cantidad = cantidad;
 		this.criptomoneda = criptomoneda;
 	}
@@ -30,7 +30,7 @@ public class Stock {
 	
 	@Override
 	public String toString() {
-		String str = "Stock:{ Cantidad: "+this.getCantidad()+", Criptomoneda: "+this.getCriptomoneda().toString()+" }";
+		String str = "Stock:{ Cantidad: "+this.getCantidad()+", Criptomoneda:{ "+this.getCriptomoneda().toString()+"} }";
 		return str;
 	}
 }
