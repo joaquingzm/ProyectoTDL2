@@ -72,8 +72,10 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
+			String direc = resul.getString("DIRECCION");
+			double cant = resul.getDouble("CANTIDAD");
 			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
-			ac = new ActivoCripto(resul.getDouble("CANTIDAD"), resul.getString("DIRECCION"), cm);
+			ac = new ActivoCripto(cant, direc, cm);
 		}
 		
 		return ac;

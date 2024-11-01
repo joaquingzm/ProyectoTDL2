@@ -34,7 +34,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		String sql = " SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA";
 		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiduciaria = new LinkedList<ActivoMonedaFiduciaria>();
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
-
+		
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
@@ -63,11 +63,13 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		Statement stmt = MyStatement.getStmt();
 		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
 		ActivoMonedaFiduciaria amf = null;
+		double cant;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
+			cant = resul.getDouble("CANTIDAD");
 			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
-			amf = new ActivoMonedaFiduciaria(resul.getDouble("CANTIDAD"), mf);
+			amf = new ActivoMonedaFiduciaria(cant, mf);
 		}
 		
 		return amf;
