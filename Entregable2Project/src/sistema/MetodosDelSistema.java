@@ -6,7 +6,6 @@ import singletones.MyStatement;
 
 public class MetodosDelSistema {
 
-	//ES PRIVADO ESTE METODO!!!!!!
 	protected static void creaciónDeTablasEnBD() throws SQLException {
 
 		Statement stmt = MyStatement.getStmt();

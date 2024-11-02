@@ -14,15 +14,6 @@ public interface ActivoCriptoDAO {
 	
 	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException;
 	
-	//Activo buscarActivoCripto(String sigla) ;
-
-	//void actualizarActivoCripto(String sigla);
-	
-	//Pensar si los eliminar no tendrían que devolver algun parametro que indique si
-	//realmente se pudo eliminar
-	
-	//void eliminarActivoCripto(String sigla);
-	
 	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) throws SQLException;
 	
 	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException;

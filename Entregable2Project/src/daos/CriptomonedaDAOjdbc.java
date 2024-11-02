@@ -45,20 +45,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		return listaCriptomonedas;
 	}
 
-	/*
-	@Override
-	public void actualizarCriptomoneda(Criptomoneda m) throws SQLException{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void eliminarCriptomoneda(Criptomoneda m) throws SQLException{
-		// TODO Auto-generated method stub
-
-	}
-	 */
-
+	
 	@Override
 	public Criptomoneda buscarCriptomoneda(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();

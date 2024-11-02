@@ -10,13 +10,7 @@ public interface CriptomonedaDAO {
 
 	void insertarCriptomoneda(Criptomoneda m) throws SQLException;
 	
-	//Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
-	
 	List<Criptomoneda> listarCriptomonedas(Comparator<Criptomoneda> c) throws SQLException;
-	
-	//void actualizarCriptomoneda(Criptomoneda m) throws SQLException;
-	
-	//void eliminarCriptomoneda(Criptomoneda m) throws SQLException;
 	
 	Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
 	

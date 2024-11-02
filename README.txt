@@ -1,5 +1,9 @@
 Consideraciones a tener en cuenta sobre nuestro modelo de billetera:
 
+Nuestro programa funciona de manera que si ya existe en la base de
+datos una tabla esta no es sobreescrita, solamente se crea en caso
+de que no exista.
+
 Para los DAO solamente implementamos los métodos necesarios, si bien
 conocemos el estándar CRUD, tomamos la decisión de aprovechar el
 tiempo para desarrollar funcionalidades necesarias para el correcto
