@@ -44,19 +44,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		listaMonedaFiduciarias.sort(c);
 		return listaMonedaFiduciarias;
 	}
-/*
-	@Override
-	public void actualizarMonedaFiduciaria(MonedaFiduciaria m) throws SQLException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void eliminarMonedaFiduciaria(MonedaFiduciaria m) throws SQLException{
-		// TODO Auto-generated method stub
-		
-	}
-*/
+	
 	@Override
 	public MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException{
 		Statement stmt = MyStatement.getStmt();

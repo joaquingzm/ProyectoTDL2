@@ -34,7 +34,6 @@ public class StockDAOjdbc implements StockDAO{
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
-			//Si hago resul.getDouble dentro del constructor da error, ni idea!!!
 			double cantidad = resul.getDouble("cantidad");
 			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
 			stock = new Stock(cantidad,cm);

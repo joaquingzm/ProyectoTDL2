@@ -32,7 +32,7 @@ import singletones.MyScanner;
 
 public class Menu {
 	
-	public static void comenzar() throws SQLException{
+	protected static void comenzar() throws SQLException{
 		
 		boolean finalizar = false;
 		String eleccion = null;
@@ -107,13 +107,6 @@ public class Menu {
 		}
 	}
 	
-	/* Considerar separar estos métodos en paquetes, por ejemplo
-	 * podría ser más ordenada tener los métodos que suponen
-	 * una operación como comprar o swappear en un paquete distinto
-	 * al que se encargue de simplemente imprimir (o capaz estos métodos
-	 * de imprimir dejarlos acá)
-	 */
-	
 	private static void crearMoneda() throws SQLException{
 		Scanner scan = MyScanner.getScan();
 		String tipo = confirmacionDeTipo();
@@ -169,7 +162,7 @@ public class Menu {
 		precioEnDolar = scan.nextDouble();
 		scan.nextLine();
 		
-		if (confirmacionDeTipo().equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
+		if (tipo.equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
 		else crearMonedaCripto(nombre, sigla, precioEnDolar);
 	}
 	
@@ -397,6 +390,17 @@ public class Menu {
 		return str;
 	}
 	
+	private static String generarDireccion() {
+		Random random = new Random();
+		String direccion=null;
+		int largo = 10;
+		for (int i=0;i<largo;i++) {
+			int digito = random.nextInt(10);
+			direccion+=""+digito+"";
+		}
+		return direccion;
+	}
+	
 	private static void generarActivos() throws SQLException{
 		
 		Scanner scan = MyScanner.getScan();
@@ -469,8 +473,7 @@ public class Menu {
 		
 		if (tipo.equals("CRIPTO")) {
 			
-			System.out.println("\nIngrese la direccion de la criptomoneda: ");
-			direccion = scan.nextLine();
+			direccion = generarDireccion();
 			
 			if (confirmacionDelUsuario(cm)) {
 				FactoryDAO.getActivoCriptoDAO().insertarActivoCripto(new ActivoCripto(cantidad, direccion, cm));
@@ -621,7 +624,7 @@ public class Menu {
 	
 	private static void CrearActivoCriptoPorCompra(double montoComprado, Criptomoneda cm) throws SQLException{
 		
-		String direccion = "RANDOM";
+		String direccion = generarDireccion();
 		ActivoCripto ac = new ActivoCripto(montoComprado, direccion, cm);
 		FactoryDAO.getActivoCriptoDAO().insertarActivoCripto(ac);
 	

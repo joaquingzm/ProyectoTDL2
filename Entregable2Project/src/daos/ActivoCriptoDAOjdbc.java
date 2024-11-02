@@ -6,9 +6,7 @@ import java.util.List;
 import java.sql.*;
 
 import modelos.ActivoCripto;
-import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
-import modelos.MonedaFiduciaria;
 import singletones.MyStatement;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
