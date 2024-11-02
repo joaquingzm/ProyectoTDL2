@@ -6,9 +6,13 @@ public class Stock {
 	private Criptomoneda criptomoneda;
 	
 	public Stock(double cantidad, Criptomoneda criptomoneda) {
-		//super();
+		super();
 		this.cantidad = cantidad;
 		this.criptomoneda = criptomoneda;
+	}
+	
+	public Stock() {
+		
 	}
 
 	public double getCantidad() {
