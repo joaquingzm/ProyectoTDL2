@@ -67,6 +67,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		if (resul.next()) {
 			mf = new MonedaFiduciaria(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getString("PAIS_EMISOR"));
 		}
+		resul.close();
 		return mf;
 	}
 

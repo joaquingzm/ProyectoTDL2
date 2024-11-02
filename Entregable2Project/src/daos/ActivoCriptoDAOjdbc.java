@@ -39,11 +39,9 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 		while(resul.next()) {		
 			String sigla = resul.getString("SIGLA");
-			Criptomoneda cripto = cm.buscarCriptomoneda(sigla);
-
 			double cantidad = resul.getDouble("CANTIDAD");
 			String direccion = resul.getString("DIRECCION");
-
+			Criptomoneda cripto = cm.buscarCriptomoneda(sigla);
 			ActivoCripto a = new ActivoCripto(cantidad,direccion,cripto);
 			listaActivosCripto.add(a);
 
@@ -61,7 +59,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
 		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
-		stmt.executeQuery(sql);
+		stmt.executeUpdate(sql);
 	}
 	
 	@Override

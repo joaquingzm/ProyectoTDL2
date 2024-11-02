@@ -53,9 +53,9 @@ public class StockDAOjdbc implements StockDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		while(resul.next()) {
-			//Si hago resul.getDouble dentro del constructor da error, ni idea!!!
+			String sigla = resul.getString("SIGLA");
 			double cantidad = resul.getDouble("cantidad");
-			cm = new Criptomoneda(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(resul.getString("SIGLA")).getNombre(), resul.getString("SIGLA"), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(resul.getString("SIGLA")).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(resul.getString("SIGLA")).getVolatilidad());
+			cm = new Criptomoneda(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getNombre(), sigla, FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getVolatilidad());
 			stock = new Stock(cantidad, cm);
 			listaStocks.add(stock);
 		}

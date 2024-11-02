@@ -1,4 +1,4 @@
-package funcionalidades_sistema;
+package sistema;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
