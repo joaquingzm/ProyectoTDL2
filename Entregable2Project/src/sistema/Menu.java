@@ -8,9 +8,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import comparadores.*;
+import comparadores.ComparadorActivoCriptoCantidad;
+import comparadores.ComparadorActivoCriptoSigla;
+import comparadores.ComparadorActivoMonedaFiduciariaCantidad;
+import comparadores.ComparadorActivoMonedaFiduciariaSigla;
+import comparadores.ComparadorCriptomonedaPrecioEnDolar;
+import comparadores.ComparadorCriptomonedaSigla;
+import comparadores.ComparadorMonedaFiduciariaPrecioEnDolar;
+import comparadores.ComparadorMonedaFiduciariaSigla;
+import comparadores.ComparadorStockCantidad;
+import comparadores.ComparadorStockSigla;
 import daos.ActivoCriptoDAO;
+import daos.ActivoMonedaFiduciariaDAO;
 import daos.FactoryDAO;
+import daos.StockDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
@@ -158,7 +169,7 @@ public class Menu {
 		precioEnDolar = scan.nextDouble();
 		scan.nextLine();
 		
-		if (tipo.equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
+		if (confirmacionDeTipo().equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
 		else crearMonedaCripto(nombre, sigla, precioEnDolar);
 	}
 	
@@ -203,7 +214,7 @@ public class Menu {
 			System.out.println("\nLa moneda Fiduciaria se ha creado exitosamente.");
 		}
 		else {
-			System.out.println("\nLa moneda Fiduciaria no se ha creado.\n");
+			System.out.println("\nSe ha cancelado la creación de la moneda fiduciaria.\n");
 		}
 	}
 	
@@ -240,7 +251,7 @@ public class Menu {
 			System.out.println("La criptomoneda se ha creado exitosamente.\n");
 		}
 		else {
-			System.out.println("La criptomoneda no se ha creado.\n");
+			System.out.println("Se ha cancelado la creación de la criptomoneda.\n");
 		}
 		
 	}
@@ -325,7 +336,7 @@ public class Menu {
 		Scanner scan = MyScanner.getScan();
 		String sigla = null;
 		Random random = new Random();
-		double cantidadStock = random.nextDouble();
+		double cantidadStock = random.nextDouble() * 1000000;
 		Stock stock = null;
 		boolean terminar = false;
 		
@@ -531,6 +542,9 @@ public class Menu {
 		Scanner scan = MyScanner.getScan();
 		String siglaDeCriptoAComprar, siglaDeFiatAUtilizar;
 		double montoFiduciario, montoCompradoDeCripto;
+		StockDAO stockDAO = FactoryDAO.getStockDAO();
+		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
+		ActivoMonedaFiduciariaDAO amfDAO = FactoryDAO.getActivoMonedaFiduciariaDAO();
 		
 		System.out.println("\nIngrese la sigla de la criptomoneda a comprar: ");
 		siglaDeCriptoAComprar = scan.nextLine();
@@ -538,11 +552,18 @@ public class Menu {
 		siglaDeFiatAUtilizar = scan.nextLine();
 		System.out.println("\nIngrese la cantidad de moneda fiduciaria a utilizar: ");
 		montoFiduciario = scan.nextDouble();
+		scan.nextLine();
 		
-		ActivoMonedaFiduciaria amf = FactoryDAO.getActivoMonedaFiduciariaDAO().buscarActivoMonedaFiduciaria(siglaDeFiatAUtilizar);
+		ActivoMonedaFiduciaria amf = amfDAO.buscarActivoMonedaFiduciaria(siglaDeFiatAUtilizar);
 		
-		if ((amf == null) ||  (amf.getCantidad() < montoFiduciario)) {
-			System.out.println("\nHa habido un error en la compra, porque no le alcanza el dinero o porque la moneda fiduciaria a utilizar no se encuentra disponible.");
+
+		if (amf == null) {
+			System.out.println("\nHa habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
+			return;
+		}
+		
+		if (amf.getCantidad() < montoFiduciario) {
+			System.out.println("\nHa habido un error en la compra porque no le alcanza el dinero.");
 			return;
 		}
 		
@@ -553,16 +574,26 @@ public class Menu {
 			return;
 		}
 		
-		montoCompradoDeCripto = (montoFiduciario*amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
+		montoCompradoDeCripto = (montoFiduciario * amf.getMonedaFIAT().getPrecioEnDolar()) / cm.getPrecioEnDolar();
+		
+		Stock stock = stockDAO.buscarStock(siglaDeCriptoAComprar);
+		
+		if (stock.getCantidad() < montoCompradoDeCripto) {
+			
+			System.out.println("Ha habido error en la compra porque la el stock en el sistema no es suficiente.\n\n");
+			return;
+			
+		}
 		
 		String resumen = "\nSe han comprado " + montoCompradoDeCripto + " de " + siglaDeCriptoAComprar 
 				+ " por " + montoFiduciario + " de " + siglaDeFiatAUtilizar + ".";
+
 		
 		Transaccion t = new Transaccion(resumen, LocalDate.now());
 		
 		if (confirmacionDelUsuario(t)) {
 			
-			ActivoCripto ac = FactoryDAO.getActivoCriptoDAO().buscarActivoCripto(siglaDeCriptoAComprar);
+			ActivoCripto ac = acDAO.buscarActivoCripto(siglaDeCriptoAComprar);
 			
 			if (ac == null) {
 				
@@ -570,12 +601,12 @@ public class Menu {
 				
 			} else {
 				
-				FactoryDAO.getActivoCriptoDAO().sumarCantidadActivoCripto(cm.getSigla(), montoCompradoDeCripto);
+				acDAO.sumarCantidadActivoCripto(siglaDeCriptoAComprar, montoCompradoDeCripto);
 				
 			}
 			
-			FactoryDAO.getStockDAO().sumarCantidadStock(siglaDeCriptoAComprar, -montoCompradoDeCripto);
-			FactoryDAO.getActivoMonedaFiduciariaDAO().sumarCantidadActivoFiduciaria(siglaDeFiatAUtilizar, -montoFiduciario);
+			stockDAO.sumarCantidadStock(siglaDeCriptoAComprar, -montoCompradoDeCripto);
+			amfDAO.sumarCantidadActivoFiduciaria(siglaDeFiatAUtilizar, -montoFiduciario);
 			
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t);
 			System.out.println("\nSe ha completado la compra.");
