@@ -659,6 +659,7 @@ public class Menu {
 			
 			System.out.println("\nIngrese la cantidad de " + siglaActivoCriptoAIntercambiar + " que quiere intercambiar por " + siglaActivoCriptoIntercambiado + ": ");
 			cantidadAIntercambiar = scan.nextDouble();
+			scan.nextLine();
 			if (cantidadAIntercambiar < 0) System.out.println("\nHa habido un error en el ingreso de la cantidad a intercambiar.");
 			
 		} while (cantidadAIntercambiar < 0);
