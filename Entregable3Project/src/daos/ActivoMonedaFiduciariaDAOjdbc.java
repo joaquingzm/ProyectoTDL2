@@ -3,20 +3,19 @@ package daos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import modelos.ActivoMonedaFiduciaria;
 import modelos.MonedaFiduciaria;
-import singletones.MyStatement;
+import singletones.MyConnection;
 
 public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 	@Override
 	public void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException{
 
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (SIGLA,CANTIDAD) VALUES ('"
 				+ act.getMonedaFIAT().getSigla()
 				+ "',"
@@ -25,12 +24,13 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 		stmt.executeUpdate(sql);
 
-
+		stmt.close();
 	}
 
 	@Override
-	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios(Comparator<ActivoMonedaFiduciaria> c) throws SQLException{
-		Statement stmt = MyStatement.getStmt();
+	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios() throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA";
 		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiduciaria = new LinkedList<ActivoMonedaFiduciaria>();
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
@@ -46,21 +46,27 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 		}
 		resul.close();
-		listaActivosMonedaFiduciaria.sort(c);
+		
+		stmt.close();
 		return listaActivosMonedaFiduciaria;
 	}
 
 	@Override
 	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
+		
 		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
 		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
 		stmt.executeUpdate(sql);
+		
+		resul.close();
+		stmt.close();
 	}
 	@Override
 	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
 		ActivoMonedaFiduciaria amf = null;
 		double cant;
@@ -71,6 +77,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
 			amf = new ActivoMonedaFiduciaria(cant, mf);
 		}
+		resul.close();
+		
+		stmt.close();
 		
 		return amf;
 	}

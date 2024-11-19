@@ -203,6 +203,8 @@ public class Menu {
 	
 	//FALTA ARREGLAR CON LOS STRING A PARTIR DE ACÁ
 	
+	//HAY QUE ESCRIBIR EN LOS LISTAR LAS RESPECTIVAS LINEAS CON LOS COMPARATOR
+	
 	private static void crearMonedaCripto(String nombre, String sigla, double precioEnDolar) throws SQLException{
 		
 		Scanner scan = MyScanner.getScan();
@@ -303,8 +305,8 @@ public class Menu {
 			}
 		}
 		
-		LinkedList<MonedaFiduciaria> listaMonedasFiat = (LinkedList<MonedaFiduciaria>) FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias(cFiat);
-		LinkedList<Criptomoneda> listaCriptomonedas = (LinkedList<Criptomoneda>) FactoryDAO.getCriptomonedaDAO().listarCriptomonedas(cCripto);
+		LinkedList<MonedaFiduciaria> listaMonedasFiat = (LinkedList<MonedaFiduciaria>) FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
+		LinkedList<Criptomoneda> listaCriptomonedas = (LinkedList<Criptomoneda>) FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
 		str="Monedas Fiduciarias: \n";
 		for(MonedaFiduciaria e : listaMonedasFiat) {
 			str+=e.toString()+"\n";
@@ -373,7 +375,7 @@ public class Menu {
 			}
 		}
 		
-		LinkedList<Stock> listaStocks = (LinkedList<Stock>) FactoryDAO.getStockDAO().listarStock(c);
+		LinkedList<Stock> listaStocks = (LinkedList<Stock>) FactoryDAO.getStockDAO().listarStock();
 		
 		for(Stock e : listaStocks) {
 			str+=e.toString();
@@ -518,8 +520,8 @@ public class Menu {
 			}
 		}
 		
-		List<ActivoMonedaFiduciaria> listaActivosMonedaFiat = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(cMF);
-		LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(cCripto);
+		List<ActivoMonedaFiduciaria> listaActivosMonedaFiat = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios();
+		LinkedList<ActivoCripto> listaActivosCripto = (LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto();
 		
 		str="Activos Monedas Fiduciarias: \n";
 		for(ActivoMonedaFiduciaria e : listaActivosMonedaFiat) {

@@ -1,7 +1,6 @@
 package daos;
 
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.List;
 
 import modelos.Stock;
@@ -12,7 +11,7 @@ public interface StockDAO {
 	
 	public Stock buscarStock(String sigla) throws SQLException;
 	
-	List<Stock> listarStock(Comparator<Stock> c) throws SQLException;
+	List<Stock> listarStock() throws SQLException;
 	
 	public void sumarCantidadStock(String sigla,double cantidad) throws SQLException;
 	 

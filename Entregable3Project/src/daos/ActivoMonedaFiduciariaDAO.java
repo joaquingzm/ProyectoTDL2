@@ -12,7 +12,7 @@ public interface ActivoMonedaFiduciariaDAO {
 	
 	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException;
 
-	List<ActivoMonedaFiduciaria> listarActivosFiduciarios(Comparator<ActivoMonedaFiduciaria> c) throws SQLException;
+	List<ActivoMonedaFiduciaria> listarActivosFiduciarios() throws SQLException;
 	
 	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException;
 }

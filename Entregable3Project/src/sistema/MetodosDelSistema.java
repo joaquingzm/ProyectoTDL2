@@ -2,13 +2,14 @@ package sistema;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import singletones.MyStatement;
+
+import singletones.MyConnection;
 
 public class MetodosDelSistema {
 
 	protected static void creaciónDeTablasEnBD() throws SQLException {
 
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 
 		String sql = "CREATE TABLE IF NOT EXISTS CRIPTOMONEDA" 
 				+ "(" 
@@ -88,6 +89,8 @@ public class MetodosDelSistema {
 				+ " FOREIGN KEY(ID_PERSONA) REFERENCES PERSONA(ID)"
 				+ ")";
 		stmt.executeUpdate(sql);
+		
+		stmt.close();
 	}
 
 }

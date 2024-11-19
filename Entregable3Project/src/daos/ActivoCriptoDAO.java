@@ -13,7 +13,7 @@ public interface ActivoCriptoDAO {
 	
 	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException;
 	
-	List<ActivoCripto> listarActivosCripto(Comparator<ActivoCripto> c) throws SQLException;
+	List<ActivoCripto> listarActivosCripto() throws SQLException;
 	
 	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException;
 

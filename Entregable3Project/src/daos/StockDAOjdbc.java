@@ -3,19 +3,19 @@ package daos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import modelos.Criptomoneda;
 import modelos.Stock;
-import singletones.MyStatement;
+import singletones.MyConnection;
+
 
 public class StockDAOjdbc implements StockDAO{
 	
 	@Override
 	public void insertarStock(Stock stock) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO STOCK (CANTIDAD,SIGLA) VALUES ("
 				+ stock.getCantidad()
 				+ ","
@@ -23,11 +23,12 @@ public class StockDAOjdbc implements StockDAO{
 				+ "')";
 
 		stmt.executeUpdate(sql);
+		stmt.close();
 	}
 	
 	@Override
 	public Stock buscarStock(String sigla) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 		System.out.println(sigla);
 		String sql = "SELECT * FROM STOCK WHERE SIGLA = '"+sigla+"'";
 		Stock stock = null;
@@ -38,13 +39,15 @@ public class StockDAOjdbc implements StockDAO{
 			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
 			stock = new Stock(cantidad,cm);
 		}
+		resul.close();
 		
+		stmt.close();
 		return stock;
 	}
 
 	@Override
-	public List<Stock> listarStock(Comparator<Stock> c) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+	public List<Stock> listarStock() throws SQLException {
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM STOCK";
 		LinkedList<Stock> listaStocks = new LinkedList<Stock>();
 		Stock stock = null;
@@ -58,24 +61,31 @@ public class StockDAOjdbc implements StockDAO{
 			stock = new Stock(cantidad, cm);
 			listaStocks.add(stock);
 		}
+		resul.close();
 		
-		listaStocks.sort(c);
+		stmt.close();
+		
 		return listaStocks;
 	}
 
 	@Override
 	public void sumarCantidadStock(String sigla, double cantidad) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = '"+sigla+"'";
 		ResultSet resul = stmt.executeQuery(sql);
 		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
 		stmt.executeUpdate(sql);
+		
+		resul.close();
+		stmt.close();
 	}
 	
 	@Override
 	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException {
-		Statement stmt = MyStatement.getStmt();
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "UPDATE STOCK SET CANTIDAD = "+cantidad+" WHERE SIGLA = '"+sigla+"'";
 		stmt.executeUpdate(sql);
+		
+		stmt.close();
 	}
 }
