@@ -1,0 +1,5 @@
+Cómo hago en el caso de tener que insertar un usuario a la tabla con el tema
+del id de una persona que ya existe? Suponiendo que existieran 2 personas
+de mismos nombres y apellidos, qué forma tendría yo para poder reconocer
+cuál de esas personas es el mío? O debería Usuario tener un campo del ID de
+su persona? 
