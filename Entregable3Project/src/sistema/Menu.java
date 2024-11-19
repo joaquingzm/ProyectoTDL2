@@ -32,6 +32,20 @@ import singletones.MyScanner;
 
 public class Menu {
 	
+	private static String opcionIncorrecta = "Opción no válida. Por favor, elige nuevamente.";
+	private static String fiat = "FIAT";
+	private static String cripto = "CRIPTO";
+	private static String monedaExiste = "Hubo un error porque la moneda a crear ya existe.";
+	private static String ingresarSiglaMoneda = "Ingrese la sigla de la moneda";
+	private static String ingresarNombreMoneda = "Ingrese el nombre de la moneda";
+	private static String ingresarPrecioMoneda = "Ingrese el precio en dolares de la moneda";
+	private static String ingresarTipoMoneda = "Ingrese el tipo, (FIAT | CRIPTO)";
+	private static String ingresarPaisMoneda = "Ingrese el pais emisor de la moneda fiduciaria";
+	private static String operacionExitosa = "La operación ha tenido exito.";
+	private static String operacionCancelada = "La operación ha fracasado.";
+
+
+	
 	protected static void comenzar() throws SQLException{
 		
 		boolean finalizar = false;
@@ -52,56 +66,56 @@ public class Menu {
 		while(!finalizar) {
 			System.out.println(menu);
 			eleccion = scan.nextLine();
-			eleccion.toLowerCase();
+			eleccion = eleccion.toUpperCase();
 			switch (eleccion) {
 			
 				case "1":
-			    case "crear moneda":
+			    case "CREAR MONEDA":
 			    	crearMoneda();
 			    	break;
 			        
 			    case "2":
-			    case "listar monedas":
+			    case "LISTAR MONEDAS":
 			    	System.out.println(listarMonedas());
 			    	break;
 			        
 			    case "3":
-			    case "generar stock":
+			    case "GENERAR STOCK":
 			        generarStock();
 			        break;
 			        
 			    case "4":
-			    case "listar stock":
+			    case "LISTAR STOCK":
 			        System.out.println(listarStock());
 			        break;
 			      
 			    case "5":
-			    case "generar mis activos":
+			    case "GENERAR MIS ACTIVOS":
 			        generarActivos();
 			        break;
 			        
 			    case "6":
-			    case "listar mis activos":
+			    case "LISTAR MIS ACTIVOS":
 			        System.out.println(listarActivos());
 			        break;
 			        
 			    case "7":
-			    case "realizar compra de criptomoneda":
+			    case "REALIZAR COMPRA DE CRIPTOMONEDAS":
 			        realizarCompraDeCriptomoneda();
 			    	break;
 			        
 			    case "8":
-			    case "realizar swap":
+			    case "REALIZAR SWAP":
 			        realizarSwap();
 			        break;
 			        
 			    case "9":
-			    case "finalizar":
+			    case "FINALIZAR":
 			    	finalizar = true;
 			    	break;
 			    	
 			    default:
-			        System.out.println("Opción no válida. Por favor, elige una opción del menú.");
+			        System.out.println(opcionIncorrecta);
 			        break;
 			}
 		}
@@ -110,59 +124,35 @@ public class Menu {
 	private static void crearMoneda() throws SQLException{
 		Scanner scan = MyScanner.getScan();
 		String tipo = confirmacionDeTipo();
-		String nombre, sigla, eleccion;
+		String nombre, sigla;
 		double precioEnDolar;
-		boolean finalizar = false;
 		
-		do{
-			System.out.println("\nIngrese la sigla de la moneda:");
-			sigla = scan.nextLine();
-			if(tipo.equals("FIAT")) {
-				if(FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla)==null) {
-					finalizar = true;
-				}
-				else {
-					System.out.println("La moneda fiduciaria de sigla "+sigla+" ya existe, (Reintentar/Salir).");
-					do {
-						eleccion = scan.nextLine();
-						eleccion.toLowerCase();
-						if(!eleccion.equals("salir") && !eleccion.equals("reintentar")) {
-							System.out.println("Por favor elegir una opción válida, (Reintentar/Salir).");
-						}
-						if(eleccion.equals("salir")) {
-							return;
-						}
-					}while (!eleccion.equals("salir") && !eleccion.equals("reintentar"));
-				}
+		
+		System.out.println("\n" + ingresarSiglaMoneda + ": ");
+		sigla = scan.nextLine();
+		
+		if(tipo.equals(fiat)) {
+			if(FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla) != null) { //HACER EL EXISTE_MONEDA EN VEZ DE BUSCAR
+				System.out.println(monedaExiste);
+				return;
 			}
-			else {
-				if(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla)==null) {
-					finalizar = true;
-				}
-				else {
-					System.out.println("La criptomoneda de sigla "+sigla+" ya existe, (Reintentar/Salir).");
-					do {
-						eleccion = scan.nextLine();
-						eleccion.toLowerCase();
-						if(!eleccion.equals("salir") && !eleccion.equals("reintentar")) {
-							System.out.println("Por favor elegir una opción válida, (Reintentar/Salir).");
-						}
-						if(eleccion.equals("salir")) {
-							return;
-						}
-					}while (!eleccion.equals("salir") && !eleccion.equals("reintentar"));
-				}
+
+		}
+		
+		else {
+			if(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla) != null) {
+				System.out.println(monedaExiste);
+				return;
 			}
-			
-		}while(!finalizar);
+		}
 	
-		System.out.println("\nIngrese el nombre de la moneda:");
+		System.out.println("\n" + ingresarNombreMoneda + ": ");
 		nombre = scan.nextLine();
-		System.out.println("\nIngrese el precio en dolares de la moneda:");
+		System.out.println("\n" + ingresarPrecioMoneda + ": ");
 		precioEnDolar = scan.nextDouble();
 		scan.nextLine();
 		
-		if (tipo.equals("FIAT")) crearMonedaFiat(nombre, sigla, precioEnDolar);
+		if (tipo.equals(fiat)) crearMonedaFiat(nombre, sigla, precioEnDolar);
 		else crearMonedaCripto(nombre, sigla, precioEnDolar);
 	}
 	
@@ -173,7 +163,7 @@ public class Menu {
 		String tipo = null;
 		
 		while (!esTipo) {
-			System.out.println("\nIngrese el tipo, (FIAT | CRIPTO):");
+			System.out.println("\n" + ingresarTipoMoneda + ": ");
 			tipo = scan.nextLine();
 			tipo = tipo.toUpperCase();
 			switch (tipo) {
@@ -184,7 +174,7 @@ public class Menu {
 					esTipo = true;
 					break;
 				default:
-					System.out.println("Hubo un error en la eleccion del tipo.\nVuelva a intentarlo.");
+					System.out.println(opcionIncorrecta);
 			}
 		}
 		
@@ -197,19 +187,21 @@ public class Menu {
 		Scanner scan = MyScanner.getScan();
 		String paisEmisor;
 		
-		System.out.println("\nIngrese el pais emisor de la moneda fiduciaria:");
+		System.out.println("\n" + ingresarPaisMoneda + ": ");
 		paisEmisor = scan.nextLine();
 		System.out.println();
 		MonedaFiduciaria mf = new MonedaFiduciaria(nombre,sigla,precioEnDolar,paisEmisor);
 		
 		if (confirmacionDelUsuario(mf)) {
 			FactoryDAO.getMonedaFiduciariaDAO().insertarMonedaFiduciaria(mf);
-			System.out.println("\nLa moneda Fiduciaria se ha creado exitosamente.");
+			System.out.println("\n" + operacionExitosa);
 		}
 		else {
-			System.out.println("\nSe ha cancelado la creación de la moneda fiduciaria.\n");
+			System.out.println("\n" + operacionCancelada);
 		}
 	}
+	
+	//FALTA ARREGLAR CON LOS STRING A PARTIR DE ACÁ
 	
 	private static void crearMonedaCripto(String nombre, String sigla, double precioEnDolar) throws SQLException{
 		
