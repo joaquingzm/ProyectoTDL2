@@ -7,7 +7,7 @@ public class PruebaSwing extends JFrame {
 	public PruebaSwing() {
 		super("PruebaSwing");
 		JLabel label = new JLabel("Hola");
-		this.setSize(200,100);
+		this.setSize(300,300);
 		this.add(label);
 	}
 	
