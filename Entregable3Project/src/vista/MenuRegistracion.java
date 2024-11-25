@@ -1,4 +1,4 @@
-package componentes;
+package vista;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -22,7 +22,7 @@ public class MenuRegistracion extends JPanel {
 	private JLabel contraseñaLabel = new JLabel("Contraseña:");
 	private JCheckBox checkBox = new JCheckBox();
 	private JButton button = new JButton();
-	private GridLayout gridLayout = new GridLayout(6,2,50,50);
+	private GridLayout gridLayout = new GridLayout(5,2,50,50);
 
 	
 	public void iniciar() {

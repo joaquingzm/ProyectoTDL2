@@ -6,13 +6,10 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import componentes.ListaPlanetas;
-import componentes.ListaPlanetas2;
-import componentes.MenuInicio;
-import componentes.MenuRegistracion;
-import componentes.PruebaSwing;
 import singletones.MyConnection;
 import singletones.MyScanner;
+import vista.MenuInicio;
+import vista.MenuRegistracion;
 
 public class Controlador {
 	public static void main(String[] args) {
@@ -37,7 +34,7 @@ public class Controlador {
 		frame.add(panelPrincipal);
 		frame.setVisible(true);
 		
-		cardLayout.show(panelPrincipal, "MenuRegistracion");
+		cardLayout.show(panelPrincipal, "MenuInicio");
 		
 		
 	}
