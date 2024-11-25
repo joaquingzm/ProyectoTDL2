@@ -9,13 +9,16 @@ package modelos;
 
 public class Criptomoneda extends Moneda{
 
+	private double volatilidad;
+	
 	/**
 	 * @param nombre el nombre de la criptomoneda.
 	 * @param sigla la sigla de la criptomoneda.
 	 * @param precioEnDolar el precio en dolares de la criptomoneda.
 	 */
 	public Criptomoneda(String nombre, String sigla, double precioEnDolar, double volatilidad) {
-		super(nombre, sigla, precioEnDolar, volatilidad);
+		super(nombre, sigla, precioEnDolar);
+		this.volatilidad = volatilidad;
 	}
 
 	/**
@@ -23,6 +26,20 @@ public class Criptomoneda extends Moneda{
 	 */
 	public Criptomoneda() {
 		
+	}
+	
+	public double getVolatilidad() {
+		return volatilidad;
+	}
+
+	public void setVolatilidad(double volatilidad) {
+		this.volatilidad = volatilidad;
+	}
+	
+	@Override
+	public String toString() {
+		String str = super.toString()+", Volatilidad: "+this.getVolatilidad();
+		return str;
 	}
 	
 }

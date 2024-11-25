@@ -17,8 +17,8 @@ public class MonedaFiduciaria extends Moneda{
 	 * @param precioEnDolar el precio en dolares de la moneda fiduciaria.
 	 * @param paisEmisor el pais que emite la moneda fiduciaria.
 	 */
-	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor, double volatilidad) {
-		super(nombre, sigla, precioEnDolar, volatilidad);
+	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor) {
+		super(nombre, sigla, precioEnDolar);
 		this.paisEmisor = paisEmisor;
 	}
 
@@ -43,6 +43,10 @@ public class MonedaFiduciaria extends Moneda{
 		this.paisEmisor = paisEmisor;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String str = super.toString()+", Pais Emisor: "+this.getPaisEmisor();
+		return str;
+	}
 	
 }

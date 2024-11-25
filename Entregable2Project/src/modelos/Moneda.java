@@ -12,19 +12,17 @@ public class Moneda {
 	private String nombre;
 	private String sigla;
 	private double precioEnDolar;
-	private double volatilidad;
 	
 	/**
 	 * @param nombre nombre de la moneda
 	 * @param sigla sigla de la moneda
 	 * @param precioEnDolar precio en dolares
 	 */
-	public Moneda(String nombre, String sigla, double precioEnDolar, double volatilidad) {
+	public Moneda(String nombre, String sigla, double precioEnDolar) {
 		super();
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.precioEnDolar = precioEnDolar;
-		this.volatilidad = volatilidad;
 	}
 	
 	/**
@@ -71,14 +69,11 @@ public class Moneda {
 		this.precioEnDolar = precioEnDolar;
 	}
 
-	public double getVolatilidad() {
-		return volatilidad;
+	@Override
+	public String toString() {
+		String str = "Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar();
+		return str;
 	}
-
-	public void setVolatilidad(double volatilidad) {
-		this.volatilidad = volatilidad;
-	}
-	
 	
 	
 }

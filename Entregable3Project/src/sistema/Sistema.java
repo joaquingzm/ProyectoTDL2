@@ -11,6 +11,7 @@ public class Sistema {
 		PruebaSwing frame = new PruebaSwing();
 		frame.setVisible(true);
 		/*
+=======
 		try {
 			MetodosDelSistema.creaciónDeTablasEnBD();
 			Menu.comenzar();

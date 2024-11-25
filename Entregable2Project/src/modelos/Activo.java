@@ -41,6 +41,10 @@ public class Activo {
 	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Activo:{ Cantidad: " +this.getCantidad()+ " }";
+	}
 	
 }

@@ -44,7 +44,11 @@ public class ActivoMonedaFiduciaria extends Activo{
 		this.monedaFIAT = monedaFIAT;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String str = super.toString()+", Activo Moneda Fiduciaria:{ Moneda Fiduciaria: "+this.getMonedaFIAT().toString()+" }";
+		return str;
+	}
 	
 	
 }

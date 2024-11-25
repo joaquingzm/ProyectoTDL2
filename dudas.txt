@@ -1,0 +1,66 @@
+Hay que cambiar el diagrama de secuencia?
+
+Tema dirección para los activos, los tiene que ingresar el usuario 
+o los generamos? Si es así los generamos random o qué? Había pensado
+hacer un AUTOINCREMENT en la base de datos para la dirección, cosa
+que cada una sea única, el problema es que capaz es muy simple?
+
+ver si moneda deberia ser abstract
+
+considerar cambiar los nombres de mystatement a mystatementjdbc y asi
+
+Sobre el factory dao, cómo clasificaría? Es un modelo? Para saber en qué 
+paquete meterlo.
+
+
+Nos conviene hacer alguna modificacion a la clase Moneda para que tenga
+coherencia con la tabla y sea más fácil implementar el DAOjdbc? O trabajamos
+con las clases de Criptomoneda por un lado y MonedaFiduciaria por el otro?
+RTA: Podemos cambiar los atributos y definiciones de las clases para que
+quede mejor con las tablas que utilizamos
+
+
+Las clases DAOjdbc deberían tener los métodos estáticos? Supone un problema
+tener que instanciarlas a todo momento, digo esto por que así parecen
+estar definidas las clases DAOjdbc en los ejemplos de los pdfs.
+RTA: Utilizamos el factory este y listo.
+
+En la clase ActivoCriptoDAOjdbc deberia haber alguna forma de que el 
+metodo de insertar activo cripto devuelva cómo salió todo? Tiene que
+ser throw SQLException? Eso no haría manejar las excepciones a lo largo
+de tooodo el programa.
+
+Las SQLException es mejor manejarlas dentro del mismo lugar donde se pueden
+generar o siempre tiene que estar el throws SQLException?
+
+En la misma clase, el tema de "recuperar" el objeto criptomoneda de la
+tabla moneda debería hacerlo desde ahi con algo del FOREIG KEY o deberia
+dejar que MonedaDAOjdbc se encargue? 
+RTA: En el caso de querer acceder a un solo activo la foreign key no cambiaría
+nada y deberíamos utilizar el DAO moneda. Por otro lado, si se quieren listar 
+las monedas parece que las foreign key servirían para hacer un JOIN de las 
+tablas activos y monedas para poder con una sola sentencia sql tener acceso
+a todo y ser mucho más eficiente.
+
+Sobre cosas como por ejemplo el tema monedas, la idea es depender totalmente
+de una base de datos para acceder a la informacion de monedas? O sea cuando
+no las necesito más elimino el objeto creado? Si no es el caso, entonces 
+muchas clases deberían instanciar estas clases moneda para poder
+acceder a los datos, no conviene alguna lista estática? Aunque entiendo que
+con eso se perdería la posibilidad de mantenerse actualizado con cosas como
+la volatibilidad de las monedas. Más que nada en el caso de listar stock
+y listar activos habría 2 listas de objetos de los cuales un atributo
+apuntan a lo que es escencialmente el mismo objeto con distinto ID.
+RTA: Hay 2 maneras de tratar esto:
+
+1) Ni bien se lanza la app se bajan todos los datos de la base de datos
+y se trabaja con eso, al momento de cerrar la app se lleva todo a la
+base de datos y listo, no nos preocupamos por actualizar la data de objetos como
+las monedas
+
+2) Utilizar una estructura de datos que almacene las únicas instancias de objetos
+como monedas y cada vez que se quiera acceder al dato de esas instancias en el
+método getter habrá un llamado a MonedaDAOjdbc el cual devolverá una instancia
+completa de la moneda requerida y de ahí se tomará el dato pedido, entonces
+va a estar actualizado. No se busca eficiencia, así que para los fines del curso
+nos basta.
