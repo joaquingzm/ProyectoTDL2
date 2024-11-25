@@ -3,3 +3,7 @@ del id de una persona que ya existe? Suponiendo que existieran 2 personas
 de mismos nombres y apellidos, qué forma tendría yo para poder reconocer
 cuál de esas personas es el mío? O debería Usuario tener un campo del ID de
 su persona? 
+RTA: Diferencio al usuario y persona por el mail asociado
+
+Recomiendan hacer carpetas que sea modelo, vista y controlador? Porque paquetes
+dentro de paquetes pareciera que no se puede.
