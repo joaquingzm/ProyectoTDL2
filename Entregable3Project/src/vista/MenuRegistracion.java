@@ -9,21 +9,64 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import controlador.menuRegistracionListeners.registroListener;
 
 public class MenuRegistracion extends JPanel {
 	
 	private JPanel panelPrincipal;
+	private JTextField nombre;
+	private JLabel nombreLabel;
+	private JTextField apellido;
+	private JLabel apellidoLabel;
+	private JTextField email;
+	private JLabel emailLabel;
+	private JTextField contraseña;
+	private JLabel contraseñaLabel;
+	private JButton registrar;
+	private JCheckBox terminosCondicionesCaja;
+	private JLabel terminosCondicionesLabel;
+	private GridLayout gridLayout;
 	
 	public MenuRegistracion() {
 		
 	}
 	
 	public MenuRegistracion(JPanel panelPrincipal) {
+		
 		this.panelPrincipal = panelPrincipal;
+		nombre = new JTextField();
+		nombreLabel = new JLabel("Nombre");
+		apellido = new JTextField();
+		apellidoLabel = new JLabel("Apellido");
+		email = new JTextField();
+		emailLabel = new JLabel("Email:");
+		contraseña = new JPasswordField();
+		contraseñaLabel = new JLabel("Contraseña:");
+		registrar = new JButton("Registrar");
+		terminosCondicionesCaja = new JCheckBox();
+		terminosCondicionesLabel = new JLabel("Acepto terminos y condiciones");
+		gridLayout = new GridLayout(6,2,100,100);
+		
+		registrar.addActionListener(new registroListener());
+		
+		this.setLayout(gridLayout);
+		this.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
+		this.add(nombreLabel);
+		this.add(nombre);
+		this.add(apellidoLabel);
+		this.add(apellido);
+		this.add(emailLabel);
+		this.add(email);
+		this.add(contraseñaLabel);
+		this.add(contraseña);
+		
+		this.add(terminosCondicionesCaja);
+		this.add(terminosCondicionesLabel);
+		this.add(registrar);
 	}
-	
-	
 	
 	
 	

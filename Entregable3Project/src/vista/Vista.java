@@ -1,9 +1,6 @@
 package vista;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,8 +32,17 @@ public class Vista extends JFrame {
 		menuMisOperaciones = new MenuMisOperaciones(panelPrincipal);
 		
 		
+		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());
+		panelPrincipal.add(menuRegistracion, IdentificadoresDePaneles.MENUREGISTRACION.name());
+		panelPrincipal.add(menuCompra, IdentificadoresDePaneles.MENUCOMPRA.name());
+		panelPrincipal.add(menuCotizaciones, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
+		panelPrincipal.add(menuMisActivos, IdentificadoresDePaneles.MENUMISACTIVOS.name());
+		panelPrincipal.add(menuMisOperaciones, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
+		
+		this.add(panelPrincipal);
+
 		/*
-		this.setTitle("Billetera Virtual");
+		
 		frame.setSize(new Dimension(500,500));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +50,9 @@ public class Vista extends JFrame {
 		
 		
 		//frame.setVisible(true);  Esto deberia ir en el MAIN
+		
+		//this.setTitle("Billetera Virtual");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 	}
 }
