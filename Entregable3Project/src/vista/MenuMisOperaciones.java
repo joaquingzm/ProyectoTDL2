@@ -2,7 +2,9 @@ package vista;
 
 import java.util.Map;
 
-public class MenuMisOperaciones {
+import javax.swing.JPanel;
+
+public class MenuMisOperaciones extends JPanel{
 	
 	private Map<String, String> identificadoresDePaneles;
 	
