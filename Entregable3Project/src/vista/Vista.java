@@ -45,6 +45,6 @@ public class Vista extends JFrame {
 		
 		//frame.setVisible(true);  Esto deberia ir en el MAIN
 		
-		cardLayout.show(panelPrincipal, identificadoresDePaneles.get("idMenuInicio"));
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 	}
 }
