@@ -6,14 +6,14 @@ import javax.swing.JPanel;
 
 public class MenuCotizaciones extends JPanel{
 
-	private Map<String, String> identificadoresDePaneles;
+	private JPanel panelPrincipal;
 	
 	public MenuCotizaciones() {
 		
 	}
 	
-	public MenuCotizaciones(Map<String, String> identificadoresDePaneles) {
-		this.identificadoresDePaneles = identificadoresDePaneles;
+	public MenuCotizaciones(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
 	}
 	
 }

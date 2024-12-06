@@ -6,13 +6,13 @@ import javax.swing.JPanel;
 
 public class MenuMisActivos extends JPanel{
 	
-	private Map<String, String> identificadoresDePaneles;
+	private JPanel panelPrincipal;
 	
 	public MenuMisActivos() {
 		
 	}
 	
-	public MenuMisActivos(Map<String, String> identificadoresDePaneles) {
-		this.identificadoresDePaneles = identificadoresDePaneles;
+	public MenuMisActivos(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
 	}
 }

@@ -6,13 +6,13 @@ import javax.swing.JPanel;
 
 public class MenuCompra extends JPanel{
 	
-	private Map<String, String> identificadoresDePaneles;
+	private JPanel panelPrincipal;
 	
 	public MenuCompra() {
 		
 	}
 	
-	public MenuCompra(Map<String, String> identificadoresDePaneles) {
-		this.identificadoresDePaneles = identificadoresDePaneles;
+	public MenuCompra(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
 	}
 }

@@ -13,14 +13,14 @@ import javax.swing.JTextField;
 
 public class MenuRegistracion extends JPanel {
 	
-	private Map<String, String> identificadoresDePaneles;
+	private JPanel panelPrincipal;
 	
 	public MenuRegistracion() {
 		
 	}
 	
-	public MenuRegistracion(Map<String, String> identificadoresDePaneles) {
-		this.identificadoresDePaneles = identificadoresDePaneles;
+	public MenuRegistracion(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
 	}
 	
 	

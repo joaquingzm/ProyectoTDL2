@@ -12,15 +12,13 @@ import javax.swing.JTextField;
 
 public class MenuInicio extends JPanel{
 	
-	private Map<String, String> identificadoresDePaneles;
 	private JPanel panelPrincipal;
 	
 	public MenuInicio() {
 		
 	}
 	
-	public MenuInicio(Map<String, String> identificadoresDePaneles, JPanel panelPrincipal) {
-		this.identificadoresDePaneles = identificadoresDePaneles;
+	public MenuInicio(JPanel panelPrincipal) {
 		this.panelPrincipal = panelPrincipal;
 	}
 	
