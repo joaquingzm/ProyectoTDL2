@@ -35,12 +35,12 @@ public class Vista extends JFrame {
 		
 		//Deberiamos guardarnos los IDs de cada sub-panel para hacer el show cuando corresponda.
 		
-		menuInicio = new MenuInicio(identificadoresDePaneles);
-		menuRegistracion = new MenuRegistracion(identificadoresDePaneles);
-		menuCompra = new MenuCompra(identificadoresDePaneles);
-		menuCotizaciones = new MenuCotizaciones(identificadoresDePaneles);
-		menuMisActivos = new MenuMisActivos(identificadoresDePaneles);
-		menuMisOperaciones = new MenuMisOperaciones(identificadoresDePaneles);
+		menuInicio = new MenuInicio(identificadoresDePaneles, panelPrincipal);
+		menuRegistracion = new MenuRegistracion(identificadoresDePaneles, panelPrincipal);
+		menuCompra = new MenuCompra(identificadoresDePaneles, panelPrincipal);
+		menuCotizaciones = new MenuCotizaciones(identificadoresDePaneles, panelPrincipal);
+		menuMisActivos = new MenuMisActivos(identificadoresDePaneles, panelPrincipal);
+		menuMisOperaciones = new MenuMisOperaciones(identificadoresDePaneles, panelPrincipal);
 		
 		
 		/*

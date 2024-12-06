@@ -2,7 +2,9 @@ package vista;
 
 import java.util.Map;
 
-public class MenuCotizaciones {
+import javax.swing.JPanel;
+
+public class MenuCotizaciones extends JPanel{
 
 	private Map<String, String> identificadoresDePaneles;
 	
