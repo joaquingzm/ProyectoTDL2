@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,6 +12,31 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class MenuRegistracion extends JPanel {
+	
+	private Map<String, String> identificadoresDePaneles;
+	
+	public MenuRegistracion() {
+		
+	}
+	
+	public MenuRegistracion(Map<String, String> identificadoresDePaneles) {
+		this.identificadoresDePaneles = identificadoresDePaneles;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
 	private JTextField nombres = new JTextField();
 	private JLabel nombresLabel = new JLabel("Nombres:");
 	
@@ -23,16 +49,18 @@ public class MenuRegistracion extends JPanel {
 	private JCheckBox checkBox = new JCheckBox();
 	private JButton button = new JButton();
 	private GridLayout gridLayout = new GridLayout(5,2,50,50);
-
+	
 	
 	public void iniciar() {
 		/*
-		 * GridLayout ignora totalmente los prefferedsize y size
+		GridLayout ignora totalmente los prefferedsize y size
 		nombres.setPreferredSize(new Dimension(30, 50));
 		apellidos.setPreferredSize(new Dimension(300, 50));
 		email.setPreferredSize(new Dimension(300, 50));
 		contraseña.setPreferredSize(new Dimension(300, 50));
 		*/
+		
+		/*
 		button.setText("Registrarse");
 		this.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
 		this.setLayout(gridLayout);
@@ -46,5 +74,6 @@ public class MenuRegistracion extends JPanel {
 		this.add(contraseña);
 		this.add(checkBox);
 		this.add(button);
-	}
+	}*/
+
 }

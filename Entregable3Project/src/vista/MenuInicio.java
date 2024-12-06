@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.GridLayout;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,6 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class MenuInicio extends JPanel{
+	
+	private Map<String, String> identificadoresDePaneles;
+	
+	public MenuInicio() {
+		
+	}
+	
+	public MenuInicio(Map<String, String> identificadoresDePaneles) {
+		this.identificadoresDePaneles = identificadoresDePaneles;
+	}
+	
+	/*
 	private JTextField email = new JTextField();
 	private JLabel emailLabel = new JLabel("Email:");
 	private JTextField contraseña = new JTextField();
@@ -30,5 +43,6 @@ public class MenuInicio extends JPanel{
 		this.add(iniciarSesion);
 		this.add(registrarse);
 	}
+	*/
 	
 }
