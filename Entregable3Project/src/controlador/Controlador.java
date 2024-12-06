@@ -21,8 +21,8 @@ public class Controlador {
 		MenuInicio panelMenuInicio = new MenuInicio();
 		CardLayout cardLayout = new CardLayout();
 		
-		panelMenuRegistracion.iniciar();
-		panelMenuInicio.iniciar();
+		//panelMenuRegistracion.iniciar();
+		//panelMenuInicio.iniciar();
 		panelPrincipal.setLayout(cardLayout);
 		panelPrincipal.add(panelMenuRegistracion,"MenuRegistracion");
 		panelPrincipal.add(panelMenuInicio,"MenuInicio");

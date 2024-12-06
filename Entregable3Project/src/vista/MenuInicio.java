@@ -22,7 +22,6 @@ public class MenuInicio extends JPanel{
 		this.panelPrincipal = panelPrincipal;
 	}
 	
-	
 	private JTextField email = new JTextField();
 	private JLabel emailLabel = new JLabel("Email:");
 	private JTextField contraseña = new JTextField();
@@ -43,6 +42,5 @@ public class MenuInicio extends JPanel{
 		this.add(iniciarSesion);
 		this.add(registrarse);
 	}
-	
 	
 }
