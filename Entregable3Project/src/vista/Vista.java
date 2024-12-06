@@ -20,7 +20,7 @@ public class Vista extends JFrame {
 		panelPrincipal = new JPanel();
 		cardLayout = new CardLayout();
 		panelPrincipal.setLayout(cardLayout);
-
+		this.setSize(800, 800);
 		
 		//Deberiamos guardarnos los IDs de cada sub-panel para hacer el show cuando corresponda.
 		
@@ -43,7 +43,6 @@ public class Vista extends JFrame {
 
 		/*
 		
-		frame.setSize(new Dimension(500,500));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panelPrincipal);*/

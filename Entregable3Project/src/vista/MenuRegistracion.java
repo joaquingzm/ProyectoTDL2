@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Map;
@@ -11,8 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
-import controlador.menuRegistracionListeners.registroListener;
+import controlador.menuRegistracionListeners.RegistroListener;
 
 public class MenuRegistracion extends JPanel {
 	
@@ -28,7 +30,6 @@ public class MenuRegistracion extends JPanel {
 	private JButton registrar;
 	private JCheckBox terminosCondicionesCaja;
 	private JLabel terminosCondicionesLabel;
-	private GridLayout gridLayout;
 	
 	public MenuRegistracion() {
 		
@@ -48,12 +49,13 @@ public class MenuRegistracion extends JPanel {
 		registrar = new JButton("Registrar");
 		terminosCondicionesCaja = new JCheckBox();
 		terminosCondicionesLabel = new JLabel("Acepto terminos y condiciones");
-		gridLayout = new GridLayout(6,2,100,100);
 		
-		registrar.addActionListener(new registroListener());
+		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja, panelPrincipal));
 		
-		this.setLayout(gridLayout);
-		this.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
+		
+		this.setBorder(BorderFactory.createTitledBorder(null, "Título del Panel", TitledBorder.CENTER, TitledBorder.TOP)); 
+		//BorderFactory.createEmptyBorder(40,40,40,40)
+		this.setLayout(new GridLayout(6,2,100,100));
 		this.add(nombreLabel);
 		this.add(nombre);
 		this.add(apellidoLabel);
@@ -66,57 +68,9 @@ public class MenuRegistracion extends JPanel {
 		this.add(terminosCondicionesCaja);
 		this.add(terminosCondicionesLabel);
 		this.add(registrar);
+		
+	
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	private JTextField nombres = new JTextField();
-	private JLabel nombresLabel = new JLabel("Nombres:");
-	
-	private JTextField apellidos = new JTextField();
-	private JLabel apellidosLabel = new JLabel("Apellidos:");
-	private JTextField email = new JTextField();
-	private JLabel emailLabel = new JLabel("Email:");
-	private JTextField contraseña = new JTextField();
-	private JLabel contraseñaLabel = new JLabel("Contraseña:");
-	private JCheckBox checkBox = new JCheckBox();
-	private JButton button = new JButton();
-	private GridLayout gridLayout = new GridLayout(5,2,50,50);
-	
-	
-	public void iniciar() {
-		/*
-		GridLayout ignora totalmente los prefferedsize y size
-		nombres.setPreferredSize(new Dimension(30, 50));
-		apellidos.setPreferredSize(new Dimension(300, 50));
-		email.setPreferredSize(new Dimension(300, 50));
-		contraseña.setPreferredSize(new Dimension(300, 50));
-		*/
-		
-		/*
-		button.setText("Registrarse");
-		this.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
-		this.setLayout(gridLayout);
-		this.add(nombresLabel);
-		this.add(nombres);
-		this.add(apellidosLabel);
-		this.add(apellidos);
-		this.add(emailLabel);
-		this.add(email);
-		this.add(contraseñaLabel);
-		this.add(contraseña);
-		this.add(checkBox);
-		this.add(button);
-	}*/
 
 }
