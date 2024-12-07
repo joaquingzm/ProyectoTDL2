@@ -1,18 +1,22 @@
 package vista;
 
-import java.util.Map;
+import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
 public class MenuMisActivos extends JPanel{
 	
-	private JPanel panelPrincipal;
+	private Encabezado header;
+	private BorderLayout borderLayout;
 	
+
 	public MenuMisActivos() {
 		
-	}
-	
-	public MenuMisActivos(JPanel panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
+		this.header = new Encabezado();
+		borderLayout = new BorderLayout();
+		
+		
+		
+		
 	}
 }

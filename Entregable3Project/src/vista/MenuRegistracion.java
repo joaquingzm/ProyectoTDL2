@@ -18,7 +18,6 @@ import controlador.menuRegistracionListeners.RegistroListener;
 
 public class MenuRegistracion extends JPanel {
 	
-	private JPanel panelPrincipal;
 	private JTextField nombre;
 	private JLabel nombreLabel;
 	private JTextField apellido;
@@ -31,13 +30,9 @@ public class MenuRegistracion extends JPanel {
 	private JCheckBox terminosCondicionesCaja;
 	private JLabel terminosCondicionesLabel;
 	
+	
 	public MenuRegistracion() {
 		
-	}
-	
-	public MenuRegistracion(JPanel panelPrincipal) {
-		
-		this.panelPrincipal = panelPrincipal;
 		nombre = new JTextField();
 		nombreLabel = new JLabel("Nombre");
 		apellido = new JTextField();
@@ -50,7 +45,7 @@ public class MenuRegistracion extends JPanel {
 		terminosCondicionesCaja = new JCheckBox();
 		terminosCondicionesLabel = new JLabel("Acepto terminos y condiciones");
 		
-		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja, panelPrincipal));
+		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja));
 		
 		
 		this.setBorder(BorderFactory.createTitledBorder(null, "Título del Panel", TitledBorder.CENTER, TitledBorder.TOP)); 

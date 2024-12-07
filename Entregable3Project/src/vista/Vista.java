@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import modelos.GestorDeDatosGlobales;
+
 public class Vista extends JFrame {
 
 	private JPanel panelPrincipal;
@@ -20,16 +22,17 @@ public class Vista extends JFrame {
 		panelPrincipal = new JPanel();
 		cardLayout = new CardLayout();
 		panelPrincipal.setLayout(cardLayout);
+		GestorDeDatosGlobales.setPanelPrincipal(panelPrincipal);
 		this.setSize(800, 800);
 		
 		//Deberiamos guardarnos los IDs de cada sub-panel para hacer el show cuando corresponda.
 		
-		menuInicio = new MenuInicio(panelPrincipal);
-		menuRegistracion = new MenuRegistracion(panelPrincipal);
-		menuCompra = new MenuCompra(panelPrincipal);
-		menuCotizaciones = new MenuCotizaciones(panelPrincipal);
-		menuMisActivos = new MenuMisActivos(panelPrincipal);
-		menuMisOperaciones = new MenuMisOperaciones(panelPrincipal);
+		menuInicio = new MenuInicio();
+		menuRegistracion = new MenuRegistracion();
+		menuCompra = new MenuCompra();
+		menuCotizaciones = new MenuCotizaciones();
+		menuMisActivos = new MenuMisActivos();
+		menuMisOperaciones = new MenuMisOperaciones();
 		
 		
 		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());

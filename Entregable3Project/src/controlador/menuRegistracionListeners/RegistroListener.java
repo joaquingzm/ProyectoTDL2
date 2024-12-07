@@ -9,6 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import daos.FactoryDAO;
+import daos.UsuarioDAO;
+import modelos.GestorDeDatosGlobales;
+import vista.IdentificadoresDePaneles;
+
 public class RegistroListener implements ActionListener{
 
 	private JTextField nombre;
@@ -16,19 +21,15 @@ public class RegistroListener implements ActionListener{
 	private JTextField email;
 	private JTextField contraseña;
 	private JCheckBox terminosCondicionesCaja;
-	private JPanel panelPrincipal;
-	private CardLayout cardLayout;
 	
 	public RegistroListener(JTextField nombre, JTextField apellido, JTextField email, JTextField contraseña,
-			JCheckBox terminosCondicionesCaja, JPanel panelPrincipal) {
+			JCheckBox terminosCondicionesCaja) {
 		
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.contraseña = contraseña;
 		this.terminosCondicionesCaja = terminosCondicionesCaja;
-		this.panelPrincipal = panelPrincipal;
-		this.cardLayout = (CardLayout) this.panelPrincipal.getLayout();
 		
 	}
 
@@ -45,7 +46,18 @@ public class RegistroListener implements ActionListener{
 			return;
 		}
 		
+		UsuarioDAO usrDAO= FactoryDAO.getUsuarioDAO();
 		
+		if (!usrDAO.existeEmail(email.getText())) {
+			JOptionPane.showMessageDialog(null, "El email propuesto esta asociado a otro usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		usrDAO.crearUsuario(nombre.getText(), apellido.getText(), email.getText(), contraseña.getText());
+		
+		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
+		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 	}
 
 }
