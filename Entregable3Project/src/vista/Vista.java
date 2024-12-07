@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,15 +21,20 @@ public class Vista extends JFrame {
 	private MenuMisOperaciones menuMisOperaciones;
 	
 	public Vista() {
+		
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setSize(600,450);
+		this.setLocationRelativeTo(null);
+		this.setTitle("Billetera Virtual");
+		
 		panelPrincipal = new JPanel();
 		cardLayout = new CardLayout();
 		panelPrincipal.setLayout(cardLayout);
 		GestorDeDatosGlobales.setPanelPrincipal(panelPrincipal);
-		this.setSize(800, 800);
 		
 		//Deberiamos guardarnos los IDs de cada sub-panel para hacer el show cuando corresponda.
 		
-		menuInicio = new MenuInicio();
+		menuInicio = new MenuInicio(panelPrincipal);
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
 		menuCotizaciones = new MenuCotizaciones();
@@ -45,17 +51,7 @@ public class Vista extends JFrame {
 		
 		this.add(panelPrincipal);
 	
-		/*
-		
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(panelPrincipal);*/
-		
-		
-		//frame.setVisible(true);  Esto deberia ir en el MAIN
-		
-		//this.setTitle("Billetera Virtual");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 	}
 }

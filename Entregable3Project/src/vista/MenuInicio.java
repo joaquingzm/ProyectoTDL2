@@ -1,60 +1,85 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.util.Map;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controlador.menuInicioListeners.InicioDeSesionListener;
 import controlador.menuInicioListeners.RegistroListener;
+
 
 public class MenuInicio extends JPanel{
 	
-	private JPanel panelPrincipal;
+	//private JPanel panelPrincipal;
+	private JButton registro;
 	private JTextField email;
 	private JLabel emailLabel;
 	private JTextField contraseña;
 	private JLabel contraseñaLabel;
-	private JButton registro;
 	private JButton inicioDeSesion;
-	private BorderLayout borderLayout;
-	private JPanel panelDeInicioDeSesion;
-	private JPanel panelRegistro;
-	
-	public MenuInicio() {
-		
-	}
 	
 	public MenuInicio(JPanel panelPrincipal) {
 		
-		this.panelPrincipal = panelPrincipal;
 		email = new JTextField();
+		email.setPreferredSize(new Dimension(200,30));
 		emailLabel = new JLabel("Email:");
 		contraseña = new JPasswordField();
+		contraseña.setPreferredSize(new Dimension(200,30));
 		contraseñaLabel = new JLabel("Contraseña:");
-		registro = new JButton();
 		inicioDeSesion = new JButton();
-		borderLayout = new BorderLayout();
-		panelDeIni
-
-		registro.addActionListener(new RegistroListener(this.panelPrincipal));
+		inicioDeSesion.setPreferredSize(new Dimension(200,30));
+		registro = new JButton();
+		registro.setPreferredSize(new Dimension(200,30));
 		
-		this.setLayout(borderLayout);
-		
-		this.add(emailLabel);
-		this.add(email);
-		this.add(contraseñaLabel);
-		this.add(contraseña);
-		this.add(inicioDeSesion);
-		this.add(registro);
-	
 		inicioDeSesion.setText("Iniciar sesión");
 		registro.setText("Registrarse");
+		
+		inicioDeSesion.addActionListener(new InicioDeSesionListener(panelPrincipal));
+		registro.addActionListener(new RegistroListener(panelPrincipal));
+		
+		this.setLayout(new GridBagLayout());
+		this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		
+		gbc.insets = new Insets(10,10,10,10);
+		gbc.weightx = 1;
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		this.add(emailLabel,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		this.add(email,gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		this.add(contraseñaLabel,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		this.add(contraseña,gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridwidth = 2;
+		gbc.anchor = GridBagConstraints.CENTER;
+		this.add(inicioDeSesion,gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.gridwidth = 2;
+		this.add(registro,gbc);
 	}
 }
+ 

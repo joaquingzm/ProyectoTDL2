@@ -6,21 +6,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import vista.IdentificadoresDePaneles;
+public class InicioDeSesionListener implements ActionListener{
 
-public class RegistroListener implements ActionListener{
-	
 	private JPanel panelPrincipal;
 	private CardLayout cardLayout;
 	
-	public RegistroListener(JPanel panelPrincipal) {
+	public InicioDeSesionListener(JPanel panelPrincipal) {
 		this.panelPrincipal = panelPrincipal;
 		this.cardLayout = (CardLayout) panelPrincipal.getLayout();
-
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUREGISTRACION.name());
+		// TODO Auto-generated method stub
+		
 	}
-	
 }

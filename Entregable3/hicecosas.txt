@@ -1,0 +1,15 @@
+Vi que en el MenuRegistracion linea 66 hay una cosa de titulo del panel que pareciera no hacer nada,
+por las dudas lo deje
+
+Implemente el menu registro y el de inicio, falta toda la lógica detrás del botón de registro
+También hice el cuerpo para el menu de activos, faltó todo lo demás, como la funcionalidad de los
+botones o cómo pija hacer para poner un icono.
+
+En todos los paneles terminé poniendo el gridbaglayout que es el que me permite mover como pija
+quiero las componentes y que mantenga el tamaño que le digamos, así no tenemos que andar probando
+hasta que 2 textfields de 2 menues distintos parezcan del mismo tamaño. 
+
+Si querés yo puedo seguir con toda la vista y vos fijate de hacer las cositas de los botones,
+o probá hacer vista también por si no te querés perder de aprender ESTA PORONGA
+
+Lo de iconrender me lo tiro chatgpt, ni idea si nos viene bien, lo meti porque me estalló
