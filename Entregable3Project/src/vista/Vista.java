@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 import modelos.GestorDeDatosGlobales;
 
@@ -43,7 +44,7 @@ public class Vista extends JFrame {
 		panelPrincipal.add(menuMisOperaciones, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
 		
 		this.add(panelPrincipal);
-
+	
 		/*
 		
 		frame.setLocationRelativeTo(null);

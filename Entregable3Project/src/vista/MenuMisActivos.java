@@ -6,14 +6,18 @@ import javax.swing.JPanel;
 
 public class MenuMisActivos extends JPanel{
 	
-	private Encabezado header;
+	private Encabezado encabezado;
+	private CentroMisActivos centroMisActivos; 
 	private BorderLayout borderLayout;
 	
 
 	public MenuMisActivos() {
 		
-		this.header = new Encabezado();
+		this.encabezado = new Encabezado();
+		this.centroMisActivos = new CentroMisActivos();
+		
 		borderLayout = new BorderLayout();
+		this.setLayout(borderLayout);
 		
 		
 		

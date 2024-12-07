@@ -19,6 +19,7 @@ public class Encabezado extends JPanel{
 	public Encabezado() {
 
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 		icono = new JLabel(); //Pasarle un ImageIcon al constructor
 		nombreYApellido = new JLabel(FactoryDAO.getPersonaDAO().getNombreYApellido(FactoryDAO.getUsuarioDAO().getIdPersona(GestorDeDatosGlobales.getIdUsuario())));
 		cerrarSesion = new JButton("Cerrar sesión");
