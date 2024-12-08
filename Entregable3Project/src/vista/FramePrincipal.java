@@ -1,15 +1,14 @@
 package vista;
 
 import java.awt.CardLayout;
-import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
+import controlador.FramePrincipalListeners.CierreListener;
 import modelos.GestorDeDatosGlobales;
 
-public class Vista extends JFrame {
+public class FramePrincipal extends JFrame {
 
 	private JPanel panelPrincipal;
 	private CardLayout cardLayout;
@@ -20,7 +19,7 @@ public class Vista extends JFrame {
 	private MenuMisActivos menuMisActivos;
 	private MenuMisOperaciones menuMisOperaciones;
 	
-	public Vista() {
+	public FramePrincipal() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600,450);
@@ -30,11 +29,10 @@ public class Vista extends JFrame {
 		panelPrincipal = new JPanel();
 		cardLayout = new CardLayout();
 		panelPrincipal.setLayout(cardLayout);
+		
 		GestorDeDatosGlobales.setPanelPrincipal(panelPrincipal);
 		
-		//Deberiamos guardarnos los IDs de cada sub-panel para hacer el show cuando corresponda.
-		
-		menuInicio = new MenuInicio(panelPrincipal);
+		menuInicio = new MenuInicio();
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
 		menuCotizaciones = new MenuCotizaciones();
@@ -52,6 +50,8 @@ public class Vista extends JFrame {
 		this.add(panelPrincipal);
 	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
+		
+        this.addWindowListener(new CierreListener());
 	}
 }

@@ -25,4 +25,12 @@ public class FactoryDAO {
 	public static TransaccionDAO getTransaccionDAO() {
 		return new TransaccionDAOjdbc();
 	}
+	
+	public static UsuarioDAO getUsuarioDAO() {
+		return new UsuarioDAOjdbc();
+	}
+	
+	public static PersonaDAO getPersonaDAO() {
+		return new PersonaDAOjdbc();
+	}
 }

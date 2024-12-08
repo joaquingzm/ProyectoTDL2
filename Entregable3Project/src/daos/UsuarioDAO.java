@@ -6,7 +6,7 @@ import modelos.Usuario;
 
 public interface UsuarioDAO {
 	
-	void insertarUsuario(Usuario usuario) throws SQLException;
+	int insertarUsuario(int IdPersona, String email, String contraseña, boolean terminosYCondiciones) throws SQLException;
 	
-	void buscarUsuario(int id) throws SQLException;
+	int buscarId(String email, String contraseña) throws SQLException;
 }

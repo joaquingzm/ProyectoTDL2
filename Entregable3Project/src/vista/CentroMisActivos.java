@@ -1,17 +1,13 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
+import java.net.URL;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 public class CentroMisActivos extends JPanel{
 
@@ -21,24 +17,23 @@ public class CentroMisActivos extends JPanel{
 	public CentroMisActivos() {
 		
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(300,200));
+		this.setPreferredSize(new Dimension(300,200)); //Habria que poner esto en el MenuMisActivos
 		
 		 String[] nombresColumnas = {"Icono", "Cripto", "Monto"};
+		 
 		 Object[][] datos = {
-	        {new ImageIcon("icono1.png"), "Dato 1-2", "Dato 1-3"},
-	        {new ImageIcon("icono2.png"), "Dato 2-2", "Dato 2-3"},
-	        {new ImageIcon("icono3.png"), "Dato 3-2", "Dato 3-3"},
-	        {new ImageIcon("icono4.png"), "Dato 4-2", "Dato 4-3"},
-	        {new ImageIcon("icono5.png"), "Dato 5-2", "Dato 5-3"}
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/bitcoin.png")), true, "Dato 1-3"},
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/usdt.png")), true, "Dato 2-3"},
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/dogecoin.png")), true, "Dato 3-3"},
+	        {new ImageIcon("icono4.png"), true, "Dato 4-3"},
+	        {new ImageIcon("icono5.png"), true, "Dato 5-3"}
 	     };
-		 	
+		 
          // Crear el modelo de la tabla con los datos y los nombres de las columnas
-         DefaultTableModel modelo = new DefaultTableModel(datos, nombresColumnas);
+         MiModeloDeTabla modelo = new MiModeloDeTabla(datos, nombresColumnas);
 		
 		activos = new JTable(modelo);
-		
-		TableColumnModel columnModel = activos.getColumnModel();
-        columnModel.getColumn(0).setCellRenderer(new IconRenderer());
+		activos.setRowHeight(64);
 		
 		JScrollPane scrollPane = new JScrollPane(activos);
 		
@@ -46,7 +41,7 @@ public class CentroMisActivos extends JPanel{
 		
 	}
 	
-	class IconRenderer extends DefaultTableCellRenderer {
+	/*class IconRenderer extends DefaultTableCellRenderer {
 	    @Override
 	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {	        
 	 
@@ -61,5 +56,5 @@ public class CentroMisActivos extends JPanel{
 	        return this;
 	    }
 	
-	}
+	}*/
 }

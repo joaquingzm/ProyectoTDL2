@@ -1,4 +1,4 @@
-package controlador.encabezado;
+package controlador.encabezadoListeners;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;

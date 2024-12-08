@@ -12,32 +12,64 @@ import singletones.MyConnection;
 public class PersonaDAOjdbc implements PersonaDAO{
 
 	@Override
-	public void insertarPersona(Persona persona) throws SQLException {
+	public int insertarPersona(Persona persona) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "INSERT INTO PERSONA (NOMBRES,APELLIDOS) VALUES ('"
-				+ persona.getNombres()
+		String sql = "INSERT INTO PERSONA (NOMBRE,APELLIDO) VALUES ('"
+				+ persona.getNombre()
 				+ "','"
-				+ persona.getApellidos()
-				+ ")";
+				+ persona.getApellido()
+				+ "')";
 
-		stmt.executeUpdate(sql);
+		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet llavesAutoGeneradas = stmt.getGeneratedKeys();
+		int idPersona = -1;
+		
+		if (llavesAutoGeneradas.next()) {
+			idPersona = llavesAutoGeneradas.getInt("ID");
+		}
+		
+		stmt.close();
+		return idPersona;
 	}
 
 	@Override
 	public Persona buscarPersona(int id) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT * FROM PERSONA WHERE ID = '"+id+"'";
+		String sql = "SELECT * FROM PERSONA WHERE ID = '" + id + "'";
 		Persona persona = null;
-		String nombres,apellidos = null;
+		String nombre,apellido = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
+		
 		if (resul.next()) {
-			nombres = resul.getString("NOMBRES");
-			apellidos = resul.getString("APELLIDOS");
-			persona = new Persona(nombres, apellidos);
+			nombre = resul.getString("NOMBRE");
+			apellido = resul.getString("APELLIDO");
+			persona = new Persona(nombre, apellido);
 		}
 		
+		stmt.close();
 		return persona;
+	}
+
+	@Override
+	public int buscarId(String nombre, String apellido) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT ID FROM PERSONA WHERE NOMBRE = '" + nombre + "' AND APELLIDO = '" + apellido + "'";
+		//Se supone que no pueden existir dos o mas personas con el mismo nombre y apellido
+		
+		int idUsuario = -1;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if (resul.next()) {
+			idUsuario = resul.getInt("ID");
+		}
+		
+		stmt.close();
+		return idUsuario;
 	}
 
 }

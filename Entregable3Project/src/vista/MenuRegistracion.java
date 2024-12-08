@@ -57,13 +57,13 @@ public class MenuRegistracion extends JPanel {
 		volver = new JButton("Volver");
 		volver.setPreferredSize(new Dimension(200,30));
 		
-		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja));
-		volver.addActionListener(new VolverListener(GestorDeDatosGlobales.getPanelPrincipal()));
+		registrar.addActionListener(new RegistroListener(nombre.getText(), apellido.getText(), email.getText(), contraseña.getText(), terminosCondicionesCaja.isSelected()));
+		volver.addActionListener(new VolverListener());
 		
 		this.setLayout(new GridBagLayout());
 		
 		//Desconozco si esto hace algo, pareciera que no
-		this.setBorder(BorderFactory.createTitledBorder(null, "Título del Panel", TitledBorder.CENTER, TitledBorder.TOP)); 
+		this.setBorder(BorderFactory.createTitledBorder(null, "Título del Panel", TitledBorder.LEFT, TitledBorder.ABOVE_TOP)); 
 		this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
 		GridBagConstraints gbc = new GridBagConstraints();
 		

@@ -2,28 +2,28 @@ package modelos;
 
 public class Persona {
 	
-	private String nombres;
-	private String apellidos;
+	private String nombre;
+	private String apellido;
 	
-	public Persona(String nombres, String apellidos) {
-		this.setNombres(nombres);
-		this.setApellidos(apellidos);
+	public Persona(String nombre, String apellido) {
+		this.setNombre(nombre);
+		this.setApellido(apellido);
 	}
 	
-	public String getNombres() {
-		return nombres;
+	public String getNombre() {
+		return nombre;
 	}
 	
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
-	public String getApellidos() {
-		return apellidos;
+	public String getApellido() {
+		return apellido;
 	}
 	
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 	
 }

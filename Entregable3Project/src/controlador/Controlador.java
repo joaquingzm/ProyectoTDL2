@@ -1,13 +1,14 @@
 package controlador;
 
-import vista.Vista;
+import vista.FramePrincipal;
 
 public class Controlador {
+	
 	public static void main(String[] args) {
 		
 		
-		Vista frame = new Vista();
-		frame.setVisible(true);
+		FramePrincipal framePrincipal = new FramePrincipal();
+		framePrincipal.setVisible(true);
 		
 		
 	}

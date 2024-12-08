@@ -1,4 +1,4 @@
-m,package controlador;
+package controlador;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,7 +48,7 @@ public class MetodosDelSistema {
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 				+ " ID_FIAT INTEGER NOT NULL, "
 				+ " ID_USUARIO INTEGER NOT NULL, "
-				+ " CANTIDAD REAL NOT NULL "
+				+ " CANTIDAD REAL NOT NULL, "
 				+ " FOREIGN KEY(ID_FIAT) REFERENCES MONEDA_FIDUCIARIA(ID), "
 				+ " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID) "
 				 + ")";
@@ -58,7 +58,9 @@ public class MetodosDelSistema {
 				+ "(" 
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 				+ " RESUMEN VARCHAR(1000) NOT NULL, "
-				+ " FECHA_HORA DATETIME NOT NULL "
+				+ " FECHA_HORA DATETIME NOT NULL, "
+				+ " ID_USUARIO INTEGER NOT NULL, "
+				+ " FOREIGN KEY(ID_USUARIO) REFERENCES USUARIO(ID) "
 				+ ")";
 		stmt.executeUpdate(sql);
 
@@ -74,8 +76,8 @@ public class MetodosDelSistema {
 		sql = "CREATE TABLE IF NOT EXISTS PERSONA"
 				+ "("
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-				+ " NOMBRES VARCHAR(30) NOT NULL, "
-				+ " APELLIDOS VARCHAR(30) NOT NULL"
+				+ " NOMBRE VARCHAR(30) NOT NULL, "
+				+ " APELLIDO VARCHAR(30) NOT NULL"
 				+ ")";
 		stmt.executeUpdate(sql);
 		

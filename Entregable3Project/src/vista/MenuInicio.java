@@ -19,7 +19,6 @@ import controlador.menuInicioListeners.RegistroListener;
 
 public class MenuInicio extends JPanel{
 	
-	//private JPanel panelPrincipal;
 	private JButton registro;
 	private JTextField email;
 	private JLabel emailLabel;
@@ -27,7 +26,7 @@ public class MenuInicio extends JPanel{
 	private JLabel contraseñaLabel;
 	private JButton inicioDeSesion;
 	
-	public MenuInicio(JPanel panelPrincipal) {
+	public MenuInicio() {
 		
 		email = new JTextField();
 		email.setPreferredSize(new Dimension(200,30));
@@ -43,8 +42,8 @@ public class MenuInicio extends JPanel{
 		inicioDeSesion.setText("Iniciar sesión");
 		registro.setText("Registrarse");
 		
-		inicioDeSesion.addActionListener(new InicioDeSesionListener(panelPrincipal));
-		registro.addActionListener(new RegistroListener(panelPrincipal));
+		inicioDeSesion.addActionListener(new InicioDeSesionListener(email.getText(), contraseña.getText()));
+		registro.addActionListener(new RegistroListener());
 		
 		this.setLayout(new GridBagLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));

@@ -2,6 +2,7 @@ package controlador;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -586,7 +587,7 @@ public class Menu {
 				+ " por " + montoFiduciario + " de " + siglaDeFiatAUtilizar + ".";
 
 		
-		Transaccion t = new Transaccion(resumen, LocalDate.now());
+		Transaccion t = new Transaccion(resumen, LocalDateTime.now());
 		
 		if (confirmacionDelUsuario(t)) {
 			
@@ -673,7 +674,7 @@ public class Menu {
 		String resumen = "Se han intercambiado " + cantidadAIntercambiar + " de " + siglaActivoCriptoAIntercambiar 
 				+ " por " + cantidadIntercambiada + " de " + siglaActivoCriptoIntercambiado + ".";
 		
-		Transaccion t = new Transaccion(resumen, LocalDate.now());
+		Transaccion t = new Transaccion(resumen, LocalDateTime.now());
 		
 		if (confirmacionDelUsuario(t)) {
 			

@@ -13,7 +13,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO{
 		String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA) VALUES ('"
 				+ transaccion.getResumen()
 				+ "',"
-				+ transaccion.getFechaHora()
+				+ transaccion.getfechaYHora()
 				+ ")";
 
 		stmt.executeUpdate(sql);

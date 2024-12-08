@@ -1,4 +1,4 @@
-package controlador.menuRegistracionListeners;
+package controlador.menuMisActivosListeners;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -9,15 +9,16 @@ import javax.swing.JPanel;
 import modelos.GestorDeDatosGlobales;
 import vista.IdentificadoresDePaneles;
 
-public class VolverListener implements ActionListener{
-	
+public class OperacionesListener implements ActionListener {
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
 		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
 		
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
+		
 	}
-	
+
 }
