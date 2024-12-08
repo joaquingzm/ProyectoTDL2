@@ -50,7 +50,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		stmt.close();
 		return listaActivosMonedaFiduciaria;
 	}
-
+	
 	@Override
 	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
@@ -82,6 +82,28 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		stmt.close();
 		
 		return amf;
+	}
+
+	@Override
+	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios(int idUsuario) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = " SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA amf JOIN MONEDA_FIDUCIARIA mf ON amf.ID_FIAT = mf.ID WHERE ID_USUARIO = " + idUsuario;
+		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiduciaria = new LinkedList<ActivoMonedaFiduciaria>();
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		while(resul.next()) {		
+			double cantidad = resul.getDouble("CANTIDAD");
+			MonedaFiduciaria monedaFiduciaria = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"));
+			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
+			listaActivosMonedaFiduciaria.add(a);
+
+		}
+		resul.close();
+		
+		stmt.close();
+		return listaActivosMonedaFiduciaria;
 	}
 
 

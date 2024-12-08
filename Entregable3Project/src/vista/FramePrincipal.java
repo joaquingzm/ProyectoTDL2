@@ -50,7 +50,7 @@ public class FramePrincipal extends JFrame {
 		this.add(panelPrincipal);
 	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 		
         this.addWindowListener(new CierreListener());
 	}

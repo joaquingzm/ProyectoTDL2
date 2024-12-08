@@ -19,14 +19,14 @@ public class CentroMisActivos extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(300,200)); //Habria que poner esto en el MenuMisActivos
 		
-		 String[] nombresColumnas = {"Icono", "Cripto", "Monto"};
+		 String[] nombresColumnas = {"Icono", "Cripto", "Monto($)"};
 		 
 		 Object[][] datos = {
-	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/bitcoin.png")), true, "Dato 1-3"},
-	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/usdt.png")), true, "Dato 2-3"},
-	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/dogecoin.png")), true, "Dato 3-3"},
-	        {new ImageIcon("icono4.png"), true, "Dato 4-3"},
-	        {new ImageIcon("icono5.png"), true, "Dato 5-3"}
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/BTC.png")), true, 20},
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/USDT.png")), true, 24},
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/DOGE.png")), true, 15},
+	        {new ImageIcon("icono4.png"), true, 2},
+	        {new ImageIcon("icono5.png"), true, 1}
 	     };
 		 
          // Crear el modelo de la tabla con los datos y los nombres de las columnas
@@ -34,6 +34,7 @@ public class CentroMisActivos extends JPanel{
 		
 		activos = new JTable(modelo);
 		activos.setRowHeight(64);
+		activos.setAutoCreateRowSorter(true);
 		
 		JScrollPane scrollPane = new JScrollPane(activos);
 		

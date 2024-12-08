@@ -5,7 +5,9 @@ import java.util.List;
 import java.sql.*;
 
 import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
@@ -85,6 +87,29 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		
 		stmt.close();
 		return ac;
+	}
+	
+	@Override
+	public List<ActivoCripto> listarActivosCripto(int idUsuario) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = " SELECT * FROM ACTIVO_CRIPTO ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE ID_USUARIO = " + idUsuario;
+		LinkedList<ActivoCripto> listaActivosCripto = new LinkedList<ActivoCripto>();
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		while(resul.next()) {		
+			double cantidad = resul.getDouble("CANTIDAD");
+			String direccion = resul.getString("DIRECCION");
+			Criptomoneda criptomoneda = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"));
+			ActivoCripto a = new ActivoCripto(cantidad, direccion, criptomoneda);
+			listaActivosCripto.add(a);
+
+		}
+		resul.close();
+		
+		stmt.close();
+		return listaActivosCripto;
 	}
 
 }
