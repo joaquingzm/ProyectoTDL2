@@ -39,7 +39,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 	public int buscarId(String email, String contraseña) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID FROM USUARIO WHERE EMAIL = '" + email + "' AND CONTRASEÑA = '" + contraseña + "'";
+		String sql = "SELECT ID FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD = '" + contraseña + "'";
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		int idUsuario = -1;

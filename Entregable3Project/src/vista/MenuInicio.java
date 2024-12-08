@@ -42,7 +42,7 @@ public class MenuInicio extends JPanel{
 		inicioDeSesion.setText("Iniciar sesión");
 		registro.setText("Registrarse");
 		
-		inicioDeSesion.addActionListener(new InicioDeSesionListener(email.getText(), contraseña.getText()));
+		inicioDeSesion.addActionListener(new InicioDeSesionListener(email, contraseña));
 		registro.addActionListener(new RegistroListener());
 		
 		this.setLayout(new GridBagLayout());

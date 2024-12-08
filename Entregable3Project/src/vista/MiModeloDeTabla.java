@@ -1,6 +1,5 @@
 package vista;
 
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 public class MiModeloDeTabla extends DefaultTableModel{

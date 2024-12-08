@@ -20,27 +20,33 @@ import vista.IdentificadoresDePaneles;
 
 public class RegistroListener implements ActionListener{
 
-	private String nombre;
-	private String apellido;
-	private String email;
-	private String contraseña;
-	private boolean aceptoTerminosCondiciones;
+	private JTextField nombre;
+	private JTextField apellido;
+	private JTextField email;
+	private JTextField contraseña;
+	private JCheckBox terminosCondicionesCaja;
 	
-	public RegistroListener(String nombre, String apellido, String email, String contraseña,
-			boolean aceptoTerminosCondiciones) {
+	public RegistroListener(JTextField nombre, JTextField apellido, JTextField email, JTextField contraseña,
+			JCheckBox terminosCondicionesCaja) {
 		
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.contraseña = contraseña;
-		this.aceptoTerminosCondiciones = aceptoTerminosCondiciones;
+		this.terminosCondicionesCaja = terminosCondicionesCaja;
 		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
+		String nombreTexto = nombre.getText();
+		String apellidoTexto = apellido.getText();
+		String emailTexto = email.getText();
+		String contraseñaTexto = contraseña.getText();
+		boolean aceptoTerminosCondiciones = terminosCondicionesCaja.isSelected();
+		
+		if (nombreTexto.isEmpty() || apellidoTexto.isEmpty() || emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Algunos de los campos solicitados no se completó.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -62,14 +68,14 @@ public class RegistroListener implements ActionListener{
 		
 		try {
 			
-			IdPersona = pDAO.buscarId(nombre, apellido);
+			IdPersona = pDAO.buscarId(nombreTexto, apellidoTexto);
 			
 			if (IdPersona < 0) {
-				Persona p = new Persona(nombre, apellido); 
+				Persona p = new Persona(nombreTexto, apellidoTexto); 
 				IdPersona = pDAO.insertarPersona(p);
 			}
 			
-			usrDAO.insertarUsuario(IdPersona, email, contraseña, aceptoTerminosCondiciones);
+			usrDAO.insertarUsuario(IdPersona, emailTexto, contraseñaTexto, aceptoTerminosCondiciones);
 			
 		} catch (SQLException exc) {
 			

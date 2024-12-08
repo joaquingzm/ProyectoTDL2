@@ -40,9 +40,9 @@ public class Transaccion {
 	}
 	
 	public String toString() {
-		String str = "La Transacción consistió en:\n"
-				     + this.resumen + "\n"
-				     + "En la fecha: " + this.fechaYHora.toString();
+		
+		String str = this.fechaYHora.toString() + "  "
+				     + this.resumen + "\n";
 		
 		return str;
 	}

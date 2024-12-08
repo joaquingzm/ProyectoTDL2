@@ -57,7 +57,7 @@ public class MenuRegistracion extends JPanel {
 		volver = new JButton("Volver");
 		volver.setPreferredSize(new Dimension(200,30));
 		
-		registrar.addActionListener(new RegistroListener(nombre.getText(), apellido.getText(), email.getText(), contraseña.getText(), terminosCondicionesCaja.isSelected()));
+		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja));
 		volver.addActionListener(new VolverListener());
 		
 		this.setLayout(new GridBagLayout());

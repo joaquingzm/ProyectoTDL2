@@ -69,7 +69,7 @@ public class MetodosDelSistema {
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 				+ " ID_CRIPTO INTEGER NOT NULL, "
 				+ " CANTIDAD REAL NOT NULL, "
-				+ " FOREIGN KEY(ID_CRIPTO) REFERENCES CRIPTOMONEDA(ID), "
+				+ " FOREIGN KEY(ID_CRIPTO) REFERENCES CRIPTOMONEDA(ID) "
 				+ ")";
 		stmt.executeUpdate(sql);
 

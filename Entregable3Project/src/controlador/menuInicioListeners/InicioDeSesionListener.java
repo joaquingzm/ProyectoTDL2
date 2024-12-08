@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import daos.FactoryDAO;
 import modelos.GestorDeDatosGlobales;
@@ -15,10 +17,10 @@ import vista.IdentificadoresDePaneles;
 
 public class InicioDeSesionListener implements ActionListener{
 
-	private String email;
-	private String contraseña;
+	private JTextField email;
+	private JTextField contraseña;
 	
-	public InicioDeSesionListener(String email, String contraseña) {
+	public InicioDeSesionListener(JTextField email, JTextField contraseña) {
 		this.email = email;
 		this.contraseña = contraseña;
 	}
@@ -26,7 +28,10 @@ public class InicioDeSesionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (email.isEmpty() || contraseña.isEmpty()) {
+		String emailTexto = email.getText();
+		String contraseñaTexto = contraseña.getText();
+		
+		if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Algunos de los campos solicitados no se completó.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -35,7 +40,7 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		try {
 			
-			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(email, contraseña);
+			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			
 			if (idUsuario < 0) {
 				JOptionPane.showMessageDialog(null, "La información ingresada no corresponde a ningun usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);

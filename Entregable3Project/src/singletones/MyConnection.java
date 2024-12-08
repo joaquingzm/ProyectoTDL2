@@ -15,7 +15,7 @@ public class MyConnection {
 	static {
 		
 		try {
-			con = DriverManager.getConnection("jdbc:sqlite:DataBaseEntregable2.db");
+			con = DriverManager.getConnection("jdbc:sqlite:DataBaseEntregable3.db");
 			
 		} catch (SQLException e) {
 			
