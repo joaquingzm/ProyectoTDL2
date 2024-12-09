@@ -1,5 +1,6 @@
 package modelos;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GestorDeDatosGlobales {
@@ -22,5 +23,4 @@ public class GestorDeDatosGlobales {
 	public static void setPanelPrincipal(JPanel panelPrincipal) {
 		GestorDeDatosGlobales.panelPrincipal = panelPrincipal;
 	}
-	
 }
