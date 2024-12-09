@@ -27,7 +27,7 @@ public class PersonaDAOjdbc implements PersonaDAO{
 		int idPersona = -1;
 		
 		if (llavesAutoGeneradas.next()) {
-			idPersona = llavesAutoGeneradas.getInt("ID");
+			idPersona = llavesAutoGeneradas.getInt(1);
 		}
 		
 		stmt.close();
@@ -52,7 +52,7 @@ public class PersonaDAOjdbc implements PersonaDAO{
 		stmt.close();
 		return persona;
 	}
-
+	
 	@Override
 	public int buscarId(String nombre, String apellido) throws SQLException {
 		

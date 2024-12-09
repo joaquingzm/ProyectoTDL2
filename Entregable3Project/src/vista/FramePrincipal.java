@@ -39,7 +39,6 @@ public class FramePrincipal extends JFrame {
 		menuMisActivos = new MenuMisActivos();
 		menuMisOperaciones = new MenuMisOperaciones();
 		
-		
 		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());
 		panelPrincipal.add(menuRegistracion, IdentificadoresDePaneles.MENUREGISTRACION.name());
 		panelPrincipal.add(menuCompra, IdentificadoresDePaneles.MENUCOMPRA.name());

@@ -58,6 +58,8 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		GestorDeDatosGlobales.setIdUsuario(idUsuario);
 		
+		email.setText("");
+		contraseña.setText("");
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 		
 	}

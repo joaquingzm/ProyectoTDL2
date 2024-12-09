@@ -62,8 +62,6 @@ public class MenuRegistracion extends JPanel {
 		
 		this.setLayout(new GridBagLayout());
 		
-		//Desconozco si esto hace algo, pareciera que no
-		this.setBorder(BorderFactory.createTitledBorder(null, "Título del Panel", TitledBorder.LEFT, TitledBorder.ABOVE_TOP)); 
 		this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
 		GridBagConstraints gbc = new GridBagConstraints();
 		

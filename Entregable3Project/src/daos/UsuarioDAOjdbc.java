@@ -31,6 +31,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 			idUsuario = llavesAutoGeneradas.getInt("ID");
 		}
 		
+		llavesAutoGeneradas.close();
 		stmt.close();
 		return idUsuario;
 	}
@@ -48,8 +49,44 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 			idUsuario = resul.getInt("ID");
 		}
 		
+		resul.close();
 		stmt.close();
 		return idUsuario;
+	}
+
+	@Override
+	public int getIdPersona(int idUsuario) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT ID_PERSONA FROM USUARIO WHERE ID ="+idUsuario;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		int idPersona = -1;
+		
+		if (resul.next()) {
+			idPersona = resul.getInt("ID");
+		}
+		
+		resul.close();
+		stmt.close();
+		return idPersona;
+	}
+
+	@Override
+	public boolean existeEmail(String email) throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT EMAIL FROM USUARIO WHERE EMAIL='"+email+"'";
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if(resul.next()) {
+			return true;
+		}
+		
+		resul.close();
+		stmt.close();
+		return false;
 	}
 
 }

@@ -1,6 +1,7 @@
 package controlador.menuRegistracionListeners;
 
 import java.awt.CardLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -58,7 +59,12 @@ public class RegistroListener implements ActionListener{
 		
 		UsuarioDAO usrDAO= FactoryDAO.getUsuarioDAO();
 		
-		if (!usrDAO.existeEmail(email)) {
+		//CAMBIAR POR NUESTRA EXCEPCION !!!!
+		try {
+			if (usrDAO.existeEmail(emailTexto)) {
+				throw new SQLException();
+			}
+		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "El email propuesto esta asociado a otro usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -82,7 +88,11 @@ public class RegistroListener implements ActionListener{
 			exc.printStackTrace();  //Que hariamos aca????????????
 		}
 		
-		
+		nombre.setText("");
+		apellido.setText("");
+		email.setText("");
+		contraseña.setText("");
+		terminosCondicionesCaja.setSelected(false);
 		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
 		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
