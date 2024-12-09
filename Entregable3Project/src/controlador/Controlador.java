@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
+import daos.MonedaFiduciariaDAO;
 import modelos.Criptomoneda;
 import modelos.GestorDeDatosGlobales;
 import modelos.MonedaFiduciaria;
@@ -16,9 +18,7 @@ public class Controlador {
 		
 		try {
 			MetodosDelSistema.creaciónDeTablasEnBD();
-			if (FactoryDAO.getCriptomonedaDAO().estaVacia()) {
-				crearMonedas();
-			}
+			crearMonedas();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,35 +37,58 @@ public class Controlador {
 		List<Criptomoneda> listaCriptos = new LinkedList<Criptomoneda>();
 		List<MonedaFiduciaria> listaFIATs = new LinkedList<MonedaFiduciaria>();
 		
-		GestorDeDatosGlobales.setListaCriptos(listaCriptos);
-		GestorDeDatosGlobales.setListaMonedasFiduciaria(listaFIATs);
-		
 		Criptomoneda c;
 		MonedaFiduciaria m;
 		
+		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
+		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
+		
 		c = new Criptomoneda("Bitcoin", "BTC", 1, 0);
 		listaCriptos.add(c);
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
-		c = new Criptomoneda("Ethereum", "ETH", 1, 0);
-		listaCriptos.add(c);
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
-		c = new Criptomoneda("Usdc", "USDC", 1, 0);
-		listaCriptos.add(c);
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
-		c = new Criptomoneda("Tether", "USDT", 1, 0);
-		listaCriptos.add(c);
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
-		c = new Criptomoneda("Dogecoin", "DOGE", 1, 0);
-		listaCriptos.add(c);
-		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
+		if (cDAO.estaVacia()) {
+			cDAO.insertarCriptomoneda(c);
+			c = new Criptomoneda("Ethereum", "ETH", 1, 0);
+			listaCriptos.add(c);
+			cDAO.insertarCriptomoneda(c);
+			c = new Criptomoneda("Usd-coin", "USDC", 1, 0);
+			listaCriptos.add(c);
+			cDAO.insertarCriptomoneda(c);
+			c = new Criptomoneda("Tether", "USDT", 1, 0);
+			listaCriptos.add(c);
+			cDAO.insertarCriptomoneda(c);
+			c = new Criptomoneda("Dogecoin", "DOGE", 1, 0);
+			listaCriptos.add(c);
+			cDAO.insertarCriptomoneda(c);
 			
+			m = new MonedaFiduciaria("Peso argentino","ARS",(1/1036), "Argentina");
+			listaFIATs.add(m);
+			mfDAO.insertarMonedaFiduciaria(m);
+			m = new MonedaFiduciaria("Dolar estadounidense","USD",1, "Estados Unidos");
+			listaFIATs.add(m);
+			mfDAO.insertarMonedaFiduciaria(m);
+			m = new MonedaFiduciaria("EURO","EUR",1.056, "Brasil");
+			listaFIATs.add(m);
+			mfDAO.insertarMonedaFiduciaria(m);
+		} else {
+			c = new Criptomoneda("Ethereum", "ETH", 1, 0);
+			listaCriptos.add(c);
+			c = new Criptomoneda("Usdc", "USDC", 1, 0);
+			listaCriptos.add(c);
+			c = new Criptomoneda("Tether", "USDT", 1, 0);
+			listaCriptos.add(c);
+			c = new Criptomoneda("Dogecoin", "DOGE", 1, 0);
+			listaCriptos.add(c);
+			
+			m = new MonedaFiduciaria("Peso argentino","ARS",(1/1036), "Argentina");
+			listaFIATs.add(m);
+			m = new MonedaFiduciaria("Dolar estadounidense","USD",1, "Estados Unidos");
+			listaFIATs.add(m);
+			m = new MonedaFiduciaria("EURO","EUR",1.056, "Brasil");
+			listaFIATs.add(m);
+		}
 		
-		m = new MonedaFiduciaria("Peso argentino","ARS",(1/1036), "Argentina");
-		listaFIATs.add(m);
-		m = new MonedaFiduciaria("Dolar estadounidense","USD",1, "Estados Unidos");
-		listaFIATs.add(m);
-		m = new MonedaFiduciaria("EURO","EUR",1.056, "Brasil");
-		listaFIATs.add(m);
+		GestorDeDatosGlobales.setListaCriptos(listaCriptos);
+		GestorDeDatosGlobales.setListaMonedasFiduciaria(listaFIATs);
 		
 	}
 }

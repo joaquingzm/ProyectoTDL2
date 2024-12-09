@@ -34,7 +34,7 @@ public class UpdaterCotizaciones extends TimerTask {
 	    	
 	    	if (respuesta.statusCode() == 200) {
 	    		
-	    		preciosCriptomonedas = parsear(respuesta.body()); //Fiarme de cambiarlo si hacemos la lista estatica de criptomonedas
+	    		preciosCriptomonedas = parsear(respuesta.body()); 
 	    		
 	    	} else {
 	    		
