@@ -18,8 +18,6 @@ public class FramePrincipal extends JFrame {
 	private MenuCotizaciones menuCotizaciones;
 	private MenuMisActivos menuMisActivos;
 	private MenuMisOperaciones menuMisOperaciones;
-	private Encabezado encabezado1;
-	private Encabezado encabezado2;	
 
 	public FramePrincipal() {
 		
@@ -35,10 +33,10 @@ public class FramePrincipal extends JFrame {
 		menuInicio = new MenuInicio();
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
-		encabezado1 = new Encabezado();
-		encabezado2 = new Encabezado();
-		menuMisActivos = new MenuMisActivos(encabezado1);
-		menuCotizaciones = new MenuCotizaciones(encabezado2);
+		Encabezado encabezado1 = new Encabezado();
+		Encabezado encabezado2 = new Encabezado();
+		menuMisActivos = new MenuMisActivos();
+		menuCotizaciones = new MenuCotizaciones();
 		menuMisOperaciones = new MenuMisOperaciones();
 		
 		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());
@@ -120,8 +118,4 @@ public class FramePrincipal extends JFrame {
 		this.menuMisOperaciones = menuMisOperaciones;
 	}
 	
-	public void actualizarEncabezados(Usuario usuario) {
-		encabezado1.actualizarUsuario(usuario);
-		encabezado2.actualizarUsuario(usuario);
-	}
 }

@@ -22,11 +22,11 @@ public class MenuMisActivos extends JPanel{
 	private JButton operaciones;
 	private JButton cotizaciones;
 	
-	public MenuMisActivos(Encabezado encabezado) {
+	public MenuMisActivos() {
 		
 		
 		centroMisActivos = new CentroMisActivos();
-		
+		encabezado = new Encabezado();
 		exportarCSV = new JButton();
 		exportarCSV.setPreferredSize(new Dimension(200,30));
 		operaciones = new JButton();
@@ -43,8 +43,6 @@ public class MenuMisActivos extends JPanel{
 		cotizaciones.addActionListener(new CotizacionesListener());
 		
 		this.setLayout(new GridBagLayout());
-		//Ver si va o no
-		//this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.insets = new Insets(10,10,10,10);
@@ -79,6 +77,14 @@ public class MenuMisActivos extends JPanel{
 
 	public void setEncabezado(Encabezado encabezado) {
 		this.encabezado = encabezado;
+	}
+	
+	public void setCentroMisActivos(CentroMisActivos centroMisActivos) {
+		this.centroMisActivos = centroMisActivos;
+	}
+	
+	public CentroMisActivos getCentroMisActivos() {
+		return this.centroMisActivos;
 	}
 
 }

@@ -26,14 +26,14 @@ public class MenuCotizaciones extends JPanel {
 	private JButton volver;
 
 
-	public MenuCotizaciones(Encabezado encabezado){
+	public MenuCotizaciones(){
 		
 		this.setLayout(new GridBagLayout());
 		
-		String[] nombresColumnas = {"","Cripto","Precio de Compra","",""};
+		String[] nombresColumnas = {".","Cripto","Precio de Compra",".","."};
 		
 		cotizacionesTableModel = new CotizacionesTableModel(nombresColumnas);
-		
+		encabezado = new Encabezado();
 		volver = new JButton("Volver");
 		volver.setPreferredSize(new Dimension(200,30));
 		cotizacionesTable = new JTable(cotizacionesTableModel);

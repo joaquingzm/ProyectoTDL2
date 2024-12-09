@@ -3,11 +3,10 @@ package vista;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
-import javax.swing.table.DefaultTableModel;
 
 import modelos.Criptomoneda;
 
-public class CotizacionesTableModel extends DefaultTableModel{
+public class CotizacionesTableModel extends MiModeloDeTabla{
 	
 	private String[] titulos;
 	
@@ -20,6 +19,7 @@ public class CotizacionesTableModel extends DefaultTableModel{
 	public void actualizarTabla(LinkedList<Criptomoneda> listaCriptos,Boolean[] tieneActivo) {
 		
 		int dimFilas = listaCriptos.size();
+		this.setRowCount(dimFilas);
 		
 		Object[][] datos = new Object[dimFilas][5];
 		Criptomoneda c;
@@ -47,9 +47,4 @@ public class CotizacionesTableModel extends DefaultTableModel{
 		this.setDataVector(datos, this.titulos);
 	}
 	
-	@Override
-    public boolean isCellEditable(int row, int column) {
-        // Deshabilitar la edición de todas las columnas excepto la tercera (Monto)
-        return false;
-    }
 }

@@ -30,7 +30,8 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 		int idUsuario = -1;
 		
 		if (llavesAutoGeneradas.next()) {
-			idUsuario = llavesAutoGeneradas.getInt("ID");
+			idUsuario = llavesAutoGeneradas.getInt(1);
+			System.out.println(idUsuario);
 		}
 		
 		llavesAutoGeneradas.close();
