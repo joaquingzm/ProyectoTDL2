@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -106,7 +107,7 @@ public class MenuCotizaciones extends JPanel {
 		
 		int dimFilas = preciosCriptomonedas.size();
 
-		LinkedList<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos;
+		List<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos();
 		
 		for(int i=0;i<dimFilas;i++) {
 			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(listaCriptos.get(i).getNombre().toUpperCase()), i, dimFilas); 

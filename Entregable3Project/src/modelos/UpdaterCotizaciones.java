@@ -6,7 +6,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class UpdaterCotizaciones extends TimerTask {
 	@Override
 	public void run() {
 		
-		Map<String, Double> preciosCriptomonedas;
+		Map<String, Double> preciosCriptomonedas = null;
 		
 	    try {
 	    	
@@ -53,10 +52,17 @@ public class UpdaterCotizaciones extends TimerTask {
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
 		for (String llave : preciosCriptomonedas.keySet()) {
-			cDAO.actualizarPrecioEnDolar(llave, preciosCriptomonedas.get(llave));
+			
+			try {
+				cDAO.actualizarPrecioEnDolar(llave, preciosCriptomonedas.get(llave));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return;
+			}
+			
 		}
 		
-		framePrincipal.getMenuCotizaciones().getCotizacionesTableModel().actualizarPrecios(preciosCriptomonedas);;
+		framePrincipal.getMenuCotizaciones().actualizarPrecios(preciosCriptomonedas);;
 
 	}
 	
