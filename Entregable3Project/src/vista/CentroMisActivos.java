@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.net.URL;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -19,17 +18,15 @@ public class CentroMisActivos extends JPanel{
 
 	private JTable activos;
 	private MiModeloDeTabla modelo;
+	private String[] nombresColumnas;
 	
 	public CentroMisActivos() {
 		
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(500,200)); //Habria que poner esto en el MenuMisActivos
+		this.setPreferredSize(new Dimension(500,200));
 		
-		 String[] nombresColumnas = {"", "Cripto", "Monto($)"};
-		 
+	    this.nombresColumnas = new String[]{"", "Cripto", "Monto($)"};
 		
-		 
-         // Crear el modelo de la tabla con los datos y los nombres de las columnas
         modelo = new MiModeloDeTabla(null, nombresColumnas);
 		
 		activos = new JTable(modelo);
@@ -47,26 +44,12 @@ public class CentroMisActivos extends JPanel{
 		int dimFilasAC = listaActivosCripto.size(); 
 		int dimFilasAF = listaActivosFIAT.size();
 		
-		Object[][] datos = new Object[dimFilasAC + dimFilasAF][5];
+		Object[][] datos = new Object[dimFilasAC + dimFilasAF][3];
 		ActivoCripto aC;
 		ActivoMonedaFiduciaria aF;
 		Criptomoneda c;
 		MonedaFiduciaria m;
 		
-		
-		for(int i=0;i<dimFilasAC;i++) {
-			aC = listaActivosCripto.get(i);
-			c = aC.getCriptomoneda();
-			
-			if(c.getRutaIcono() == null) {
-				datos[i][0] = new ImageIcon();
-			}
-			else {
-				datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource(c.getRutaIcono()));
-			}
-			datos[i][1] = c.getNombre();
-			datos[i][1] = c.getPrecioEnDolar();
-		}
 		
 		for(int i=0;i<dimFilasAC;i++) {
 			aC = listaActivosCripto.get(i);
@@ -87,15 +70,15 @@ public class CentroMisActivos extends JPanel{
 			m = aF.getMonedaFIAT();
 			
 			if(m.getRutaIcono() == null) {
-				datos[i][0] = new ImageIcon();
+				datos[i+dimFilasAC][0] = new ImageIcon();
 			}
 			else {
-				datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource(m.getRutaIcono()));
+				datos[i+dimFilasAC][0] = new ImageIcon(getClass().getClassLoader().getResource(m.getRutaIcono()));
 			}
-			datos[i][1] = m.getNombre();
-			datos[i][2] = aF.getCantidad();
+			datos[i+dimFilasAC][1] = m.getNombre();
+			datos[i+dimFilasAC][2] = aF.getCantidad();
 		}
-		
+		modelo.setDataVector(datos, this.nombresColumnas);
 	}
 	
 }

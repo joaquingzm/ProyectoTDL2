@@ -4,12 +4,15 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import daos.FactoryDAO;
+import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 import modelos.GestorDeDatosGlobales;
 import modelos.Usuario;
 import vista.FramePrincipal;
@@ -53,8 +56,22 @@ public class InicioDeSesionListener implements ActionListener{
 			return;
 		}
 		
+		LinkedList<ActivoCripto> aC = null;
+		LinkedList<ActivoMonedaFiduciaria> aF = null;
 		
-		GestorDeDatosGlobales.getFramePrincipal().actualizarEncabezados(usuario);
+		try {
+			aC =(LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
+			aF = (LinkedList<ActivoMonedaFiduciaria>) FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
+		framePrincipal.getMenuMisActivos().getEncabezado().actualizarUsuario(usuario);
+		framePrincipal.getMenuCotizaciones().getEncabezado().actualizarUsuario(usuario);
+		System.out.println(aF.toString());
+		framePrincipal.getMenuMisActivos().getCentroMisActivos().actualizarTabla(aC, aF);
 		
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();
