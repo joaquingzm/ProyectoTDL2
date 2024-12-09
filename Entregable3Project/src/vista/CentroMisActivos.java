@@ -25,7 +25,7 @@ public class CentroMisActivos extends JPanel{
 	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/BTC.png")), true, 20},
 	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/USDT.png")), true, 24},
 	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/DOGE.png")), true, 15},
-	        {new ImageIcon("icono4.png"), true, 2},
+	        {new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/ARS.png")), true, 2},
 	        {new ImageIcon("icono5.png"), true, 1}
 	     };
 		 
@@ -42,20 +42,4 @@ public class CentroMisActivos extends JPanel{
 		
 	}
 	
-	/*class IconRenderer extends DefaultTableCellRenderer {
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {	        
-	 
-	    	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-	        if (value instanceof Icon) {
-	            setIcon((Icon) value);
-	        } else {
-	            setIcon(null);  
-	        	}
-
-	        return this;
-	    }
-	
-	}*/
 }

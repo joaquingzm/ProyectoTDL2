@@ -14,7 +14,9 @@ public class MiModeloDeTabla extends DefaultTableModel{
 	
 	@Override
 	public Class<?> getColumnClass (int column) {
-		return this.getValueAt(0, column).getClass();
+		
+		if (this.getRowCount() > 0) return this.getValueAt(0, column).getClass();
+		else return String.class;
 	}
 	
 	@Override

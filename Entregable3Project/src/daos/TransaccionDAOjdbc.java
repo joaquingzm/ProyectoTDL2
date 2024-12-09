@@ -30,9 +30,9 @@ public class TransaccionDAOjdbc implements TransaccionDAO{
 	}
 
 	@Override
-	public List<Transaccion> listarTransacciones() throws SQLException {
+	public List<Transaccion> listarTransacciones(int idUsuario) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = " SELECT * FROM TRANSACCION";
+		String sql = " SELECT * FROM TRANSACCION WHERE ID_USUARIO = " + idUsuario;
 		LinkedList<Transaccion> listaTransacciones = new LinkedList<Transaccion>();
 
 		ResultSet resul = stmt.executeQuery(sql);
