@@ -70,7 +70,6 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		framePrincipal.getMenuMisActivos().getEncabezado().actualizarUsuario(usuario);
 		framePrincipal.getMenuCotizaciones().getEncabezado().actualizarUsuario(usuario);
-		System.out.println(aF.toString());
 		framePrincipal.getMenuMisActivos().getCentroMisActivos().actualizarTabla(aC, aF);
 		
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();

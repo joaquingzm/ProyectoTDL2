@@ -39,7 +39,6 @@ public class CotizacionesListener implements ActionListener{
 				else {
 					tieneActivo[i] = false;
 				}
-				System.out.println(listaCriptos.get(i).getRutaIcono());
 			}
 			
 		} catch (SQLException e1) {
@@ -47,7 +46,7 @@ public class CotizacionesListener implements ActionListener{
 			return;
 		}
 		
-		framePrincipal.getMenuCotizaciones().getCotizacionesTableModel().actualizarTabla(listaCriptos,tieneActivo);;
+		framePrincipal.getMenuCotizaciones().actualizarTabla(listaCriptos,tieneActivo);;
 		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		

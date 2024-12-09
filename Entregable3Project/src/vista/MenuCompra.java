@@ -7,6 +7,6 @@ import javax.swing.JPanel;
 public class MenuCompra extends JPanel{
 	
 	public MenuCompra() {
-
+		
 	}
 }
