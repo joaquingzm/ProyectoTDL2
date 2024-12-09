@@ -57,7 +57,7 @@ public class MenuRegistracion extends JPanel {
 		volver = new JButton("Volver");
 		volver.setPreferredSize(new Dimension(200,30));
 		
-		registrar.addActionListener(new RegistroListener(nombre, apellido, email, contraseña, terminosCondicionesCaja));
+		registrar.addActionListener(new RegistroListener());
 		volver.addActionListener(new VolverListener());
 		
 		this.setLayout(new GridBagLayout());
@@ -121,6 +121,126 @@ public class MenuRegistracion extends JPanel {
 		gbc.gridy = 6;
 		gbc.gridwidth = 2;
 		this.add(volver,gbc);
+	}
+
+
+	public JTextField getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(JTextField nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public JLabel getNombreLabel() {
+		return nombreLabel;
+	}
+
+
+	public void setNombreLabel(JLabel nombreLabel) {
+		this.nombreLabel = nombreLabel;
+	}
+
+
+	public JTextField getApellido() {
+		return apellido;
+	}
+
+
+	public void setApellido(JTextField apellido) {
+		this.apellido = apellido;
+	}
+
+
+	public JLabel getApellidoLabel() {
+		return apellidoLabel;
+	}
+
+
+	public void setApellidoLabel(JLabel apellidoLabel) {
+		this.apellidoLabel = apellidoLabel;
+	}
+
+
+	public JTextField getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(JTextField email) {
+		this.email = email;
+	}
+
+
+	public JLabel getEmailLabel() {
+		return emailLabel;
+	}
+
+
+	public void setEmailLabel(JLabel emailLabel) {
+		this.emailLabel = emailLabel;
+	}
+
+
+	public JTextField getContraseña() {
+		return contraseña;
+	}
+
+
+	public void setContraseña(JTextField contraseña) {
+		this.contraseña = contraseña;
+	}
+
+
+	public JLabel getContraseñaLabel() {
+		return contraseñaLabel;
+	}
+
+
+	public void setContraseñaLabel(JLabel contraseñaLabel) {
+		this.contraseñaLabel = contraseñaLabel;
+	}
+
+
+	public JButton getRegistrar() {
+		return registrar;
+	}
+
+
+	public void setRegistrar(JButton registrar) {
+		this.registrar = registrar;
+	}
+
+
+	public JCheckBox getTerminosCondicionesCaja() {
+		return terminosCondicionesCaja;
+	}
+
+
+	public void setTerminosCondicionesCaja(JCheckBox terminosCondicionesCaja) {
+		this.terminosCondicionesCaja = terminosCondicionesCaja;
+	}
+
+
+	public JLabel getTerminosCondicionesLabel() {
+		return terminosCondicionesLabel;
+	}
+
+
+	public void setTerminosCondicionesLabel(JLabel terminosCondicionesLabel) {
+		this.terminosCondicionesLabel = terminosCondicionesLabel;
+	}
+
+
+	public JButton getVolver() {
+		return volver;
+	}
+
+
+	public void setVolver(JButton volver) {
+		this.volver = volver;
 	}
 	
 

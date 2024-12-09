@@ -19,9 +19,9 @@ public class TransaccionDAOjdbc implements TransaccionDAO{
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA) VALUES ('"
 				+ transaccion.getResumen()
-				+ "',"
-				+ transaccion.getfechaYHora()
-				+ ")";
+				+ "','"
+				+ transaccion.getfechaYHora().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+				+ "')";
 
 		stmt.executeUpdate(sql);
 		

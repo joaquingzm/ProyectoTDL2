@@ -10,7 +10,7 @@ public interface PersonaDAO {
 	//Ver si es necesario
 	//Persona buscarPersona(String nombres) throws SQLException;
 	
-	Persona buscarPersona(int id) throws SQLException;
+	Persona buscarPersona(int idPersona) throws SQLException;
 	
 	int buscarId (String nombre, String apellido) throws SQLException;
 	

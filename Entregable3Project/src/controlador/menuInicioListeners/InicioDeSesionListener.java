@@ -7,26 +7,25 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import daos.FactoryDAO;
 import modelos.GestorDeDatosGlobales;
+import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
+import vista.MenuInicio;
 
 
 public class InicioDeSesionListener implements ActionListener{
 
-	private JTextField email;
-	private JTextField contraseña;
-	
-	public InicioDeSesionListener(JTextField email, JTextField contraseña) {
-		this.email = email;
-		this.contraseña = contraseña;
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		MenuInicio menuInicio = framePrincipal.getMenuInicio();
+		
+		JTextField email = menuInicio.getEmail();
+		JTextField contraseña = menuInicio.getContraseña();
 		
 		String emailTexto = email.getText();
 		String contraseñaTexto = contraseña.getText();
@@ -42,10 +41,6 @@ public class InicioDeSesionListener implements ActionListener{
 			
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			
-			if (idUsuario < 0) {
-				JOptionPane.showMessageDialog(null, "La información ingresada no corresponde a ningun usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
 			
 		} catch (SQLException e1) {
 			
@@ -53,8 +48,14 @@ public class InicioDeSesionListener implements ActionListener{
 			
 		}
 		
-		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
-		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
+		if (idUsuario < 0) {
+			JOptionPane.showMessageDialog(null, "La información ingresada no corresponde a ningun usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		
+		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
+		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
 		GestorDeDatosGlobales.setIdUsuario(idUsuario);
 		

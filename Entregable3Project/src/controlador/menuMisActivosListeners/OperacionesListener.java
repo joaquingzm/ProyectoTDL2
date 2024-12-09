@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import modelos.GestorDeDatosGlobales;
+import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 
 public class OperacionesListener implements ActionListener {
@@ -14,8 +15,10 @@ public class OperacionesListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
-		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
+		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		
+		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
+		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
 		

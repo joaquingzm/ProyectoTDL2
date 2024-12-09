@@ -1,12 +1,12 @@
 package modelos;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
+import vista.FramePrincipal;
 
 public class GestorDeDatosGlobales {
 
 	private static int IdUsuario;
-	private static JPanel panelPrincipal;
+	private static FramePrincipal framePrincipal;
 
 	public static int getIdUsuario() {
 		return IdUsuario;
@@ -16,11 +16,11 @@ public class GestorDeDatosGlobales {
 		GestorDeDatosGlobales.IdUsuario = idUsuario;
 	}
 
-	public static JPanel getPanelPrincipal() {
-		return panelPrincipal;
+	public static FramePrincipal getFramePrincipal() {
+		return framePrincipal;
 	}
 
-	public static void setPanelPrincipal(JPanel panelPrincipal) {
-		GestorDeDatosGlobales.panelPrincipal = panelPrincipal;
+	public static void setFramePrincipal(FramePrincipal framePrincipal) {
+		GestorDeDatosGlobales.framePrincipal = framePrincipal;
 	}
 }

@@ -30,16 +30,18 @@ public class PersonaDAOjdbc implements PersonaDAO{
 			idPersona = llavesAutoGeneradas.getInt("ID");
 		}
 		
+		llavesAutoGeneradas.close();
+		
 		stmt.close();
 		return idPersona;
 	}
 
 	@Override
-	public Persona buscarPersona(int id) throws SQLException {
+	public Persona buscarPersona(int idPersona) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT * FROM PERSONA WHERE ID = '" + id + "'";
+		String sql = "SELECT * FROM PERSONA WHERE ID = " + idPersona;
 		Persona persona = null;
-		String nombre,apellido = null;
+		String nombre,apellido;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
@@ -48,6 +50,7 @@ public class PersonaDAOjdbc implements PersonaDAO{
 			apellido = resul.getString("APELLIDO");
 			persona = new Persona(nombre, apellido);
 		}
+		resul.close();
 		
 		stmt.close();
 		return persona;
@@ -67,6 +70,8 @@ public class PersonaDAOjdbc implements PersonaDAO{
 		if (resul.next()) {
 			idUsuario = resul.getInt("ID");
 		}
+		
+		resul.close();
 		
 		stmt.close();
 		return idUsuario;

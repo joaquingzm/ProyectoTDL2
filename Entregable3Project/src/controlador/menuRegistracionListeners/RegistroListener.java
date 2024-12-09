@@ -15,33 +15,27 @@ import daos.PersonaDAO;
 import daos.UsuarioDAO;
 import modelos.GestorDeDatosGlobales;
 import modelos.Persona;
-import modelos.Usuario;
+import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
+import vista.MenuRegistracion;
 
 public class RegistroListener implements ActionListener{
 
-	private JTextField nombre;
-	private JTextField apellido;
-	private JTextField email;
-	private JTextField contraseña;
-	private JCheckBox terminosCondicionesCaja;
-	
-	public RegistroListener(JTextField nombre, JTextField apellido, JTextField email, JTextField contraseña,
-			JCheckBox terminosCondicionesCaja) {
-		
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.contraseña = contraseña;
-		this.terminosCondicionesCaja = terminosCondicionesCaja;
-		
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		MenuRegistracion menuRegistracion = framePrincipal.getMenuRegistracion();
+		
+		JTextField nombre = menuRegistracion.getNombre();
+		JTextField apellido = menuRegistracion.getApellido();
+		JTextField email = menuRegistracion.getEmail();
+		JTextField contraseña = menuRegistracion.getContraseña();
+		JCheckBox terminosCondicionesCaja = menuRegistracion.getTerminosCondicionesCaja();
+		
 		String nombreTexto = nombre.getText();
-		String apellidoTexto = apellido.getText();
+		String apellidoTexto = nombre.getText();
 		String emailTexto = email.getText();
 		String contraseñaTexto = contraseña.getText();
 		boolean aceptoTerminosCondiciones = terminosCondicionesCaja.isSelected();
@@ -83,8 +77,9 @@ public class RegistroListener implements ActionListener{
 		}
 		
 		
-		JPanel panelPrincipal = GestorDeDatosGlobales.getPanelPrincipal();
-		CardLayout cardLayout = (CardLayout) panelPrincipal.getLayout();
+		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
+		CardLayout cardLayout = framePrincipal.getCardLayout();
+		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 	}
 

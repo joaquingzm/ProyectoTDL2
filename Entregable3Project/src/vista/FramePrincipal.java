@@ -30,8 +30,6 @@ public class FramePrincipal extends JFrame {
 		cardLayout = new CardLayout();
 		panelPrincipal.setLayout(cardLayout);
 		
-		GestorDeDatosGlobales.setPanelPrincipal(panelPrincipal);
-		
 		menuInicio = new MenuInicio();
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
@@ -53,5 +51,69 @@ public class FramePrincipal extends JFrame {
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 		
         this.addWindowListener(new CierreListener());
+	}
+
+	public JPanel getPanelPrincipal() {
+		return panelPrincipal;
+	}
+
+	public void setPanelPrincipal(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
+	}
+
+	public CardLayout getCardLayout() {
+		return cardLayout;
+	}
+
+	public void setCardLayout(CardLayout cardLayout) {
+		this.cardLayout = cardLayout;
+	}
+
+	public MenuInicio getMenuInicio() {
+		return menuInicio;
+	}
+
+	public void setMenuInicio(MenuInicio menuInicio) {
+		this.menuInicio = menuInicio;
+	}
+
+	public MenuRegistracion getMenuRegistracion() {
+		return menuRegistracion;
+	}
+
+	public void setMenuRegistracion(MenuRegistracion menuRegistracion) {
+		this.menuRegistracion = menuRegistracion;
+	}
+
+	public MenuCompra getMenuCompra() {
+		return menuCompra;
+	}
+
+	public void setMenuCompra(MenuCompra menuCompra) {
+		this.menuCompra = menuCompra;
+	}
+
+	public MenuCotizaciones getMenuCotizaciones() {
+		return menuCotizaciones;
+	}
+
+	public void setMenuCotizaciones(MenuCotizaciones menuCotizaciones) {
+		this.menuCotizaciones = menuCotizaciones;
+	}
+
+	public MenuMisActivos getMenuMisActivos() {
+		return menuMisActivos;
+	}
+
+	public void setMenuMisActivos(MenuMisActivos menuMisActivos) {
+		this.menuMisActivos = menuMisActivos;
+	}
+
+	public MenuMisOperaciones getMenuMisOperaciones() {
+		return menuMisOperaciones;
+	}
+
+	public void setMenuMisOperaciones(MenuMisOperaciones menuMisOperaciones) {
+		this.menuMisOperaciones = menuMisOperaciones;
 	}
 }
