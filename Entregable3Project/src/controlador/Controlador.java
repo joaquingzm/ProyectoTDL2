@@ -16,10 +16,14 @@ public class Controlador {
 		
 		try {
 			MetodosDelSistema.creaciónDeTablasEnBD();
+			if (FactoryDAO.getCriptomonedaDAO().estaVacia()) {
+				crearMonedas();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		FramePrincipal framePrincipal = new FramePrincipal();
 		GestorDeDatosGlobales.setFramePrincipal(framePrincipal);
 		
@@ -28,7 +32,7 @@ public class Controlador {
 		
 	}
 	
-	private void crearMonedas() throws SQLException {
+	private static void crearMonedas() throws SQLException {
 		
 		List<Criptomoneda> listaCriptos = new LinkedList<Criptomoneda>();
 		List<MonedaFiduciaria> listaFIATs = new LinkedList<MonedaFiduciaria>();
@@ -56,11 +60,11 @@ public class Controlador {
 		FactoryDAO.getCriptomonedaDAO().insertarCriptomoneda(c);
 			
 		
-		m = new MonedaFiduciaria("Peso argentino","ARS$",(1/1036), "Argentina");
+		m = new MonedaFiduciaria("Peso argentino","ARS",(1/1036), "Argentina");
 		listaFIATs.add(m);
-		m = new MonedaFiduciaria("Dolar estadounidense","US$",1, "Estados Unidos");
+		m = new MonedaFiduciaria("Dolar estadounidense","USD",1, "Estados Unidos");
 		listaFIATs.add(m);
-		m = new MonedaFiduciaria("Real brasilero","R$",0.16, "Brasil");
+		m = new MonedaFiduciaria("EURO","EUR",1.056, "Brasil");
 		listaFIATs.add(m);
 		
 	}

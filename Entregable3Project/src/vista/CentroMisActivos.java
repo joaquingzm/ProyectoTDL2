@@ -54,7 +54,8 @@ public class CentroMisActivos extends JPanel{
 		for(int i=0;i<dimFilasAC;i++) {
 			aC = listaActivosCripto.get(i);
 			c = aC.getCriptomoneda();
-			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("/vista/iconos/"+c.getSigla()+".png"));
+			System.out.println("vista/iconos/"+c.getSigla()+".png");
+			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+c.getSigla()+".png"));
 			datos[i][1] = c.getNombre();
 			datos[i][2] = aC.getCantidad();
 		}
@@ -62,7 +63,8 @@ public class CentroMisActivos extends JPanel{
 		for(int i=0;i<dimFilasAF;i++) {
 			aF = listaActivosFIAT.get(i);
 			m = aF.getMonedaFIAT();
-			datos[i+dimFilasAC][0] = new ImageIcon(getClass().getClassLoader().getResource("/vista/iconos/"+m.getSigla()+".png"));
+			System.out.println("vista/iconos/"+m.getSigla()+".png");
+			datos[i+dimFilasAC][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+m.getSigla()+".png"));
 			datos[i+dimFilasAC][1] = m.getNombre();
 			datos[i+dimFilasAC][2] = aF.getCantidad();
 		}

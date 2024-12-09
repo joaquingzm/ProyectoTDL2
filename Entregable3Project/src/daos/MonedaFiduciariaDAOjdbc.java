@@ -63,4 +63,24 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		return mf;
 	}
 
+	@Override
+	public boolean estaVacia() throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT * FROM MONEDA_FIDUCIARIA";
+        ResultSet resul = stmt.executeQuery(sql);
+        
+        if (resul.next()) {
+        	
+        	resul.close();
+        	stmt.close();
+        	return false;
+        }
+        
+    	resul.close();
+    	stmt.close();
+        return true;
+        
+	}
+
 }

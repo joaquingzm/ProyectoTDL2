@@ -84,7 +84,7 @@ public class MenuCotizaciones extends JPanel {
 		
 		for(int i=0;i<dimFilas;i++) {
 			c = listaCriptos.get(i);
-			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("/vista/iconos/"+c.getSigla()+".png"));
+			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+c.getSigla()+".png"));
 			datos[i][1] = c.getNombre();
 			datos[i][2] = c.getPrecioEnDolar();
 			datos[i][3] = "Comprar";

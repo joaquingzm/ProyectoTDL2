@@ -80,6 +80,26 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		stmt.close();
 		
 	}
+	
+	@Override
+	public boolean estaVacia() throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT * FROM CRIPTOMONEDA";
+        ResultSet resul = stmt.executeQuery(sql);
+        
+        if (resul.next()) {
+        	
+        	resul.close();
+        	stmt.close();
+        	return false;
+        }
+        
+    	resul.close();
+    	stmt.close();
+        return true;
+        
+	}
 
 
 }

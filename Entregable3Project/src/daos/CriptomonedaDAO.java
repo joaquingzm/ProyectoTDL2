@@ -16,4 +16,6 @@ public interface CriptomonedaDAO {
 	
 	void actualizarPrecioEnDolar(String sigla, double precioEnDolar) throws SQLException;
 	
+	boolean estaVacia() throws SQLException; 
+	
 }
