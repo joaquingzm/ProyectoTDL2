@@ -38,7 +38,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			MonedaFiduciaria mf = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"), resul.getString("RUTA_ICONO"));
+			MonedaFiduciaria mf = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"));
 			listaMonedaFiduciarias.add(mf);
 		}
 		resul.close();
@@ -55,7 +55,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
-			mf = new MonedaFiduciaria(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getString("PAIS_EMISOR"),resul.getString("RUTA_ICONO"));
+			mf = new MonedaFiduciaria(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getString("PAIS_EMISOR"));
 		}
 		
 		resul.close();

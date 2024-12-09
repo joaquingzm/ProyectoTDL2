@@ -12,19 +12,17 @@ public class Moneda {
 	private String nombre;
 	private String sigla;
 	private double precioEnDolar;
-	private String rutaIcono;
 	
 	/**
 	 * @param nombre nombre de la moneda
 	 * @param sigla sigla de la moneda
 	 * @param precioEnDolar precio en dolares
 	 */
-	public Moneda(String nombre, String sigla, double precioEnDolar,String rutaIcono) {
+	public Moneda(String nombre, String sigla, double precioEnDolar) {
 		super();
 		this.nombre = nombre;
 		this.sigla = sigla;
 		this.precioEnDolar = precioEnDolar;
-		this.rutaIcono = rutaIcono;
 	}
 	
 	/**
@@ -75,14 +73,6 @@ public class Moneda {
 	public String toString() {
 		String str = "Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar();
 		return str;
-	}
-
-	public String getRutaIcono() {
-		return rutaIcono;
-	}
-
-	public void setRutaIcono(String rutaIcono) {
-		this.rutaIcono = rutaIcono;
 	}
 	
 	

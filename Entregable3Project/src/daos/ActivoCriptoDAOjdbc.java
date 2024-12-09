@@ -104,7 +104,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		while(resul.next()) {		
 			double cantidad = resul.getDouble("CANTIDAD");
 			String direccion = resul.getString("DIRECCION");
-			Criptomoneda criptomoneda = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"), resul.getString("RUTA_ICONO"));
+			Criptomoneda criptomoneda = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"));
 			ActivoCripto a = new ActivoCripto(cantidad, direccion, criptomoneda);
 			listaActivosCripto.add(a);
 

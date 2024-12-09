@@ -56,9 +56,8 @@ public class StockDAOjdbc implements StockDAO{
 		
 		while(resul.next()) {
 			String sigla = resul.getString("SIGLA");
-			double cantidad = resul.getDouble("cantidad");
-			String rutaIcono = resul.getString("RUTA_ICONO");
-			cm = new Criptomoneda(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getNombre(), sigla, FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getVolatilidad(), rutaIcono);
+			double cantidad = resul.getDouble("CANTIDAD");
+			cm = new Criptomoneda(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getNombre(), sigla, FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getVolatilidad());
 			stock = new Stock(cantidad, cm);
 			listaStocks.add(stock);
 		}
