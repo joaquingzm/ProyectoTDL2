@@ -49,6 +49,8 @@ public class CotizacionesListener implements ActionListener{
 		
 		framePrincipal.getMenuCotizaciones().getCotizacionesTableModel().actualizarTabla(listaCriptos,tieneActivo);;
 		
+		GestorDeDatosGlobales.comenzarTimer();
+		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		
 	}
