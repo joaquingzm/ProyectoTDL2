@@ -14,4 +14,6 @@ public interface CriptomonedaDAO {
 	
 	Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
 	
+	void actualizarPrecioEnDolar(String sigla, double precioEnDolar) throws SQLException;
+	
 }
