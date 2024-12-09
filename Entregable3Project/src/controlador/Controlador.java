@@ -2,6 +2,7 @@ package controlador;
 
 import java.sql.SQLException;
 
+import modelos.GestorDeDatosGlobales;
 import vista.FramePrincipal;
 
 public class Controlador {
@@ -15,6 +16,7 @@ public class Controlador {
 			e.printStackTrace();
 		}
 		FramePrincipal framePrincipal = new FramePrincipal();
+		GestorDeDatosGlobales.setFramePrincipal(framePrincipal);
 		framePrincipal.setVisible(true);
 		
 		

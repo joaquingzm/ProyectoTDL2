@@ -42,7 +42,7 @@ public class MenuInicio extends JPanel{
 		inicioDeSesion.setText("Iniciar sesión");
 		registro.setText("Registrarse");
 		
-		inicioDeSesion.addActionListener(new InicioDeSesionListener(email, contraseña));
+		inicioDeSesion.addActionListener(new InicioDeSesionListener());
 		registro.addActionListener(new RegistroListener());
 		
 		this.setLayout(new GridBagLayout());
@@ -79,6 +79,54 @@ public class MenuInicio extends JPanel{
 		gbc.gridy = 3;
 		gbc.gridwidth = 2;
 		this.add(registro,gbc);
+	}
+
+	public JButton getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(JButton registro) {
+		this.registro = registro;
+	}
+
+	public JTextField getEmail() {
+		return email;
+	}
+
+	public void setEmail(JTextField email) {
+		this.email = email;
+	}
+
+	public JLabel getEmailLabel() {
+		return emailLabel;
+	}
+
+	public void setEmailLabel(JLabel emailLabel) {
+		this.emailLabel = emailLabel;
+	}
+
+	public JTextField getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(JTextField contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public JLabel getContraseñaLabel() {
+		return contraseñaLabel;
+	}
+
+	public void setContraseñaLabel(JLabel contraseñaLabel) {
+		this.contraseñaLabel = contraseñaLabel;
+	}
+
+	public JButton getInicioDeSesion() {
+		return inicioDeSesion;
+	}
+
+	public void setInicioDeSesion(JButton inicioDeSesion) {
+		this.inicioDeSesion = inicioDeSesion;
 	}
 }
  
