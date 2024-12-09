@@ -74,5 +74,5 @@ public class Moneda {
 		String str = "Nombre de moneda: "+this.getNombre()+", Sigla: "+this.getSigla()+", Precio en dolár: "+this.getPrecioEnDolar();
 		return str;
 	}
-	
+
 }
