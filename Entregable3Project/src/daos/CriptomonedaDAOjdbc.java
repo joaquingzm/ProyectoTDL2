@@ -39,7 +39,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			Criptomoneda cm = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"), resul.getString("RUTA_ICONO"));
+			Criptomoneda cm = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"));
 			listaCriptomonedas.add(cm);
 		}
 		
@@ -60,7 +60,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
-			cm = new Criptomoneda(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getDouble("VOLATILIDAD"), resul.getString("RUTA_ICONO"));
+			cm = new Criptomoneda(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getDouble("VOLATILIDAD"));
 		}
 		resul.close();
 		

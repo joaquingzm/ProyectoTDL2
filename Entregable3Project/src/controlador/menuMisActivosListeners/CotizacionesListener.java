@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -25,12 +26,12 @@ public class CotizacionesListener implements ActionListener{
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
-		LinkedList<Criptomoneda> listaCriptos;
+		List<Criptomoneda> listaCriptos;
 		
 		Boolean[] tieneActivo;
 		
 		try {
-			listaCriptos = (LinkedList<Criptomoneda>) FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
+			listaCriptos = GestorDeDatosGlobales.getListaCriptos();
 			tieneActivo = new Boolean[listaCriptos.size()];
 			for(int i=0;i<listaCriptos.size();i++) {
 				if(FactoryDAO.getActivoCriptoDAO().tieneActivoCripto(GestorDeDatosGlobales.getIdUsuario(), listaCriptos.get(i).getSigla())) {
@@ -46,7 +47,7 @@ public class CotizacionesListener implements ActionListener{
 			return;
 		}
 		
-		framePrincipal.getMenuCotizaciones().actualizarTabla(listaCriptos,tieneActivo);;
+		framePrincipal.getMenuCotizaciones().actualizarTabla(tieneActivo);;
 		
 		GestorDeDatosGlobales.comenzarTimer();
 		
