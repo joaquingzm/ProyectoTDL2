@@ -6,6 +6,7 @@ import vista.FramePrincipal;
 public class GestorDeDatosGlobales {
 
 	private static int IdUsuario;
+	private static Usuario usuario;
 	private static FramePrincipal framePrincipal;
 
 	public static int getIdUsuario() {
@@ -22,5 +23,13 @@ public class GestorDeDatosGlobales {
 
 	public static void setFramePrincipal(FramePrincipal framePrincipal) {
 		GestorDeDatosGlobales.framePrincipal = framePrincipal;
+	}
+
+	public static Usuario getUsuario() {
+		return usuario;
+	}
+
+	public static void setUsuario(Usuario usuario) {
+		GestorDeDatosGlobales.usuario = usuario;
 	}
 }

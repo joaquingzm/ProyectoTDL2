@@ -7,6 +7,7 @@ import java.sql.*;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.GestorDeDatosGlobales;
 import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
 
@@ -16,9 +17,11 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		String sql = "INSERT INTO ACTIVO_CRIPTO (SIGLA,CANTIDAD,DIRECCION) VALUES ('"
-				+ act.getCriptomoneda().getSigla()
-				+ "',"
+		String sql = "INSERT INTO ACTIVO_CRIPTO (ID_USUARIO,ID_CRIPTO,CANTIDAD,DIRECCION) VALUES ("
+				+ GestorDeDatosGlobales.getIdUsuario()
+				+ ","
+				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(act.getCriptomoneda().getSigla())
+				+ ","
 				+ act.getCantidad() 
 				+ ",'"
 				+ act.getDireccion()
@@ -101,7 +104,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		while(resul.next()) {		
 			double cantidad = resul.getDouble("CANTIDAD");
 			String direccion = resul.getString("DIRECCION");
-			Criptomoneda criptomoneda = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"));
+			Criptomoneda criptomoneda = new Criptomoneda(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getDouble("VOLATILIDAD"), resul.getString("RUTA_ICONO"));
 			ActivoCripto a = new ActivoCripto(cantidad, direccion, criptomoneda);
 			listaActivosCripto.add(a);
 
@@ -110,6 +113,21 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		
 		stmt.close();
 		return listaActivosCripto;
+	}
+
+	@Override
+	public boolean tieneActivoCripto(int idUsuario, String sigla) throws SQLException {
+		Statement stmt = MyConnection.getCon().createStatement();
+		
+		String sql = "SELECT * FROM ACTIVO_CRIPTO ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE ID_USUARIO = "+idUsuario+" AND SIGLA = '"+sigla+"'";
+	    		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if(resul.next()) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

@@ -18,14 +18,16 @@ public class RegistroListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		MenuInicio menuInicio = framePrincipal.getMenuInicio();
 		
 		JTextField email = menuInicio.getEmail();
 		JTextField contraseña = menuInicio.getContraseña();
 		
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
+		email.setText("");
+		contraseña.setText("");
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUREGISTRACION.name());
 	}
 	

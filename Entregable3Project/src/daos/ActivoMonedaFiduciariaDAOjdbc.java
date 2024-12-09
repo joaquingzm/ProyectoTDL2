@@ -95,7 +95,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		
 		while(resul.next()) {		
 			double cantidad = resul.getDouble("CANTIDAD");
-			MonedaFiduciaria monedaFiduciaria = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"));
+			MonedaFiduciaria monedaFiduciaria = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"), resul.getString("RUTA_ICONO"));
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
 			listaActivosMonedaFiduciaria.add(a);
 

@@ -17,7 +17,8 @@ public class MetodosDelSistema {
 				+ " NOMBRE VARCHAR(50) NOT NULL, " 
 				+ " SIGLA VARCHAR(10) NOT NULL, "
 				+ " PRECIO_EN_DOLAR	REAL NOT NULL, " 
-				+ " VOLATILIDAD	REAL NULL " 
+				+ " VOLATILIDAD	REAL NULL, " 
+				+ " RUTA_ICONO VARCHAR(50)"
 				+ ")";
 		stmt.executeUpdate(sql);
 
@@ -27,7 +28,8 @@ public class MetodosDelSistema {
 				+ " NOMBRE VARCHAR(50) NOT NULL, " 
 				+ " SIGLA VARCHAR(10) NOT NULL, "
 				+ " PRECIO_EN_DOLAR	REAL NOT NULL, " 
-				+ " PAIS_EMISOR VARCHAR(50) NOT NULL "
+				+ " PAIS_EMISOR VARCHAR(50) NOT NULL, "
+				+ " RUTA_ICONO VARCHAR(50)"
 				+ ")";
 		stmt.executeUpdate(sql);
 

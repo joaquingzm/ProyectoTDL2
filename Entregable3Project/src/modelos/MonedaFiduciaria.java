@@ -17,8 +17,8 @@ public class MonedaFiduciaria extends Moneda{
 	 * @param precioEnDolar el precio en dolares de la moneda fiduciaria.
 	 * @param paisEmisor el pais que emite la moneda fiduciaria.
 	 */
-	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor) {
-		super(nombre, sigla, precioEnDolar);
+	public MonedaFiduciaria(String nombre, String sigla, double precioEnDolar, String paisEmisor, String rutaIcono) {
+		super(nombre, sigla, precioEnDolar, rutaIcono);
 		this.paisEmisor = paisEmisor;
 	}
 

@@ -16,8 +16,8 @@ public class Criptomoneda extends Moneda{
 	 * @param sigla la sigla de la criptomoneda.
 	 * @param precioEnDolar el precio en dolares de la criptomoneda.
 	 */
-	public Criptomoneda(String nombre, String sigla, double precioEnDolar, double volatilidad) {
-		super(nombre, sigla, precioEnDolar);
+	public Criptomoneda(String nombre, String sigla, double precioEnDolar, double volatilidad,String rutaIcono) {
+		super(nombre, sigla, precioEnDolar, rutaIcono);
 		this.volatilidad = volatilidad;
 	}
 

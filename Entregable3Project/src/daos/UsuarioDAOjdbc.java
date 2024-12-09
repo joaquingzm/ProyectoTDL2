@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import modelos.Persona;
+import modelos.Usuario;
 import singletones.MyConnection;
 
 public class UsuarioDAOjdbc implements UsuarioDAO {
@@ -87,6 +89,30 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 		resul.close();
 		stmt.close();
 		return false;
+	}
+
+	@Override
+	public Usuario buscarUsuario(int id) throws SQLException {
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT * FROM USUARIO WHERE ID="+id;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if(!resul.next()) {
+			return null;
+		}
+		
+		String email = resul.getString("EMAIL");
+		String password = resul.getString("PASSWORD");
+		boolean aceptaTerminos = resul.getBoolean("ACEPTA_TERMINOS");
+		
+		int idPersona = resul.getInt("ID_PERSONA");
+		
+		Persona persona = FactoryDAO.getPersonaDAO().buscarPersona(idPersona);
+				
+		Usuario usuario = new Usuario(persona, email, password, aceptaTerminos);
+		
+		return usuario;
 	}
 
 }

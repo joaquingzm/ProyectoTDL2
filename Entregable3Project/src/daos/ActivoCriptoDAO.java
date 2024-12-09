@@ -20,4 +20,5 @@ public interface ActivoCriptoDAO {
 	
 	public List<ActivoCripto> listarActivosCripto(int idUsuario) throws SQLException;
 
+	public boolean tieneActivoCripto(int idUsuario, String sigla) throws SQLException;
 }

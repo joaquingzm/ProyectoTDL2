@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import controlador.menuMisActivosListeners.CotizacionesListener;
 import controlador.menuMisActivosListeners.ExportarCSVListener;
 import controlador.menuMisActivosListeners.OperacionesListener;
+import modelos.Usuario;
 
 public class MenuMisActivos extends JPanel{
 	
@@ -21,9 +22,9 @@ public class MenuMisActivos extends JPanel{
 	private JButton operaciones;
 	private JButton cotizaciones;
 	
-	public MenuMisActivos() {
+	public MenuMisActivos(Encabezado encabezado) {
 		
-		encabezado = new Encabezado();
+		
 		centroMisActivos = new CentroMisActivos();
 		
 		exportarCSV = new JButton();
@@ -71,4 +72,13 @@ public class MenuMisActivos extends JPanel{
 		gbc.gridy = 3;
 		this.add(cotizaciones,gbc);
 	}
+	
+	public Encabezado getEncabezado() {
+		return encabezado;
+	}
+
+	public void setEncabezado(Encabezado encabezado) {
+		this.encabezado = encabezado;
+	}
+
 }

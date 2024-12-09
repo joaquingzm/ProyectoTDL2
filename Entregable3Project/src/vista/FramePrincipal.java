@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controlador.FramePrincipalListeners.CierreListener;
-import modelos.GestorDeDatosGlobales;
+import modelos.Usuario;
 
 public class FramePrincipal extends JFrame {
 
@@ -18,7 +18,9 @@ public class FramePrincipal extends JFrame {
 	private MenuCotizaciones menuCotizaciones;
 	private MenuMisActivos menuMisActivos;
 	private MenuMisOperaciones menuMisOperaciones;
-	
+	private Encabezado encabezado1;
+	private Encabezado encabezado2;	
+
 	public FramePrincipal() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -33,8 +35,10 @@ public class FramePrincipal extends JFrame {
 		menuInicio = new MenuInicio();
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
-		menuCotizaciones = new MenuCotizaciones();
-		menuMisActivos = new MenuMisActivos();
+		encabezado1 = new Encabezado();
+		encabezado2 = new Encabezado();
+		menuMisActivos = new MenuMisActivos(encabezado1);
+		menuCotizaciones = new MenuCotizaciones(encabezado2);
 		menuMisOperaciones = new MenuMisOperaciones();
 		
 		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());
@@ -47,7 +51,7 @@ public class FramePrincipal extends JFrame {
 		this.add(panelPrincipal);
 	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
+		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 		
         this.addWindowListener(new CierreListener());
 	}
@@ -114,5 +118,10 @@ public class FramePrincipal extends JFrame {
 
 	public void setMenuMisOperaciones(MenuMisOperaciones menuMisOperaciones) {
 		this.menuMisOperaciones = menuMisOperaciones;
+	}
+	
+	public void actualizarEncabezados(Usuario usuario) {
+		encabezado1.actualizarUsuario(usuario);
+		encabezado2.actualizarUsuario(usuario);
 	}
 }
