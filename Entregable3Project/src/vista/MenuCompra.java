@@ -33,7 +33,7 @@ public class MenuCompra extends JPanel{
 		stock = new JLabel("Stock disponible: ");
 		precioDeCompra = new JLabel("Precio de compra: ");
 		textCantidadDeFIAT = new JLabel("Quiero comprar con ");
-		textCantidadDeFIAT.setPreferredSize(new Dimension(200,30 ))
+		textCantidadDeFIAT.setPreferredSize(new Dimension(200,30 ));
 		cantidadDeFIAT = new JTextField();
 		selectorFIAT = new JComboBox();
 		cargarSelectorFIAT();
