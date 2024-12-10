@@ -2,7 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -39,7 +39,7 @@ public class CentroMisActivos extends JPanel{
 		
 	}
 	
-	public void actualizarTabla(LinkedList<ActivoCripto> listaActivosCripto, LinkedList<ActivoMonedaFiduciaria> listaActivosFIAT) {
+	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
 		
 		int dimFilasAC = listaActivosCripto.size(); 
 		int dimFilasAF = listaActivosFIAT.size();

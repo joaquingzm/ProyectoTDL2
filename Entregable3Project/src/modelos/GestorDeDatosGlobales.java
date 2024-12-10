@@ -35,7 +35,7 @@ public class GestorDeDatosGlobales {
         if (timer == null) {
             timer = new Timer(); 
             TimerTask updaterCotizaciones = new UpdaterCotizaciones();
-            timer.schedule(updaterCotizaciones,0,5000);
+            timer.schedule(updaterCotizaciones,0,60000);
         }
 	}
 	

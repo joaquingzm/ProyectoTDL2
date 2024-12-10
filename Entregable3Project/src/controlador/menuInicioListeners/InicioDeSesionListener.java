@@ -4,7 +4,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -56,12 +56,12 @@ public class InicioDeSesionListener implements ActionListener{
 			return;
 		}
 		
-		LinkedList<ActivoCripto> aC = null;
-		LinkedList<ActivoMonedaFiduciaria> aF = null;
+		List<ActivoCripto> aC = null;
+		List<ActivoMonedaFiduciaria> aF = null;
 		
 		try {
-			aC =(LinkedList<ActivoCripto>) FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
-			aF = (LinkedList<ActivoMonedaFiduciaria>) FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
+			aC =FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
+			aF = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
