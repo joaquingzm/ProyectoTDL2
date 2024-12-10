@@ -72,7 +72,7 @@ public class Controlador {
 		} else {
 			c = new Criptomoneda("Ethereum", "ETH", 1, 0);
 			listaCriptos.add(c);
-			c = new Criptomoneda("Usdc", "USDC", 1, 0);
+			c = new Criptomoneda("Usd-coin", "USDC", 1, 0);
 			listaCriptos.add(c);
 			c = new Criptomoneda("Tether", "USDT", 1, 0);
 			listaCriptos.add(c);

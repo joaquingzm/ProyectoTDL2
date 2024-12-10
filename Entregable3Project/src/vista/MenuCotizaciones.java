@@ -28,6 +28,7 @@ public class MenuCotizaciones extends JPanel {
 	private JButton volver;
 	private String[] nombresColumnas;
 
+
 	public MenuCotizaciones(){
 		
 		this.setLayout(new GridBagLayout());
@@ -104,11 +105,16 @@ public class MenuCotizaciones extends JPanel {
 		int dimFilas = preciosCriptomonedas.size();
 
 		List<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos();
-		
+
 		for(int i=0;i<dimFilas;i++) {
-			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(listaCriptos.get(i).getNombre().toUpperCase()), i, dimFilas); 
+
+			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(listaCriptos.get(i).getNombre().toUpperCase()), i, 2); 
 		}
+		
 	}
+	
+
+
 	
 	public MiModeloDeTabla getCotizacionesTableModel() {
 		return cotizacionesTableModel;

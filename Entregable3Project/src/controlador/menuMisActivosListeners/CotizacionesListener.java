@@ -4,7 +4,6 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -12,7 +11,6 @@ import javax.swing.JPanel;
 import daos.FactoryDAO;
 import modelos.Criptomoneda;
 import modelos.GestorDeDatosGlobales;
-import modelos.MonedaFiduciaria;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 
@@ -22,9 +20,6 @@ public class CotizacionesListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
-		
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
-		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
 		List<Criptomoneda> listaCriptos;
 		
@@ -47,7 +42,12 @@ public class CotizacionesListener implements ActionListener{
 			return;
 		}
 		
-		framePrincipal.getMenuCotizaciones().actualizarTabla(tieneActivo);;
+		framePrincipal.getMenuCotizaciones().actualizarTabla(tieneActivo);
+		
+		GestorDeDatosGlobales.comenzarTimer();
+		
+		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
+		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		

@@ -80,8 +80,6 @@ public class InicioDeSesionListener implements ActionListener{
 		email.setText("");
 		contraseña.setText("");
 		
-		GestorDeDatosGlobales.comenzarTimer();
-		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 		
 	}
