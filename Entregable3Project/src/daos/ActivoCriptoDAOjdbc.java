@@ -2,12 +2,14 @@ package daos;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import controlador.GestorDeDatosDelControlador;
+
 import java.sql.*;
 
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
-import modelos.GestorDeDatosGlobales;
 import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
 
@@ -18,7 +20,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		Statement stmt = MyConnection.getCon().createStatement();
 		
 		String sql = "INSERT INTO ACTIVO_CRIPTO (ID_USUARIO,ID_CRIPTO,CANTIDAD,DIRECCION) VALUES ("
-				+ GestorDeDatosGlobales.getIdUsuario()
+				+ GestorDeDatosDelControlador.getIdUsuario()
 				+ ","
 				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(act.getCriptomoneda().getSigla())
 				+ ","

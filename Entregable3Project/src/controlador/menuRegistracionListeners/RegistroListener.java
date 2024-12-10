@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import daos.PersonaDAO;
 import daos.UsuarioDAO;
-import modelos.GestorDeDatosGlobales;
 import modelos.Persona;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -25,7 +25,7 @@ public class RegistroListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuRegistracion menuRegistracion = framePrincipal.getMenuRegistracion();
 		
 		JTextField nombre = menuRegistracion.getNombre();

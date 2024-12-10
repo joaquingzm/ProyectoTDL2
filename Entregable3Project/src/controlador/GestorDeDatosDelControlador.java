@@ -1,26 +1,23 @@
-package modelos;
+package controlador;
 
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import vista.FramePrincipal;
 
-public class GestorDeDatosGlobales {
+public class GestorDeDatosDelControlador {
 
 	private static int IdUsuario;
 	private static FramePrincipal framePrincipal;
 	private static Timer timer = null;
-	private static List<Criptomoneda> listaCriptos;
-	private static List<MonedaFiduciaria> listaMonedasFiduciaria;
 
 	public static int getIdUsuario() {
 		return IdUsuario;
 	}
 
 	public static void setIdUsuario(int idUsuario) {
-		GestorDeDatosGlobales.IdUsuario = idUsuario;
+		GestorDeDatosDelControlador.IdUsuario = idUsuario;
 	}
 
 	public static FramePrincipal getFramePrincipal() {
@@ -28,7 +25,7 @@ public class GestorDeDatosGlobales {
 	}
 
 	public static void setFramePrincipal(FramePrincipal framePrincipal) {
-		GestorDeDatosGlobales.framePrincipal = framePrincipal;
+		GestorDeDatosDelControlador.framePrincipal = framePrincipal;
 	}
 	
 	public static void comenzarTimer() {
@@ -45,21 +42,5 @@ public class GestorDeDatosGlobales {
 	            timer.cancel();
 	            timer = null;
 	        } 
-	}
-
-	public static List<Criptomoneda> getListaCriptos() {
-		return listaCriptos;
-	}
-
-	public static void setListaCriptos(List<Criptomoneda> listaCriptos) {
-		GestorDeDatosGlobales.listaCriptos = listaCriptos;
-	}
-
-	public static List<MonedaFiduciaria> getListaMonedasFiduciaria() {
-		return listaMonedasFiduciaria;
-	}
-
-	public static void setListaMonedasFiduciaria(List<MonedaFiduciaria> listaMonedasFiduciaria) {
-		GestorDeDatosGlobales.listaMonedasFiduciaria = listaMonedasFiduciaria;
 	}
 }

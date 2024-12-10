@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import modelos.GestorDeDatosGlobales;
+import controlador.GestorDeDatosDelControlador;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 import vista.MenuInicio;
@@ -17,7 +17,7 @@ public class RegistroListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		MenuInicio menuInicio = framePrincipal.getMenuInicio();
 		

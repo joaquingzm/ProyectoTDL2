@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controlador.GestorDeDatosDelControlador;
 import controlador.menuCotizacionesListeners.CompraYSwapListener;
 import controlador.menuCotizacionesListeners.VolverListener;
 import modelos.Criptomoneda;
-import modelos.GestorDeDatosGlobales;
 
 public class MenuCotizaciones extends JPanel {
 
@@ -71,10 +71,8 @@ public class MenuCotizaciones extends JPanel {
 		
 	}
 
-	public void actualizarTabla(Boolean[] tieneActivo) {
-		
-		List<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos();
-		
+	public void actualizarTabla(Boolean[] tieneActivo, List<Criptomoneda> listaCriptos) {
+				
 		int dimFilas = listaCriptos.size();
 		cotizacionesTableModel.setRowCount(dimFilas);
 		
@@ -102,14 +100,15 @@ public class MenuCotizaciones extends JPanel {
 
 	public void actualizarPrecios(Map<String,Double> preciosCriptomonedas) {
 		
-		int dimFilas = preciosCriptomonedas.size();
+		/*Recibe una LinkedHashMap, por lo cual el Map conserva el orden de inserción y, por ende, se respeta el mismo orden en el que 
+		 * se subieron las criptomonedas a la base de datos (ese orden se encuentra en la clase Controlador)*/
 
-		List<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos();
-
-		for(int i=0;i<dimFilas;i++) {
-
-			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(listaCriptos.get(i).getNombre().toUpperCase()), i, 2); 
+		for (String llave : preciosCriptomonedas.keySet()) {
+			int i = 0;
+			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(llave), i, 2); 
+			i++;
 		}
+		
 		
 	}
 	

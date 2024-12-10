@@ -8,9 +8,10 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import controlador.GestorDeDatosDelControlador;
+import daos.ActivoCriptoDAO;
 import daos.FactoryDAO;
 import modelos.Criptomoneda;
-import modelos.GestorDeDatosGlobales;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 
@@ -19,17 +20,20 @@ public class CotizacionesListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
 		List<Criptomoneda> listaCriptos;
 		
 		Boolean[] tieneActivo;
 		
 		try {
-			listaCriptos = GestorDeDatosGlobales.getListaCriptos();
+			listaCriptos = FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
 			tieneActivo = new Boolean[listaCriptos.size()];
+			
+			ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
+			
 			for(int i=0;i<listaCriptos.size();i++) {
-				if(FactoryDAO.getActivoCriptoDAO().tieneActivoCripto(GestorDeDatosGlobales.getIdUsuario(), listaCriptos.get(i).getSigla())) {
+				if(acDAO.tieneActivoCripto(GestorDeDatosDelControlador.getIdUsuario(), listaCriptos.get(i).getSigla())) {
 					tieneActivo[i] = true;
 				}
 				else {
@@ -42,9 +46,9 @@ public class CotizacionesListener implements ActionListener{
 			return;
 		}
 		
-		framePrincipal.getMenuCotizaciones().actualizarTabla(tieneActivo);
+		framePrincipal.getMenuCotizaciones().actualizarTabla(tieneActivo, listaCriptos);
 		
-		GestorDeDatosGlobales.comenzarTimer();
+		GestorDeDatosDelControlador.comenzarTimer();
 		
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();

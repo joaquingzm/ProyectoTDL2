@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import modelos.GestorDeDatosGlobales;
+import controlador.GestorDeDatosDelControlador;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 import vista.MenuRegistracion;
@@ -18,7 +18,7 @@ public class VolverListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuRegistracion menuRegistracion = framePrincipal.getMenuRegistracion();
 		
 		JTextField nombre = menuRegistracion.getNombre();

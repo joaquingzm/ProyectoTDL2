@@ -16,9 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import controlador.GestorDeDatosDelControlador;
 import controlador.menuRegistracionListeners.RegistroListener;
 import controlador.menuRegistracionListeners.VolverListener;
-import modelos.GestorDeDatosGlobales;
 
 public class MenuRegistracion extends JPanel {
 	

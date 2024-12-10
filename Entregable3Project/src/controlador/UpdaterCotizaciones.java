@@ -1,4 +1,4 @@
-package modelos;
+package controlador;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
+import modelos.Criptomoneda;
 import vista.FramePrincipal;
 
 public class UpdaterCotizaciones extends TimerTask {
@@ -47,7 +49,7 @@ public class UpdaterCotizaciones extends TimerTask {
 	    	return;
 	    }
 	    
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
@@ -66,18 +68,24 @@ public class UpdaterCotizaciones extends TimerTask {
 
 	}
 	
-	   private static Map<String, Double> parsear(String cuerpoRespuesta) {
-		   
-		   Map<String, Double> preciosCriptomonedas = new HashMap<String, Double>();
-	       JSONObject json = new JSONObject(cuerpoRespuesta);
-	       List<Criptomoneda> listaCriptos = GestorDeDatosGlobales.getListaCriptos();
-	       
-	       for (Criptomoneda criptomoneda : listaCriptos) {
-	    	   String nombre = criptomoneda.getNombre();
-	    	   preciosCriptomonedas.put(nombre.toUpperCase(), json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
-	       }
+	private static Map<String, Double> parsear(String cuerpoRespuesta) {
 
-	       return preciosCriptomonedas;
-	   }
+		Map<String, Double> preciosCriptomonedas = new LinkedHashMap<String, Double>();
+		JSONObject json = new JSONObject(cuerpoRespuesta);
+		List<Criptomoneda> listaCriptos = null;
+		
+		try {
+			listaCriptos = FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		for (Criptomoneda criptomoneda : listaCriptos) {
+			String nombre = criptomoneda.getNombre();
+			preciosCriptomonedas.put(nombre.toUpperCase(), json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
+		}
+
+		return preciosCriptomonedas;
+	}
 
 }

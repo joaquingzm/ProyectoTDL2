@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
-import modelos.GestorDeDatosGlobales;
 import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -25,7 +25,7 @@ public class InicioDeSesionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuInicio menuInicio = framePrincipal.getMenuInicio();
 		
 		JTextField email = menuInicio.getEmail();
@@ -75,7 +75,7 @@ public class InicioDeSesionListener implements ActionListener{
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();
 		
-		GestorDeDatosGlobales.setIdUsuario(idUsuario);
+		GestorDeDatosDelControlador.setIdUsuario(idUsuario);
 		
 		email.setText("");
 		contraseña.setText("");

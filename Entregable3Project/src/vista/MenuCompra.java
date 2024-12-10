@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controlador.GestorDeDatosDelControlador;
 import modelos.Criptomoneda;
-import modelos.GestorDeDatosGlobales;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
 
@@ -96,7 +96,7 @@ public class MenuCompra extends JPanel{
 	}
 	
 	private void cargarSelectorFIAT() {
-		List<MonedaFiduciaria> listaFIATs = GestorDeDatosGlobales.getListaMonedasFiduciaria();
+		List<MonedaFiduciaria> listaFIATs = GestorDeDatosDelControlador.getListaMonedasFiduciaria();
 	
 		Vector<String> arraySiglas = new Vector<String>();
 		

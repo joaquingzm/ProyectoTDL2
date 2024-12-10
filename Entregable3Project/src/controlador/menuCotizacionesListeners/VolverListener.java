@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import modelos.GestorDeDatosGlobales;
+import controlador.GestorDeDatosDelControlador;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 
@@ -15,10 +15,12 @@ public class VolverListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		FramePrincipal framePrincipal = GestorDeDatosGlobales.getFramePrincipal();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
 		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
 		CardLayout cardLayout = framePrincipal.getCardLayout();
+		
+		GestorDeDatosDelControlador.terminarTimer();
 		
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
 		
