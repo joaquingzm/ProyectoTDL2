@@ -28,12 +28,13 @@ public class StockDAOjdbc implements StockDAO{
 	
 	@Override
 	public Stock buscarStock(String sigla) throws SQLException {
+
 		Statement stmt = MyConnection.getCon().createStatement();
-		System.out.println(sigla);
-		String sql = "SELECT * FROM STOCK WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT * FROM STOCK ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE SIGLA = '"+sigla+"'";	
+		ResultSet resul = stmt.executeQuery(sql);
+		
 		Stock stock = null;
 		
-		ResultSet resul = stmt.executeQuery(sql);
 		if (resul.next()) {
 			double cantidad = resul.getDouble("cantidad");
 			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
