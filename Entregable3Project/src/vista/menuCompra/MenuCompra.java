@@ -41,7 +41,7 @@ public class MenuCompra extends JPanel{
 		precioDeCompra = new JLabel("Precio de compra: ");
 		textCantidadDeFIAT = new JLabel("Quiero comprar con ");
 		cantidadDeFIAT = new JTextField();
-		selectorFIAT = new JComboBox();
+		selectorFIAT = new JComboBox<String>();
 		convertir = new JButton("Convertir");
 		textEquilavenciaEnFIAT = new JLabel("Equivale a... ");
 		realizarCompra = new JButton("Realizar Compra");

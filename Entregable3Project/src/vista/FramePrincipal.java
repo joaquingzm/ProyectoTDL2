@@ -58,36 +58,10 @@ public class FramePrincipal extends JFrame {
         this.addWindowListener(new CierreListener());
 	}
 
-	public void cambiarMenu(IdentificadoresDePaneles identificador) {
+	public void cambiarMenu(String identificador) {
 		
-		switch (identificador) {
-	    
-			case MENUINICIO:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
-				break;
-			
-			case MENUREGISTRACION:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUREGISTRACION.name());
-				break;
-			
-			case MENUMISACTIVOS:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
-				break;
-			
-			case MENUMISOPERACIONES:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
-				break;
-			
-			case MENUCOMPRA:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOMPRA.name());
-				break;
-			
-			case MENUCOTIZACIONES:
-				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
-				break;
-			
-			default:
-		}
+		cardLayout.show(panelPrincipal, identificador);
+		
 	}
 	
 	public JPanel getPanelPrincipal() {

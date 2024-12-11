@@ -18,7 +18,7 @@ public class VolverListener implements ActionListener{
 		
 		menuRegistracion.realizarAccionesDeSalidaDelMenu();
 		
-		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUINICIO);
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUINICIO.name());
 	}
 	
 }

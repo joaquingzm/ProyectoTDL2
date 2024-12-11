@@ -3,14 +3,11 @@ package controlador.menuCotizacionesListeners;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 
 
 import controlador.GestorDeDatosDelControlador;
-import daos.FactoryDAO;
 import modelos.Stock;
 import vista.FramePrincipal;
-import vista.IdentificadoresDePaneles;
 import vista.menuCotizaciones.MenuCotizaciones;
 
 public class CompraYSwapListener extends MouseAdapter{

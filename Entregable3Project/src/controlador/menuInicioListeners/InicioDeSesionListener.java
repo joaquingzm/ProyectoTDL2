@@ -69,6 +69,6 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		menuInicio.realizarAccionesDeSalidaDelMenu();
 		
-		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUMISACTIVOS);		
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUMISACTIVOS.name());		
 	}
 }
