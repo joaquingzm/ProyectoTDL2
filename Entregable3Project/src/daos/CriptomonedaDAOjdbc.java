@@ -14,6 +14,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 
 	@Override
 	public void insertarCriptomoneda(Criptomoneda cm) throws SQLException{
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO CRIPTOMONEDA (NOMBRE,SIGLA,PRECIO_EN_DOLAR,VOLATILIDAD) VALUES ('"
 				+ cm.getNombre()
@@ -32,8 +33,10 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 
 	@Override
 	public List<Criptomoneda> listarCriptomonedas() throws SQLException{
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM CRIPTOMONEDA";
+		
 		LinkedList<Criptomoneda> listaCriptomonedas = new LinkedList<Criptomoneda>();
 
 		ResultSet resul = stmt.executeQuery(sql);
@@ -56,9 +59,11 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM CRIPTOMONEDA WHERE SIGLA = '"+sigla+"'";
+		
 		Criptomoneda cm = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
+		
 		if (resul.next()) {
 			cm = new Criptomoneda(resul.getString("NOMBRE"),resul.getString("SIGLA"),resul.getDouble("PRECIO_EN_DOLAR"),resul.getDouble("VOLATILIDAD"));
 		}
@@ -75,6 +80,7 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		Statement stmt = MyConnection.getCon().createStatement();
 		
 		String sql = "UPDATE CRIPTOMONEDA SET PRECIO_EN_DOLAR = "+ precioEnDolar +" WHERE SIGLA = '"+sigla+"'";
+	
 		stmt.executeUpdate(sql);
 		
 		stmt.close();
@@ -85,8 +91,10 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	public boolean estaVacia() throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
+	
 		String sql = "SELECT * FROM CRIPTOMONEDA";
-        ResultSet resul = stmt.executeQuery(sql);
+       
+		ResultSet resul = stmt.executeQuery(sql);
         
         if (resul.next()) {
         	

@@ -15,6 +15,7 @@ public class StockDAOjdbc implements StockDAO{
 	
 	@Override
 	public void insertarStock(Stock stock) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO STOCK (CANTIDAD,SIGLA) VALUES ("
 				+ stock.getCantidad()
@@ -31,6 +32,7 @@ public class StockDAOjdbc implements StockDAO{
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM STOCK ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE SIGLA = '"+sigla+"'";	
+		
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		Stock stock = null;
@@ -48,11 +50,14 @@ public class StockDAOjdbc implements StockDAO{
 
 	@Override
 	public List<Stock> listarStock() throws SQLException {
+	
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM STOCK";
+		
 		LinkedList<Stock> listaStocks = new LinkedList<Stock>();
 		Stock stock = null;
 		Criptomoneda cm = null;
+		
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		while(resul.next()) {
@@ -73,8 +78,10 @@ public class StockDAOjdbc implements StockDAO{
 	public void sumarCantidadStock(String sigla, double cantidad) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = '"+sigla+"'";
+		
 		ResultSet resul = stmt.executeQuery(sql);
 		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
+		
 		stmt.executeUpdate(sql);
 		
 		resul.close();
@@ -83,8 +90,10 @@ public class StockDAOjdbc implements StockDAO{
 	
 	@Override
 	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException {
+	
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "UPDATE STOCK SET CANTIDAD = "+cantidad+" WHERE SIGLA = '"+sigla+"'";
+		
 		stmt.executeUpdate(sql);
 		
 		stmt.close();

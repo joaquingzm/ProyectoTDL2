@@ -8,6 +8,7 @@ public class ComparadorCriptomonedaPrecioEnDolar implements Comparator<Criptomon
 
 	@Override
 	public int compare(Criptomoneda o1, Criptomoneda o2) {
+		
 		double resul = o1.getPrecioEnDolar() - o2.getPrecioEnDolar();
 		int resultadoComparacion = 0;
 		

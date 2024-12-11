@@ -6,8 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controlador.FramePrincipalListeners.CierreListener;
-import modelos.Usuario;
+import vista.menuCompra.MenuCompra;
+import vista.menuCotizaciones.MenuCotizaciones;
+import vista.menuInicio.MenuInicio;
+import vista.menuMisActivos.MenuMisActivos;
+import vista.menuMisOperaciones.MenuMisOperaciones;
+import vista.menuRegistracion.MenuRegistracion;
 
+@SuppressWarnings("serial")
 public class FramePrincipal extends JFrame {
 
 	private JPanel panelPrincipal;
@@ -33,8 +39,6 @@ public class FramePrincipal extends JFrame {
 		menuInicio = new MenuInicio();
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
-		Encabezado encabezado1 = new Encabezado();
-		Encabezado encabezado2 = new Encabezado();
 		menuMisActivos = new MenuMisActivos();
 		menuCotizaciones = new MenuCotizaciones();
 		menuMisOperaciones = new MenuMisOperaciones();
@@ -54,6 +58,38 @@ public class FramePrincipal extends JFrame {
         this.addWindowListener(new CierreListener());
 	}
 
+	public void cambiarMenu(IdentificadoresDePaneles identificador) {
+		
+		switch (identificador) {
+	    
+			case MENUINICIO:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
+				break;
+			
+			case MENUREGISTRACION:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUREGISTRACION.name());
+				break;
+			
+			case MENUMISACTIVOS:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
+				break;
+			
+			case MENUMISOPERACIONES:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISOPERACIONES.name());
+				break;
+			
+			case MENUCOMPRA:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOMPRA.name());
+				break;
+			
+			case MENUCOTIZACIONES:
+				cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
+				break;
+			
+			default:
+		}
+	}
+	
 	public JPanel getPanelPrincipal() {
 		return panelPrincipal;
 	}

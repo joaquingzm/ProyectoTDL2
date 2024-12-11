@@ -8,12 +8,11 @@ import controlador.GestorDeDatosDelControlador;
 import java.sql.*;
 
 import modelos.ActivoCripto;
-import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
-import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
 
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
+	
 	@Override
 	public void insertarActivoCripto(ActivoCripto act) throws SQLException{
 
@@ -39,6 +38,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM ACTIVO_CRIPTO";
+	
 		LinkedList<ActivoCripto> listaActivosCripto = new LinkedList<ActivoCripto>();
 		CriptomonedaDAO cm = FactoryDAO.getCriptomonedaDAO();
 
@@ -65,8 +65,11 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"'";
+	
 		ResultSet resul = stmt.executeQuery(sql);
+		
 		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
+		
 		stmt.executeUpdate(sql);
 		
 		resul.close();
@@ -82,6 +85,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		ActivoCripto ac = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
+	
 		if (resul.next()) {
 			String direc = resul.getString("DIRECCION");
 			double cant = resul.getDouble("CANTIDAD");
@@ -99,6 +103,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM ACTIVO_CRIPTO ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE ID_USUARIO = " + idUsuario;
+		
 		LinkedList<ActivoCripto> listaActivosCripto = new LinkedList<ActivoCripto>();
 		
 		ResultSet resul = stmt.executeQuery(sql);
@@ -119,6 +124,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 
 	@Override
 	public boolean tieneActivoCripto(int idUsuario, String sigla) throws SQLException {
+	
 		Statement stmt = MyConnection.getCon().createStatement();
 		
 		String sql = "SELECT * FROM ACTIVO_CRIPTO ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE ID_USUARIO = "+idUsuario+" AND SIGLA = '"+sigla+"'";

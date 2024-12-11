@@ -2,6 +2,7 @@ package vista;
 
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 public class MiModeloDeTabla extends DefaultTableModel{
 	
 	public MiModeloDeTabla(Object[][] datos, String[] titulos) {

@@ -32,6 +32,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA";
+		
 		LinkedList<ActivoMonedaFiduciaria> listaActivosMonedaFiduciaria = new LinkedList<ActivoMonedaFiduciaria>();
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
 		
@@ -48,16 +49,20 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		resul.close();
 		
 		stmt.close();
+		
 		return listaActivosMonedaFiduciaria;
 	}
 	
 	@Override
 	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException {
-		Statement stmt = MyConnection.getCon().createStatement();
 		
+		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		
 		ResultSet resul = stmt.executeQuery(sql);
+		
 		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
+	
 		stmt.executeUpdate(sql);
 		
 		resul.close();
@@ -68,10 +73,12 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		
 		ActivoMonedaFiduciaria amf = null;
 		double cant;
 		
 		ResultSet resul = stmt.executeQuery(sql);
+		
 		if (resul.next()) {
 			cant = resul.getDouble("CANTIDAD");
 			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);

@@ -1,12 +1,10 @@
 package daos;
 
 import java.sql.SQLException;
-import java.util.Comparator;
 
 import java.util.List;
 
 import modelos.ActivoCripto;
-import modelos.ActivoMonedaFiduciaria;
 
 public interface ActivoCriptoDAO {
 	

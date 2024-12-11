@@ -24,7 +24,7 @@ public class CotizacionesListener implements ActionListener{
 		
 		List<Criptomoneda> listaCriptos;
 		
-		Boolean[] tieneActivo;
+		Boolean[] tieneActivo = null;
 		
 		try {
 			listaCriptos = FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();

@@ -1,25 +1,23 @@
-package vista;
+package vista.menuRegistracion;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
-import controlador.GestorDeDatosDelControlador;
 import controlador.menuRegistracionListeners.RegistroListener;
 import controlador.menuRegistracionListeners.VolverListener;
 
+@SuppressWarnings("serial")
 public class MenuRegistracion extends JPanel {
 	
 	private JTextField nombre;
@@ -39,22 +37,23 @@ public class MenuRegistracion extends JPanel {
 	public MenuRegistracion() {
 		
 		nombre = new JTextField();
-		nombre.setPreferredSize(new Dimension(200,30));
 		nombreLabel = new JLabel("Nombre");
 		apellido = new JTextField();
-		apellido.setPreferredSize(new Dimension(200,30));
 		apellidoLabel = new JLabel("Apellido");
 		email = new JTextField();
-		email.setPreferredSize(new Dimension(200,30));
 		emailLabel = new JLabel("Email:");
 		contraseña = new JPasswordField();
-		contraseña.setPreferredSize(new Dimension(200,30));
 		contraseñaLabel = new JLabel("Contraseña:");
 		registrar = new JButton("Registrar");
-		registrar.setPreferredSize(new Dimension(200,30));
 		terminosCondicionesCaja = new JCheckBox();
 		terminosCondicionesLabel = new JLabel("Acepto terminos y condiciones");
 		volver = new JButton("Volver");
+		
+		nombre.setPreferredSize(new Dimension(200,30));
+		apellido.setPreferredSize(new Dimension(200,30));
+		email.setPreferredSize(new Dimension(200,30));
+		contraseña.setPreferredSize(new Dimension(200,30));
+		registrar.setPreferredSize(new Dimension(200,30));
 		volver.setPreferredSize(new Dimension(200,30));
 		
 		registrar.addActionListener(new RegistroListener());
@@ -62,7 +61,6 @@ public class MenuRegistracion extends JPanel {
 		
 		this.setLayout(new GridBagLayout());
 		
-		this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		gbc.insets = new Insets(10,10,10,10);		
@@ -120,126 +118,36 @@ public class MenuRegistracion extends JPanel {
 		gbc.gridwidth = 2;
 		this.add(volver,gbc);
 	}
-
-
-	public JTextField getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(JTextField nombre) {
-		this.nombre = nombre;
-	}
-
-
-	public JLabel getNombreLabel() {
-		return nombreLabel;
-	}
-
-
-	public void setNombreLabel(JLabel nombreLabel) {
-		this.nombreLabel = nombreLabel;
-	}
-
-
-	public JTextField getApellido() {
-		return apellido;
-	}
-
-
-	public void setApellido(JTextField apellido) {
-		this.apellido = apellido;
-	}
-
-
-	public JLabel getApellidoLabel() {
-		return apellidoLabel;
-	}
-
-
-	public void setApellidoLabel(JLabel apellidoLabel) {
-		this.apellidoLabel = apellidoLabel;
-	}
-
-
-	public JTextField getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(JTextField email) {
-		this.email = email;
-	}
-
-
-	public JLabel getEmailLabel() {
-		return emailLabel;
-	}
-
-
-	public void setEmailLabel(JLabel emailLabel) {
-		this.emailLabel = emailLabel;
-	}
-
-
-	public JTextField getContraseña() {
-		return contraseña;
-	}
-
-
-	public void setContraseña(JTextField contraseña) {
-		this.contraseña = contraseña;
-	}
-
-
-	public JLabel getContraseñaLabel() {
-		return contraseñaLabel;
-	}
-
-
-	public void setContraseñaLabel(JLabel contraseñaLabel) {
-		this.contraseñaLabel = contraseñaLabel;
-	}
-
-
-	public JButton getRegistrar() {
-		return registrar;
-	}
-
-
-	public void setRegistrar(JButton registrar) {
-		this.registrar = registrar;
-	}
-
-
-	public JCheckBox getTerminosCondicionesCaja() {
-		return terminosCondicionesCaja;
-	}
-
-
-	public void setTerminosCondicionesCaja(JCheckBox terminosCondicionesCaja) {
-		this.terminosCondicionesCaja = terminosCondicionesCaja;
-	}
-
-
-	public JLabel getTerminosCondicionesLabel() {
-		return terminosCondicionesLabel;
-	}
-
-
-	public void setTerminosCondicionesLabel(JLabel terminosCondicionesLabel) {
-		this.terminosCondicionesLabel = terminosCondicionesLabel;
-	}
-
-
-	public JButton getVolver() {
-		return volver;
-	}
-
-
-	public void setVolver(JButton volver) {
-		this.volver = volver;
+	
+	public void realizarAccionesDeSalidaDelMenu() {
+		nombre.setText("");
+		apellido.setText("");
+		email.setText("");
+		contraseña.setText("");
+		terminosCondicionesCaja.setSelected(false);
 	}
 	
-
+	public String extraerNombre() {
+		return nombre.getText();
+	}
+	
+	public String extraerApellido() {
+		return apellido.getText();
+	}
+	
+	public String extraerEmail() {
+		return email.getText();
+	}
+	
+	public String extraerContraseña() {
+		return contraseña.getText();
+	}
+	
+	public boolean seAceptaronTerminosYCondiciones() {
+		return terminosCondicionesCaja.isSelected();
+	}
+	
+	public void mostrarError(String error) {
+		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
+	}
 }

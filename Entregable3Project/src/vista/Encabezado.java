@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +11,7 @@ import controlador.encabezadoListeners.CerrarSesionListener;
 import modelos.Persona;
 import modelos.Usuario;
 
+@SuppressWarnings("serial")
 public class Encabezado extends JPanel{
 
 	private JLabel icono;

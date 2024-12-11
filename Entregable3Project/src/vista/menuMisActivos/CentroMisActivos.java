@@ -1,7 +1,6 @@
-package vista;
+package vista.menuMisActivos;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -13,7 +12,9 @@ import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
+import vista.MiModeloDeTabla;
 
+@SuppressWarnings("serial")
 public class CentroMisActivos extends JPanel{
 
 	private JTable activos;
@@ -22,24 +23,26 @@ public class CentroMisActivos extends JPanel{
 	
 	public CentroMisActivos() {
 		
-		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(500,200));
-		
-	    this.nombresColumnas = new String[]{"", "Cripto", "Monto($)"};
-		
-        modelo = new MiModeloDeTabla(null, nombresColumnas);
-		
+		modelo = new MiModeloDeTabla(null, nombresColumnas);
 		activos = new JTable(modelo);
+		JScrollPane scrollPane = new JScrollPane(activos);
+		
 		activos.setRowHeight(64);
 		activos.setAutoCreateRowSorter(true);
 		
-		JScrollPane scrollPane = new JScrollPane(activos);
-		
+		this.setLayout(new BorderLayout());
+	    this.nombresColumnas = new String[]{"", "Cripto", "Monto($)"};
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 	}
 	
 	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
+		
+		Object[][] datos = this.recuperarDatos(listaActivosCripto, listaActivosFIAT);
+		modelo.setDataVector(datos, this.nombresColumnas);
+	}
+	
+	private Object[][] recuperarDatos(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT){
 		
 		int dimFilasAC = listaActivosCripto.size(); 
 		int dimFilasAF = listaActivosFIAT.size();
@@ -50,25 +53,22 @@ public class CentroMisActivos extends JPanel{
 		Criptomoneda c;
 		MonedaFiduciaria m;
 		
-		
 		for(int i=0;i<dimFilasAC;i++) {
 			aC = listaActivosCripto.get(i);
 			c = aC.getCriptomoneda();
-			System.out.println("vista/iconos/"+c.getSigla()+".png");
 			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+c.getSigla()+".png"));
 			datos[i][1] = c.getNombre();
 			datos[i][2] = aC.getCantidad();
 		}
-		
 		for(int i=0;i<dimFilasAF;i++) {
 			aF = listaActivosFIAT.get(i);
 			m = aF.getMonedaFIAT();
-			System.out.println("vista/iconos/"+m.getSigla()+".png");
 			datos[i+dimFilasAC][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+m.getSigla()+".png"));
 			datos[i+dimFilasAC][1] = m.getNombre();
 			datos[i+dimFilasAC][2] = aF.getCantidad();
 		}
-		modelo.setDataVector(datos, this.nombresColumnas);
+		
+		return datos;
 	}
 	
 }

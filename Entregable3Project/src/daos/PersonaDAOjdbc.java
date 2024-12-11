@@ -38,8 +38,10 @@ public class PersonaDAOjdbc implements PersonaDAO{
 
 	@Override
 	public Persona buscarPersona(int idPersona) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM PERSONA WHERE ID = " + idPersona;
+		
 		Persona persona = null;
 		String nombre,apellido;
 		

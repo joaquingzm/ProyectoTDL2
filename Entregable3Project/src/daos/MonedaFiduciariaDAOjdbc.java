@@ -13,6 +13,7 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 
 	@Override
 	public void insertarMonedaFiduciaria(MonedaFiduciaria mf) throws SQLException{
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO MONEDA_FIDUCIARIA (NOMBRE,SIGLA,PRECIO_EN_DOLAR,PAIS_EMISOR) VALUES ('"
 				+ mf.getNombre()
@@ -31,8 +32,10 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 
 	@Override
 	public List<MonedaFiduciaria> listarMonedasFiduciarias() throws SQLException{
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM MONEDA_FIDUCIARIA";
+		
 		LinkedList<MonedaFiduciaria> listaMonedaFiduciarias = new LinkedList<MonedaFiduciaria>();
 
 		ResultSet resul = stmt.executeQuery(sql);
@@ -49,8 +52,10 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 	
 	@Override
 	public MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException{
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		
 		MonedaFiduciaria mf = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
@@ -68,7 +73,8 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT * FROM MONEDA_FIDUCIARIA";
-        ResultSet resul = stmt.executeQuery(sql);
+        
+		ResultSet resul = stmt.executeQuery(sql);
         
         if (resul.next()) {
         	

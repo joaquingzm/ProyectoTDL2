@@ -5,7 +5,10 @@ import java.util.Comparator;
 import modelos.ActivoCripto;
 
 public class ComparadorActivoCriptoCantidad implements Comparator<ActivoCripto> {
+
+	@Override
 	public int compare(ActivoCripto a1, ActivoCripto a2) {
+		
 		double resul = a1.getCantidad() - a2.getCantidad();
 		int resultadoComparacion = 0;
 		
@@ -14,4 +17,5 @@ public class ComparadorActivoCriptoCantidad implements Comparator<ActivoCripto> 
 		
 		return resultadoComparacion;
 	}
+	
 }

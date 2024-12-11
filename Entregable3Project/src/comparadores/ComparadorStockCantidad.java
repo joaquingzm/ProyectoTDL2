@@ -8,6 +8,7 @@ public class ComparadorStockCantidad implements Comparator<Stock>{
 
 	@Override
 	public int compare(Stock s1, Stock s2) {
+		
 		double resul = s1.getCantidad() - s2.getCantidad();
 		int resultadoComparacion = 0;
 		

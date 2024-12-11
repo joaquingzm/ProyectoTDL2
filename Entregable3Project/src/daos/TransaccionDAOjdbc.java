@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import modelos.MonedaFiduciaria;
 import modelos.Transaccion;
 import singletones.MyConnection;
 
@@ -16,6 +15,7 @@ public class TransaccionDAOjdbc implements TransaccionDAO{
 
 	@Override
 	public void insertarTransaccion(Transaccion transaccion) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA) VALUES ('"
 				+ transaccion.getResumen()
@@ -31,8 +31,10 @@ public class TransaccionDAOjdbc implements TransaccionDAO{
 
 	@Override
 	public List<Transaccion> listarTransacciones(int idUsuario) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = " SELECT * FROM TRANSACCION WHERE ID_USUARIO = " + idUsuario;
+		
 		LinkedList<Transaccion> listaTransacciones = new LinkedList<Transaccion>();
 
 		ResultSet resul = stmt.executeQuery(sql);

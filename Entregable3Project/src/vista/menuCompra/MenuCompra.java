@@ -1,4 +1,4 @@
-package vista;
+package vista.menuCompra;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -13,14 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controlador.GestorDeDatosDelControlador;
+import controlador.menuCompraListeners.CancelarListener;
+import controlador.menuCompraListeners.ConvertirListener;
+import controlador.menuCompraListeners.RealizarCompraListener;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
 
+@SuppressWarnings("serial")
 public class MenuCompra extends JPanel{
 	
 	private JLabel stockDisponible;
+	private JLabel sigla;
 	private JLabel precioDeCompra;
 	private JLabel textCantidadDeFIAT;
 	private JTextField cantidadDeFIAT;
@@ -32,24 +36,26 @@ public class MenuCompra extends JPanel{
 	
 	public MenuCompra() {
 	
-		this.setLayout(new GridBagLayout());
-		this.setPreferredSize(new Dimension(500,200));
-
 		stockDisponible = new JLabel("Stock disponible: ");
+		sigla = new JLabel("");
 		precioDeCompra = new JLabel("Precio de compra: ");
 		textCantidadDeFIAT = new JLabel("Quiero comprar con ");
-		textCantidadDeFIAT.setPreferredSize(new Dimension(130,30 ));
 		cantidadDeFIAT = new JTextField();
-		cantidadDeFIAT.setPreferredSize(new Dimension(200,30));
 		selectorFIAT = new JComboBox();
-		cargarSelectorFIAT();
 		convertir = new JButton("Convertir");
-//		convertir.addActionListener(new ConvertirListener());
-		textEquilavenciaEnFIAT = new JLabel("Equivale a...");
+		textEquilavenciaEnFIAT = new JLabel("Equivale a... ");
 		realizarCompra = new JButton("Realizar Compra");
-//		realizarCompra.addActionListener(new RealizarCompraListener());
 		cancelar = new JButton("Cancelar");
-//		cancelar.addActionListener(new CancelarListener());
+		
+		textCantidadDeFIAT.setPreferredSize(new Dimension(130,30 ));
+		cantidadDeFIAT.setPreferredSize(new Dimension(200,30));
+		
+		convertir.addActionListener(new ConvertirListener());
+		realizarCompra.addActionListener(new RealizarCompraListener());
+		cancelar.addActionListener(new CancelarListener());
+
+		this.setLayout(new GridBagLayout());
+		this.setPreferredSize(new Dimension(500,200));
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -60,6 +66,10 @@ public class MenuCompra extends JPanel{
 		gbc.gridy = 0;
 		//gbc.gridwidth = 4;
 		this.add(stockDisponible,gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		this.add(sigla,gbc);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -95,9 +105,8 @@ public class MenuCompra extends JPanel{
 		this.add(cancelar,gbc);
 	}
 	
-	private void cargarSelectorFIAT() {
-		List<MonedaFiduciaria> listaFIATs = GestorDeDatosDelControlador.getListaMonedasFiduciaria();
-	
+	private void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
+
 		Vector<String> arraySiglas = new Vector<String>();
 		
 		for(MonedaFiduciaria m : listaFIATs) {
@@ -108,12 +117,35 @@ public class MenuCompra extends JPanel{
 	}
 	
 	public void cargarMoneda(Stock stock) {
-		System.out.println("HOLA"+stock.toString());
+		
 		Criptomoneda c = stock.getCriptomoneda();
 		
-		stockDisponible.setText("Stock disponible: "+stock.getCantidad()+"("+c.getSigla()+")");
-
+		stockDisponible.setText("Stock disponible: "+stock.getCantidad()+"("+c.getNombre()+")");
+		sigla.setText(c.getSigla());
 		precioDeCompra.setText("Precio de compra: "+c.getSigla()+c.getPrecioEnDolar());
 		
 	}
+	
+	public Double extraerCantidadAConvertir() {
+		
+		return Double.parseDouble(cantidadDeFIAT.getText());
+		
+	}
+	
+	public String extraerSiglaDeMonedaAConvertir() {
+		
+		return selectorFIAT.getSelectedItem().toString();
+	}
+	
+	public String extraerSiglaDeCriptomoneda() {
+		
+		return sigla.getText();
+	}
+	
+	public void actualizarConversion(Double cantidad) {
+		
+		textEquilavenciaEnFIAT.setText("Equivale a... "+cantidad+" "+sigla.getText());
+	}
+	
+	
 }

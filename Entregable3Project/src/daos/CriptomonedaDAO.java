@@ -1,7 +1,6 @@
 package daos;
 
 import java.sql.SQLException;
-import java.util.Comparator;
 import java.util.List;
 
 import modelos.Criptomoneda;

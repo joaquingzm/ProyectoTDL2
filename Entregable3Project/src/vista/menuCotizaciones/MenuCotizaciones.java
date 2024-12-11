@@ -1,10 +1,10 @@
-package vista;
+package vista.menuCotizaciones;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.LinkedList;
+import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import controlador.GestorDeDatosDelControlador;
 import controlador.menuCotizacionesListeners.CompraYSwapListener;
 import controlador.menuCotizacionesListeners.VolverListener;
 import modelos.Criptomoneda;
+import modelos.Usuario;
+import vista.Encabezado;
+import vista.MiModeloDeTabla;
 
+@SuppressWarnings("serial")
 public class MenuCotizaciones extends JPanel {
 
 	private MiModeloDeTabla cotizacionesTableModel;
@@ -31,27 +34,26 @@ public class MenuCotizaciones extends JPanel {
 
 	public MenuCotizaciones(){
 		
-		this.setLayout(new GridBagLayout());
-		
-		this.nombresColumnas = new String[]{".","Cripto","Precio de Compra",".","."};
-		
+		nombresColumnas = new String[]{"","Cripto","Sigla","Precio de Compra","",""};
 		cotizacionesTableModel = new MiModeloDeTabla(null,nombresColumnas);
-		
 		encabezado = new Encabezado();
 		volver = new JButton("Volver");
-		volver.setPreferredSize(new Dimension(200,30));
-		cotizacionesTable = new JTable(cotizacionesTableModel);
-		
-		cotizacionesTable.setRowHeight(64);
-		
+		cotizacionesTable = new JTable(cotizacionesTableModel);	
 		cotizacionesScrollPane = new JScrollPane(cotizacionesTable);
+		
+		volver.setPreferredSize(new Dimension(200,30));
+		cotizacionesTable.setRowHeight(64);
 		cotizacionesScrollPane.setPreferredSize(new Dimension(500,200));
-		
-		GridBagConstraints gbc = new GridBagConstraints();
-		
+		cotizacionesTable.getColumnModel().getColumn(2).setMinWidth(0);
+		cotizacionesTable.getColumnModel().getColumn(2).setMaxWidth(0);
+		cotizacionesTable.getColumnModel().getColumn(2).setWidth(0);
+
 		volver.addActionListener(new VolverListener());
 		cotizacionesTable.addMouseListener(new CompraYSwapListener());
 		
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(10,10,10,10);
 		gbc.weightx = 1;
 		
@@ -76,7 +78,7 @@ public class MenuCotizaciones extends JPanel {
 		int dimFilas = listaCriptos.size();
 		cotizacionesTableModel.setRowCount(dimFilas);
 		
-		Object[][] datos = new Object[dimFilas][5];
+		Object[][] datos = new Object[dimFilas][6];
 		Criptomoneda c;
 		
 		
@@ -85,13 +87,14 @@ public class MenuCotizaciones extends JPanel {
 			c = listaCriptos.get(i);
 			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+c.getSigla()+".png"));
 			datos[i][1] = c.getNombre();
-			datos[i][2] = c.getPrecioEnDolar();
-			datos[i][3] = "Comprar";
+			datos[i][2] = c.getSigla();
+			datos[i][3] = c.getPrecioEnDolar();
+			datos[i][4] = "Comprar";
 			if(tieneActivo[i]) {
-				datos[i][4] = "Swap";
+				datos[i][5] = "Swap";
 			}
 			else {
-				datos[i][4] = "";
+				datos[i][5] = "";
 			}
 		}
 		cotizacionesTableModel.setDataVector(datos, nombresColumnas);
@@ -105,64 +108,30 @@ public class MenuCotizaciones extends JPanel {
 
 		for (String llave : preciosCriptomonedas.keySet()) {
 			int i = 0;
-			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(llave), i, 2); 
+			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(llave), i, 3); 
 			i++;
 		}
 		
 		
 	}
 	
+	public String extraerSigla(Point coords) {
+		return cotizacionesTableModel.getValueAt(cotizacionesTable.rowAtPoint(coords), 2).toString();
+	}
 
+	public boolean seAccionoComprar(Point coords) {
+		int col = cotizacionesTable.columnAtPoint(coords);
+		return (col == 4) ? true:false;
+	}
 
+	public boolean seAccionoSwap(Point coords) {
+		int col = cotizacionesTable.columnAtPoint(coords);
+		int fila = cotizacionesTable.rowAtPoint(coords);
+		return (col == 5 && cotizacionesTable.getValueAt(fila, col) != null) ? true:false;
+	}
 	
-	public MiModeloDeTabla getCotizacionesTableModel() {
-		return cotizacionesTableModel;
+	public void actualizarUsuario(Usuario usuario) {
+		
+		encabezado.actualizarUsuario(usuario);
 	}
-
-
-	public void setCotizacionesTableModel(MiModeloDeTabla cotizacionesTableModel) {
-		this.cotizacionesTableModel = cotizacionesTableModel;
-	}
-
-
-	public JScrollPane getCotizacionesScrollPane() {
-		return cotizacionesScrollPane;
-	}
-
-
-	public void setCotizacionesScrollPane(JScrollPane cotizacionesScrollPane) {
-		this.cotizacionesScrollPane = cotizacionesScrollPane;
-	}
-
-
-	public JTable getCotizacionesTable() {
-		return cotizacionesTable;
-	}
-
-
-	public void setCotizacionesTable(JTable cotizacionesTable) {
-		this.cotizacionesTable = cotizacionesTable;
-	}
-
-
-	public Encabezado getEncabezado() {
-		return encabezado;
-	}
-
-
-	public void setEncabezado(Encabezado encabezado) {
-		this.encabezado = encabezado;
-	}
-
-
-	public JButton getVolver() {
-		return volver;
-	}
-
-
-	public void setVolver(JButton volver) {
-		this.volver = volver;
-	}
-
-
 }

@@ -16,6 +16,4 @@ public interface StockDAO {
 	public void sumarCantidadStock(String sigla,double cantidad) throws SQLException;
 	 
 	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException;
-
-	
 }

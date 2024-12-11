@@ -1,0 +1,170 @@
+
+Ver si mantenemos la forma de tener 2 encabezados para
+cada panel (MenuMisActivos y MenuCotizaciones) o pasamos
+a tener algo así como un panel de ya logeado donde dejamos
+el encabezado arriba y con otro cardlayout vamos cambiando
+de panel en la parte de abajo (de mis activos a cotizaciones
+por ej). Esto nos permite tener un único encabezado
+pero nos cambiaría cómo se ve cada menú, ya que en cada uno
+estaría el encabezado. En resumen, está muy mal tener 2 encabezados?
+--> DECISIÓN: Mantenemos los 2 encabezados, es lo más simple y no
+complica tanto. Si quisieramos que hubiera 2 encabezados tendríamos
+que hacer que hubiera un panel principal que contiene a 1 solo
+encabezado y a 2 paneles secundarios (MenuCompra y MenuCotizaciones).
+			-- SOLUCIONADO --
+
+--- Controladores ---
+
+GENERAL: Deberíamos implementar un método en framePrincipal que
+cambie de menú, el controlador no tiene por qué saber que
+el framePrincipal tiene un cardLayout.
+--> DECISIÓN: Implementé ese método, recibe un identificador del tipo
+IdentificadoresDePaneles.
+			-- SOLUCIONADO --
+
+- menuCotizacionesListeners
+
+CompraYSwapListener: Cambiar lógica del controlador, no debería estar
+accediendo a la tabla, el controlador no conoce cómo funciona.
+--> DECISION: Hice que hubiera en la vista una columna invisible con
+las siglas, era la manera más simple y si se llega a cambiar el
+orden de las monedas va acorde con la nueva posición de la moneda.
+Además añadi métodos dentro de vista para que nos diga si un botón
+fue presionado, ya que en realidad hay un solo boton para toda la
+tabla, como la vista tiene la logica de donde se muestran los 
+"botones" también ha de decidir en base a la coordenadas de donde se
+clickeo si se ha "accionado" un boton (siempre va a ser acccionado)
+en base a si se muestra que hay uno (con texto) y si realmente en
+está en la casilla de los botones/
+			-- REVISAR LÓGICA CON OCTA --
+
+CompraYSwapListener: Nuevo problema, debería actualizarse en base
+al orden de inserción? Ver cómo arreglar eso.
+			-- NO HICE NADA --
+
+
+- menuCompraListeners:
+
+ConvertirListener: No debería pasar al menú compra los datos del
+valor (double) y sigla a poner en el JLabel que muestra la cantidad
+en vez de "decidir" cómo se va a ver?
+--> DECISION: No entendí por qué tiene atributos, pero los quito porque
+un controlador no puede conocer si su vista es Swing o Awt o lo q sea.
+Además hice que la vista pueda devolver la cantidad a convertir,
+la sigla de esa moneda FIAT y la sigla de la moneda Cripto.
+			-- REVISAR CON OCTA --
+capaz sale todo para el culo y hacemos división por 0, puede llegar
+a suceder eso?
+
+RealizarCompraListener: Directamente diría que hay que cambiarlo todo,
+pareciera que se copió y pegó el código de CancelarListener
+			-- NO HICE NADA --
+
+- menuInicioListeners
+
+InicioDeSesionListener: No debería ser el listener quien decide qué
+pasa con los textfields de la vista al cambiar de menú. Ver de 
+cambiarlo haciendo que la vista tenga un método para que se le
+avise que se cambia de menú. (Hay que avisarle al menú porque dudo
+que tenga forma de saber que se utilizó el método show() sobre él.
+--> DECISION: Implementé métodos para realizar las acciones de salida
+del menú, para mostrar error (El controlador no sabe si se
+está utilizando swing o que) y para recuperar el email y contra.
+			-- SOLUCIONADO -- 
+
+RegistroListener: Mismo tema que el de arriba.
+			-- SOLUCIONADO --
+
+- menuRegistracionListeners
+
+RegistroListener: Para comprobar si alguna de las condiciones para
+la registración no fue cumplida, el controlador accede a la vista,
+conoce sus componentes, las recupera y decide sobre su contenido
+qué hacer. Entiendo que en éste caso estaría bien que el controlador
+acceda a la vista para poder acceder al contenido. 
+RTA: Basandome en chatgpt, pareciera que en estos casos se utiliza
+un DTO (Data Transfer Object) porque, qué pasaría si se decidiera
+cambiar de vista? (Swing a JavaFX) o si se quisiera debugear algo?
+El controlador dependería de la vista. Para el alcance de nuestra
+app hacer el DTO parece demasiado bardo pero es probable que sea
+la única forma.
+--> DECISION: Hice un método de extraer() para cada dato, el DTO lo pide
+			-- CONSULTAR CON OCTA QUE PIENSA --
+
+VolverListener: Mismo problema que antes, no debería ser el 
+controlador quien decide poner todo en blanco.
+			-- SOLUCIONADO --
+
+--- Daos ---
+
+PersonaDAO: Hay unos métodos comentados, seguramente no sean 
+necesarios para el entregable 3 si no lo fueron para el anterior.
+Ver de borrar.
+			-- NO HICE NADA --
+
+--- Vista ---
+
+GENERAL: Notar que estoy devolviendo las siglas haciendoles toString
+en vez del casteo, por si rompen las guindas
+			-- REVISAR CON OCTA --
+
+
+- menuInicio
+
+MenuInicio: Comentario sobre el this.setBorder, pareciera no afectar
+en la vista.
+--> DECISION: Era al pedo abz
+			-- SOLUCIONADO --
+
+- menuRegistracion
+
+GENERAL: Deberíamos ver de si hay que hacer un pop up de registro
+exitoso.
+			-- NO HICE NADA --
+
+MenuRegistracion: Chequear si al igual que MenuInicio, el setBorder
+afecta.
+--> DECISION: No hacia nada
+			-- SOLUCIONADO --
+
+- menuMisOperaciones
+
+MenuMisOperaciones: Hacerlo.
+			-- NO HICE NADA --
+
+- menuMisActivos
+
+MenuMisActivos: Ver si asignarle un tamaño al panel de
+CentroMisActivos cambia algo, lo dejé comentado.
+--> DECISION: Sí cambiaba, lo descomenté
+			-- SOLUCIONADO --
+
+- menuCotizaciones
+
+Ver eso de que el listener buscaba por nombre la moneda a convertir
+--> DECISION: Le meti una columna que deberia ser invisible (por ahora
+no lo es, no sé si por otras cosas) y de ahí saca la sigla para
+buscar la moneda.
+			-- SOLUCIONADO --
+
+- menuCompra
+
+MenuCompra: Tengo comentadas algunas configs del gbc, ver q onda
+			-- NO HICE NADA --
+	
+--- Excepciones ---
+
+- Vista
+
+FramePrincipal: Ver el método de cambiarMenu, se podría hacer una
+excepción en la parte default del switch, el caso donde el 
+identificador que pasan no es válido (aunque creo que no es posible
+que suceda)
+			-- NO HICE NADA --
+
+- Controlador
+
+menuRegistracionListeners.RegistroListener: Hay un comentario de octa
+preguntando que hariamos con la excepcion de que hariamos si no 
+existe el user, ver que onda.
+			-- NO HICE NADA --

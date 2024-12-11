@@ -1,37 +1,43 @@
-package vista;
+package vista.menuMisActivos;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controlador.menuMisActivosListeners.CotizacionesListener;
 import controlador.menuMisActivosListeners.ExportarCSVListener;
 import controlador.menuMisActivosListeners.OperacionesListener;
+import modelos.ActivoCripto;
+import modelos.ActivoMonedaFiduciaria;
 import modelos.Usuario;
+import vista.Encabezado;
 
+@SuppressWarnings("serial")
 public class MenuMisActivos extends JPanel{
 	
 	private Encabezado encabezado;
 	private CentroMisActivos centroMisActivos; 
-	
 	private JButton exportarCSV;
 	private JButton operaciones;
 	private JButton cotizaciones;
 	
 	public MenuMisActivos() {
 		
-		
 		centroMisActivos = new CentroMisActivos();
 		encabezado = new Encabezado();
 		exportarCSV = new JButton();
-		exportarCSV.setPreferredSize(new Dimension(200,30));
 		operaciones = new JButton();
-		operaciones.setPreferredSize(new Dimension(200,30));
 		cotizaciones = new JButton();
+		
+		centroMisActivos.setPreferredSize(new Dimension(500,200));
+		exportarCSV.setPreferredSize(new Dimension(200,30));
+		operaciones.setPreferredSize(new Dimension(200,30));
 		cotizaciones.setPreferredSize(new Dimension(200,30));
 		
 		exportarCSV.setText("Exportar como CSV");
@@ -43,8 +49,8 @@ public class MenuMisActivos extends JPanel{
 		cotizaciones.addActionListener(new CotizacionesListener());
 		
 		this.setLayout(new GridBagLayout());
+
 		GridBagConstraints gbc = new GridBagConstraints();
-		
 		gbc.insets = new Insets(10,10,10,10);
 		gbc.weightx = 1;
 		
@@ -71,20 +77,15 @@ public class MenuMisActivos extends JPanel{
 		this.add(cotizaciones,gbc);
 	}
 	
-	public Encabezado getEncabezado() {
-		return encabezado;
-	}
-
-	public void setEncabezado(Encabezado encabezado) {
-		this.encabezado = encabezado;
+	public void actualizarActivos(List<ActivoCripto> listaActivosCripto , List<ActivoMonedaFiduciaria> listaActivosFIAT) {
+		
+		centroMisActivos.actualizarTabla(listaActivosCripto, listaActivosFIAT);
 	}
 	
-	public void setCentroMisActivos(CentroMisActivos centroMisActivos) {
-		this.centroMisActivos = centroMisActivos;
+	public void actualizarUsuario(Usuario usuario) {
+		
+		encabezado.actualizarUsuario(usuario);
 	}
 	
-	public CentroMisActivos getCentroMisActivos() {
-		return this.centroMisActivos;
-	}
-
+	
 }

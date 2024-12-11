@@ -1,14 +1,10 @@
 package controlador.menuInicioListeners;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
@@ -17,7 +13,7 @@ import modelos.ActivoMonedaFiduciaria;
 import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
-import vista.MenuInicio;
+import vista.menuInicio.MenuInicio;
 
 
 public class InicioDeSesionListener implements ActionListener{
@@ -27,15 +23,12 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuInicio menuInicio = framePrincipal.getMenuInicio();
-		
-		JTextField email = menuInicio.getEmail();
-		JTextField contraseña = menuInicio.getContraseña();
-		
-		String emailTexto = email.getText();
-		String contraseñaTexto = contraseña.getText();
+	
+		String emailTexto = menuInicio.extraerEmail();
+		String contraseñaTexto = menuInicio.extraerContraseña();
 		
 		if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Algunos de los campos solicitados no se completó.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			menuInicio.mostrarError("Algunos de los campos solicitados no se completó.");
 			return;
 		}
 		
@@ -45,7 +38,7 @@ public class InicioDeSesionListener implements ActionListener{
 		try {
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			if (idUsuario < 0) {
-				JOptionPane.showMessageDialog(null, "La información ingresada no corresponde a ningun usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
+				menuInicio.mostrarError("La información ingresada no corresponde a ningun usuario.");
 				return;
 			}
 			usuario = FactoryDAO.getUsuarioDAO().buscarUsuario(idUsuario);
@@ -56,31 +49,26 @@ public class InicioDeSesionListener implements ActionListener{
 			return;
 		}
 		
-		List<ActivoCripto> aC = null;
-		List<ActivoMonedaFiduciaria> aF = null;
+		List<ActivoCripto> listaActivosCripto = null;
+		List<ActivoMonedaFiduciaria> listaActivosFIAT = null;
 		
 		try {
-			aC =FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
-			aF = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
+			listaActivosCripto =FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
+			listaActivosFIAT = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		
 		
 		
-		framePrincipal.getMenuMisActivos().getEncabezado().actualizarUsuario(usuario);
-		framePrincipal.getMenuCotizaciones().getEncabezado().actualizarUsuario(usuario);
-		framePrincipal.getMenuMisActivos().getCentroMisActivos().actualizarTabla(aC, aF);
-		
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
-		CardLayout cardLayout = framePrincipal.getCardLayout();
-		
+		framePrincipal.getMenuMisActivos().actualizarUsuario(usuario);
+		framePrincipal.getMenuCotizaciones().actualizarUsuario(usuario);
+		framePrincipal.getMenuMisActivos().actualizarActivos(listaActivosCripto, listaActivosFIAT);
+				
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);
 		
-		email.setText("");
-		contraseña.setText("");
+		menuInicio.realizarAccionesDeSalidaDelMenu();
 		
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
-		
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUMISACTIVOS);		
 	}
 }

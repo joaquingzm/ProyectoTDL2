@@ -8,6 +8,7 @@ public class ComparadorMonedaFiduciariaPrecioEnDolar implements Comparator<Moned
 
 	@Override
 	public int compare(MonedaFiduciaria o1, MonedaFiduciaria o2) {
+	
 		double resul = o1.getPrecioEnDolar() - o2.getPrecioEnDolar();
 		int resultadoComparacion = 0;
 		

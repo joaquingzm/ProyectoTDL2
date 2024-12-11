@@ -1,14 +1,8 @@
 package controlador.menuRegistracionListeners;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
@@ -17,7 +11,7 @@ import daos.UsuarioDAO;
 import modelos.Persona;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
-import vista.MenuRegistracion;
+import vista.menuRegistracion.MenuRegistracion;
 
 public class RegistroListener implements ActionListener{
 
@@ -28,25 +22,19 @@ public class RegistroListener implements ActionListener{
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuRegistracion menuRegistracion = framePrincipal.getMenuRegistracion();
 		
-		JTextField nombre = menuRegistracion.getNombre();
-		JTextField apellido = menuRegistracion.getApellido();
-		JTextField email = menuRegistracion.getEmail();
-		JTextField contraseña = menuRegistracion.getContraseña();
-		JCheckBox terminosCondicionesCaja = menuRegistracion.getTerminosCondicionesCaja();
+		String nombre = menuRegistracion.extraerNombre();
+		String apellido = menuRegistracion.extraerApellido();
+		String email = menuRegistracion.extraerEmail();
+		String contraseña = menuRegistracion.extraerContraseña();
+		boolean aceptoTerminosCondiciones = menuRegistracion.seAceptaronTerminosYCondiciones();
 		
-		String nombreTexto = nombre.getText();
-		String apellidoTexto = nombre.getText();
-		String emailTexto = email.getText();
-		String contraseñaTexto = contraseña.getText();
-		boolean aceptoTerminosCondiciones = terminosCondicionesCaja.isSelected();
-		
-		if (nombreTexto.isEmpty() || apellidoTexto.isEmpty() || emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Algunos de los campos solicitados no se completó.", "ERROR", JOptionPane.ERROR_MESSAGE);
+		if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
+			menuRegistracion.mostrarError("Algunos de los campos solicitados no se completó.");
 			return;
 		}
 		
 		if (!aceptoTerminosCondiciones) {
-			JOptionPane.showMessageDialog(null, "No se aceptaron los Terminos y Condiciones.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			menuRegistracion.mostrarError("No se aceptaron los Terminos y Condiciones.");
 			return;
 		}
 		
@@ -54,11 +42,11 @@ public class RegistroListener implements ActionListener{
 		
 		//CAMBIAR POR NUESTRA EXCEPCION !!!!
 		try {
-			if (usrDAO.existeEmail(emailTexto)) {
+			if (usrDAO.existeEmail(email)) {
 				throw new SQLException();
 			}
 		} catch (SQLException e1) {
-			JOptionPane.showMessageDialog(null, "El email propuesto esta asociado a otro usuario.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			menuRegistracion.mostrarError("El email propuesto esta asociado a otro usuario.");
 			return;
 		}
 		
@@ -67,27 +55,22 @@ public class RegistroListener implements ActionListener{
 		
 		try {
 			
-			IdPersona = pDAO.buscarId(nombreTexto, apellidoTexto);
+			IdPersona = pDAO.buscarId(nombre, apellido);
 			
 			if (IdPersona < 0) {
-				Persona p = new Persona(nombreTexto, apellidoTexto); 
+				Persona p = new Persona(nombre, apellido); 
 				IdPersona = pDAO.insertarPersona(p);
 			}
 			
-			usrDAO.insertarUsuario(IdPersona, emailTexto, contraseñaTexto, aceptoTerminosCondiciones);
+			usrDAO.insertarUsuario(IdPersona, email, contraseña, aceptoTerminosCondiciones);
 			
 		} catch (SQLException exc) {
 			
 			exc.printStackTrace();  //Que hariamos aca????????????
 		}
-		nombre.setText("");
-		apellido.setText("");
-		email.setText("");
-		contraseña.setText("");
-		terminosCondicionesCaja.setSelected(false);
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
-		CardLayout cardLayout = framePrincipal.getCardLayout();
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
-	}
+		
+		menuRegistracion.realizarAccionesDeSalidaDelMenu();
+		
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUINICIO);	}
 
 }
