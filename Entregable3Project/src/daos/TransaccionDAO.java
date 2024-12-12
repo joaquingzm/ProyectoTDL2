@@ -7,7 +7,7 @@ import modelos.Transaccion;
 
 public interface TransaccionDAO {
 	
-	public void insertarTransaccion (Transaccion transaccion) throws SQLException;
+	public void insertarTransaccion (Transaccion transaccion, int idUsuario) throws SQLException;
 	
 	public List<Transaccion> listarTransacciones (int idUsuario) throws SQLException;
 }

@@ -14,14 +14,16 @@ import singletones.MyConnection;
 public class TransaccionDAOjdbc implements TransaccionDAO{
 
 	@Override
-	public void insertarTransaccion(Transaccion transaccion) throws SQLException {
+	public void insertarTransaccion(Transaccion transaccion, int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA) VALUES ('"
+		String sql = "INSERT INTO TRANSACCION (RESUMEN,FECHA_HORA,ID_USUARIO) VALUES ('"
 				+ transaccion.getResumen()
 				+ "','"
 				+ transaccion.getfechaYHora().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-				+ "')";
+				+ "',"
+				+ idUsuario
+				+ ")";
 
 		stmt.executeUpdate(sql);
 		

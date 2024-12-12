@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -147,5 +148,12 @@ public class MenuCompra extends JPanel{
 		textEquilavenciaEnFIAT.setText("Equivale a... "+cantidad+" "+sigla.getText());
 	}
 	
+	public double extraerStockDisponible() { //HAY QUE HACERLO!!!!!!!!!!!!
+		return 0;
+	}
+	
+	public void mostrarError(String error) {
+		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
+	}
 	
 }

@@ -9,11 +9,11 @@ public interface ActivoMonedaFiduciariaDAO {
 	
 	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException;
 	
-	public void sumarCantidadActivoFiduciaria(String sigla, Double cantidad) throws SQLException;
+	public void sumarCantidadActivoFiduciaria(String sigla, int idUsuario, Double cantidad) throws SQLException;
 
 	List<ActivoMonedaFiduciaria> listarActivosFiduciarios() throws SQLException;
 	
-	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla) throws SQLException;
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla, int idUsuario) throws SQLException;
 	
 	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios(int idUsuario) throws SQLException;
 }
