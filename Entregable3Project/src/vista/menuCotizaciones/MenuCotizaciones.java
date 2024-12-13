@@ -54,7 +54,7 @@ public class MenuCotizaciones extends JPanel {
 		this.setLayout(new GridBagLayout());
 		
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(10,10,10,10);
+		 	
 		gbc.weightx = 1;
 		
 		gbc.gridwidth = 2;

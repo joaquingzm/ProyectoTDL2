@@ -108,6 +108,9 @@ GENERAL: Notar que estoy devolviendo las siglas haciendoles toString
 en vez del casteo, por si rompen las guindas
 			-- REVISAR CON OCTA --
 
+GENERAL; Ver qué conviene más, si utilizar los .name() de los 
+identificadores o directamente los enum.
+
 
 - menuInicio
 
@@ -131,6 +134,8 @@ afecta.
 
 MenuMisOperaciones: Hacerlo.
 			-- NO HICE NADA --
+MenuMisOperaciones: Ver que onda cómo deje representadas las
+operaciones con el toString.
 
 - menuMisActivos
 
