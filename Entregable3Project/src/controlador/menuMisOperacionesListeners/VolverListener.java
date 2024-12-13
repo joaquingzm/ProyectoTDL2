@@ -1,10 +1,8 @@
 package controlador.menuMisOperacionesListeners;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
 
 import controlador.GestorDeDatosDelControlador;
 import vista.FramePrincipal;
@@ -17,10 +15,8 @@ public class VolverListener implements ActionListener{
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
-		CardLayout cardLayout = framePrincipal.getCardLayout();
-		
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUMISACTIVOS.name());
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUMISACTIVOS.name());
+
 		
 	}
 

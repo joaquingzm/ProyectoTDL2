@@ -8,13 +8,13 @@ import modelos.ActivoCripto;
 
 public interface ActivoCriptoDAO {
 	
-	void insertarActivoCripto(ActivoCripto act) throws SQLException;
+	void insertarActivoCripto(ActivoCripto act, int idUsuario) throws SQLException;
 	
-	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException;
+	public void sumarCantidadActivoCripto(String sigla, int idUsuario, Double cantidad) throws SQLException;
 	
 	List<ActivoCripto> listarActivosCripto() throws SQLException;
 	
-	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException;
+	public ActivoCripto buscarActivoCripto(String sigla, int idUsuario) throws SQLException;
 	
 	public List<ActivoCripto> listarActivosCripto(int idUsuario) throws SQLException;
 

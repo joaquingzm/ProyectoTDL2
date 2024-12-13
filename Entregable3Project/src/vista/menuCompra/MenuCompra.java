@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -41,7 +42,7 @@ public class MenuCompra extends JPanel{
 		precioDeCompra = new JLabel("Precio de compra: ");
 		textCantidadDeFIAT = new JLabel("Quiero comprar con ");
 		cantidadDeFIAT = new JTextField();
-		selectorFIAT = new JComboBox();
+		selectorFIAT = new JComboBox<String>();
 		convertir = new JButton("Convertir");
 		textEquilavenciaEnFIAT = new JLabel("Equivale a... ");
 		realizarCompra = new JButton("Realizar Compra");
@@ -147,5 +148,12 @@ public class MenuCompra extends JPanel{
 		textEquilavenciaEnFIAT.setText("Equivale a... "+cantidad+" "+sigla.getText());
 	}
 	
+	public double extraerStockDisponible() { //HAY QUE HACERLO!!!!!!!!!!!!
+		return 0;
+	}
+	
+	public void mostrarError(String error) {
+		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
+	}
 	
 }

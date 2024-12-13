@@ -1,8 +1,6 @@
 package controlador;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;

@@ -73,6 +73,26 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 		
 		return cm;
 	}
+	
+	@Override
+	public int buscarCriptomonedaId(String sigla) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT ID FROM CRIPTOMONEDA WHERE SIGLA = '"+sigla+"'";
+		
+		int id = -1;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if (resul.next()) {
+			id = resul.getInt("ID");
+		}
+		resul.close();
+		
+		stmt.close();
+		
+		return id;
+	}
 
 	@Override
 	public void actualizarPrecioEnDolar(String sigla, double precioEnDolar) throws SQLException {
@@ -108,6 +128,8 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
         return true;
         
 	}
+
+
 
 
 }

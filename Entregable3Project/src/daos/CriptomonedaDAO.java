@@ -13,6 +13,8 @@ public interface CriptomonedaDAO {
 	
 	Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
 	
+	int buscarCriptomonedaId(String sigla) throws SQLException;
+	
 	void actualizarPrecioEnDolar(String sigla, double precioEnDolar) throws SQLException;
 	
 	boolean estaVacia() throws SQLException; 

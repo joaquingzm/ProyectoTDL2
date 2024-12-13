@@ -1,12 +1,10 @@
 package controlador.menuMisActivosListeners;
 
-import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.JPanel;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.ActivoCriptoDAO;
@@ -50,10 +48,7 @@ public class CotizacionesListener implements ActionListener{
 		
 		GestorDeDatosDelControlador.comenzarTimer();
 		
-		JPanel panelPrincipal = framePrincipal.getPanelPrincipal();
-		CardLayout cardLayout = framePrincipal.getCardLayout();
-		
-		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUCOTIZACIONES.name());
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		
 	}
 

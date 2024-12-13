@@ -18,6 +18,6 @@ public class RegistroListener implements ActionListener{
 	
 		menuInicio.realizarAccionesDeSalidaDelMenu();
 		
-		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUREGISTRACION);	}
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUREGISTRACION.name());	}
 	
 }

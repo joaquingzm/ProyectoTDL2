@@ -3,7 +3,6 @@ package daos;
 import java.util.LinkedList;
 import java.util.List;
 
-import controlador.GestorDeDatosDelControlador;
 
 import java.sql.*;
 
@@ -14,14 +13,14 @@ import singletones.MyConnection;
 public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	
 	@Override
-	public void insertarActivoCripto(ActivoCripto act) throws SQLException{
-
+	public void insertarActivoCripto(ActivoCripto act, int idUsuario) throws SQLException {
+		
 		Statement stmt = MyConnection.getCon().createStatement();
 		
 		String sql = "INSERT INTO ACTIVO_CRIPTO (ID_USUARIO,ID_CRIPTO,CANTIDAD,DIRECCION) VALUES ("
-				+ GestorDeDatosDelControlador.getIdUsuario()
+				+ idUsuario
 				+ ","
-				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(act.getCriptomoneda().getSigla())
+				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(act.getCriptomoneda().getSigla())
 				+ ","
 				+ act.getCantidad() 
 				+ ",'"
@@ -31,6 +30,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		stmt.executeUpdate(sql);
 		
 		stmt.close();
+		
 	}
 
 	@Override
@@ -61,14 +61,14 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 
 	@Override
-	public void sumarCantidadActivoCripto(String sigla, Double cantidad) throws SQLException {
+	public void sumarCantidadActivoCripto(String sigla, int idUsuario, Double cantidad) throws SQLException {
 
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
 	
 		ResultSet resul = stmt.executeQuery(sql);
 		
-		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
+		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
 		
 		stmt.executeUpdate(sql);
 		
@@ -77,11 +77,11 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 	
 	@Override
-	public ActivoCripto buscarActivoCripto(String sigla) throws SQLException {
+	public ActivoCripto buscarActivoCripto(String sigla, int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
 		ActivoCripto ac = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
@@ -137,5 +137,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		
 		return false;
 	}
+
+
 
 }
