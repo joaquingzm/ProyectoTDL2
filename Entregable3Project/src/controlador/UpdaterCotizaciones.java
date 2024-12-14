@@ -26,7 +26,6 @@ public class UpdaterCotizaciones extends TimerTask {
 	
 	@Override
 	public void run() {
-		
 		Map<String, Double> preciosCriptomonedas = null;
 		
 	    try {
@@ -55,6 +54,7 @@ public class UpdaterCotizaciones extends TimerTask {
 		for (String llave : preciosCriptomonedas.keySet()) {
 			
 			try {
+				System.out.println("Actualizando");
 				cDAO.actualizarPrecioEnDolar(llave, preciosCriptomonedas.get(llave));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -62,7 +62,7 @@ public class UpdaterCotizaciones extends TimerTask {
 			}
 			
 		}
-		
+		System.out.println("");
 		framePrincipal.getMenuCotizaciones().actualizarPrecios(preciosCriptomonedas);;
 
 	}
@@ -80,8 +80,9 @@ public class UpdaterCotizaciones extends TimerTask {
 		}
 
 		for (Criptomoneda criptomoneda : listaCriptos) {
+			String sigla = criptomoneda.getSigla();
 			String nombre = criptomoneda.getNombre();
-			preciosCriptomonedas.put(nombre.toUpperCase(), json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
+			preciosCriptomonedas.put(sigla.toUpperCase(), json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
 		}
 
 		return preciosCriptomonedas;

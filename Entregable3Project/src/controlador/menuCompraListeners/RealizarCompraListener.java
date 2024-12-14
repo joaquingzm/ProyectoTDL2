@@ -9,10 +9,14 @@ import java.util.Random;
 import controlador.GestorDeDatosDelControlador;
 import daos.ActivoCriptoDAO;
 import daos.ActivoMonedaFiduciariaDAO;
+import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
+import daos.MonedaFiduciariaDAO;
+import daos.StockDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.Stock;
 import modelos.Transaccion;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -27,22 +31,48 @@ public class RealizarCompraListener implements ActionListener{
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuCompra menuCompra = framePrincipal.getMenuCompra();
 		
-		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
-		
+		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
+		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
+		ActivoMonedaFiduciariaDAO amfDAO = FactoryDAO.getActivoMonedaFiduciariaDAO();
+		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
+		StockDAO stDAO = FactoryDAO.getStockDAO();
+
 		double cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
-		double stockDisponible = menuCompra.extraerStockDisponible();
+		double stockDisponible = 0;
 		
 		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
 		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
+
+		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
+		int idFIAT = -1;
 		
-		ActivoMonedaFiduciariaDAO amfDAO = FactoryDAO.getActivoMonedaFiduciariaDAO();
-		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
+		try {
+			idFIAT = mfDAO.buscarMonedaFiduciariaId(siglaFiat);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int idCripto = -1;
+		
+		try {
+			idCripto = cDAO.buscarCriptomonedaId(siglaCripto);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+				
+		try {
+			stockDisponible = stDAO.buscarStock(menuCompra.extraerSiglaDeCriptomoneda()).getCantidad();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		Criptomoneda cm;
 		ActivoMonedaFiduciaria amf;
 		
 		try {
-			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(siglaCripto); //Solo se puede comprar de las criptomonedas que uno tenga??
+			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto); //Solo se puede comprar de las criptomonedas que uno tenga??
 			amf = amfDAO.buscarActivoMonedaFiduciaria(siglaFiat, idUsuario);
 			
 		} catch (SQLException e1) {
@@ -89,12 +119,12 @@ public class RealizarCompraListener implements ActionListener{
 
 			} else {
 
-				acDAO.sumarCantidadActivoCripto(siglaCripto, idUsuario,cantidadTotalDeCripto);
+				acDAO.sumarCantidadActivoCripto(idCripto, idUsuario,cantidadTotalDeCripto);
 
 			}
 
 			FactoryDAO.getStockDAO().sumarCantidadStock(siglaCripto, -cantidadTotalDeCripto);
-			amfDAO.sumarCantidadActivoFiduciaria(siglaFiat, idUsuario,-cantidadDeFiat);
+			amfDAO.sumarCantidadActivoFiduciaria(idFIAT, idUsuario,-cantidadDeFiat);
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);
 			

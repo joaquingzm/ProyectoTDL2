@@ -15,7 +15,7 @@ public class MetodosDelSistema {
 				+ "(" 
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 				+ " NOMBRE VARCHAR(50) NOT NULL, " 
-				+ " SIGLA VARCHAR(10) NOT NULL, "
+				+ " SIGLA VARCHAR(10) NOT NULL UNIQUE, "
 				+ " PRECIO_EN_DOLAR	REAL NOT NULL, " 
 				+ " VOLATILIDAD	REAL NULL " 
 				+ ")";
@@ -25,7 +25,7 @@ public class MetodosDelSistema {
 				+ "(" 
 				+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
 				+ " NOMBRE VARCHAR(50) NOT NULL, " 
-				+ " SIGLA VARCHAR(10) NOT NULL, "
+				+ " SIGLA VARCHAR(10) NOT NULL UNIQUE, "
 				+ " PRECIO_EN_DOLAR	REAL NOT NULL, " 
 				+ " PAIS_EMISOR VARCHAR(50) NOT NULL "
 				+ ")";

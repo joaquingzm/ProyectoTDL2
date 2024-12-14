@@ -14,15 +14,6 @@ public class CompraListener {
 	FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 	MenuCotizaciones menuCotizaciones = framePrincipal.getMenuCotizaciones();
 	
-	String nombreCripto = tabla.getValueAt(fila, 1).toString();
-	List<Criptomoneda> listaCriptos;
-	
-	try {
-		listaCriptos = FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
-	} catch (SQLException e) {
-		e.printStackTrace();
-		return;
-	}
 
 	for(Criptomoneda c : listaCriptos) {
 		if(c.getNombre().equals(nombreCripto)) {
@@ -35,8 +26,8 @@ public class CompraListener {
 		}
 	}
 	
-	framePrincipal.getMenuCompra().cargarMoneda(stock);
+	//framePrincipal.getMenuCompra().cargarMoneda(stock);
 	
-	GestorDeDatosDelControlador.terminarTimer();
+	//GestorDeDatosDelControlador.terminarTimer();
 }
 }

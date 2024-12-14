@@ -9,7 +9,7 @@ public interface ActivoMonedaFiduciariaDAO {
 	
 	void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException;
 	
-	public void sumarCantidadActivoFiduciaria(String sigla, int idUsuario, Double cantidad) throws SQLException;
+	public void sumarCantidadActivoFiduciaria(int idFIAT, int idUsuario, Double cantidad) throws SQLException;
 
 	List<ActivoMonedaFiduciaria> listarActivosFiduciarios() throws SQLException;
 	

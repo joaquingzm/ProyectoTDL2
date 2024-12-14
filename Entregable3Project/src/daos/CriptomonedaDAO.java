@@ -11,11 +11,11 @@ public interface CriptomonedaDAO {
 	
 	List<Criptomoneda> listarCriptomonedas() throws SQLException;
 	
-	Criptomoneda buscarCriptomoneda(String sigla) throws SQLException;
+	Criptomoneda buscarCriptomoneda(int idCripto) throws SQLException;
 	
 	int buscarCriptomonedaId(String sigla) throws SQLException;
 	
-	void actualizarPrecioEnDolar(String sigla, double precioEnDolar) throws SQLException;
+	void actualizarPrecioEnDolar(int idCripto, double precioEnDolar) throws SQLException;
 	
 	boolean estaVacia() throws SQLException; 
 	

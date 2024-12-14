@@ -61,14 +61,14 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 
 	@Override
-	public void sumarCantidadActivoCripto(String sigla, int idUsuario, Double cantidad) throws SQLException {
+	public void sumarCantidadActivoCripto(int idCripto, int idUsuario, Double cantidad) throws SQLException {
 
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE ID_CRIPTO = '"+idCripto+"' AND ID_USUARIO = " + idUsuario;
 	
 		ResultSet resul = stmt.executeQuery(sql);
 		
-		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE ID_CRIPTO = '"+idCripto+"' AND ID_USUARIO = " + idUsuario;
 		
 		stmt.executeUpdate(sql);
 		

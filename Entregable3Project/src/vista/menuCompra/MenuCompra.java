@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,9 +47,6 @@ public class MenuCompra extends JPanel{
 		realizarCompra = new JButton("Realizar Compra");
 		cancelar = new JButton("Cancelar");
 		
-		textCantidadDeFIAT.setPreferredSize(new Dimension(130,30 ));
-		cantidadDeFIAT.setPreferredSize(new Dimension(200,30));
-		
 		convertir.addActionListener(new ConvertirListener());
 		realizarCompra.addActionListener(new RealizarCompraListener());
 		cancelar.addActionListener(new CancelarListener());
@@ -62,11 +58,14 @@ public class MenuCompra extends JPanel{
 		
 		gbc.insets = new Insets(10,10,10,10);
 		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		//gbc.gridwidth = 4;
+		gbc.gridwidth = 3;
 		this.add(stockDisponible,gbc);
+		
+		gbc.gridwidth = 1;
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
@@ -75,7 +74,6 @@ public class MenuCompra extends JPanel{
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		this.add(precioDeCompra,gbc);
-		//gbc.gridwidth = 1;
 		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
@@ -95,7 +93,10 @@ public class MenuCompra extends JPanel{
 		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
+		gbc.gridwidth = 4;
 		this.add(textEquilavenciaEnFIAT,gbc);
+		
+		gbc.gridwidth = 1;
 		
 		gbc.gridx = 1;
 		gbc.gridy = 4;
@@ -106,15 +107,13 @@ public class MenuCompra extends JPanel{
 		this.add(cancelar,gbc);
 	}
 	
-	private void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
+	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
 
-		Vector<String> arraySiglas = new Vector<String>();
-		
+		selectorFIAT.removeAllItems();
 		for(MonedaFiduciaria m : listaFIATs) {
-			arraySiglas.add(m.getSigla());
+			selectorFIAT.addItem(m.getSigla());
 		}
 		
-		selectorFIAT = new JComboBox<String>(arraySiglas);
 	}
 	
 	public void cargarMoneda(Stock stock) {
@@ -123,7 +122,7 @@ public class MenuCompra extends JPanel{
 		
 		stockDisponible.setText("Stock disponible: "+stock.getCantidad()+"("+c.getNombre()+")");
 		sigla.setText(c.getSigla());
-		precioDeCompra.setText("Precio de compra: "+c.getSigla()+c.getPrecioEnDolar());
+		precioDeCompra.setText("Precio de compra: $"+c.getPrecioEnDolar());
 		
 	}
 	

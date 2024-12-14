@@ -54,14 +54,14 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	}
 	
 	@Override
-	public void sumarCantidadActivoFiduciaria(String sigla, int idUsuario, Double cantidad) throws SQLException {
+	public void sumarCantidadActivoFiduciaria(int idFIAT, int idUsuario, Double cantidad) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		String sql = "SELECT CANTIDAD FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_FIAT = '"+idFIAT+"' AND ID_USUARIO = " + idUsuario;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
-		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE ID_FIAT = '"+idFIAT+"' AND ID_USUARIO = " + idUsuario;
 	
 		stmt.executeUpdate(sql);
 		
@@ -72,7 +72,8 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla, int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		int idFIAT = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciariaId(sigla);
+		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_FIAT = '"+idFIAT+"' AND ID_USUARIO = " + idUsuario;
 		
 		ActivoMonedaFiduciaria amf = null;
 		double cant;

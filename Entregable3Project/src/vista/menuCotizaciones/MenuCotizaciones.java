@@ -89,9 +89,9 @@ public class MenuCotizaciones extends JPanel {
 			datos[i][1] = c.getNombre();
 			datos[i][2] = c.getSigla();
 			datos[i][3] = c.getPrecioEnDolar();
-			datos[i][4] = "Comprar";
+			datos[i][4] = "    Comprar";
 			if(tieneActivo[i]) {
-				datos[i][5] = "Swap";
+				datos[i][5] = "    Swap";
 			}
 			else {
 				datos[i][5] = "";
