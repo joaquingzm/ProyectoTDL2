@@ -10,9 +10,11 @@ import controlador.GestorDeDatosDelControlador;
 import daos.ActivoCriptoDAO;
 import daos.ActivoMonedaFiduciariaDAO;
 import daos.FactoryDAO;
+import daos.StockDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.Stock;
 import modelos.Transaccion;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -30,20 +32,22 @@ public class RealizarCompraListener implements ActionListener{
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
 		
 		double cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
-		double stockDisponible = menuCompra.extraerStockDisponible();
 		
 		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
 		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
 		
 		ActivoMonedaFiduciariaDAO amfDAO = FactoryDAO.getActivoMonedaFiduciariaDAO();
 		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
+		StockDAO stockDAO = FactoryDAO.getStockDAO();
 		
 		Criptomoneda cm;
 		ActivoMonedaFiduciaria amf;
+		Stock stockDisponible;
 		
 		try {
 			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(siglaCripto); //Solo se puede comprar de las criptomonedas que uno tenga??
 			amf = amfDAO.buscarActivoMonedaFiduciaria(siglaFiat, idUsuario);
+			stockDisponible = stockDAO.buscarStock(siglaCripto);
 			
 		} catch (SQLException e1) {
 			
@@ -69,14 +73,14 @@ public class RealizarCompraListener implements ActionListener{
 		
 		
 		
-		if (stockDisponible < cantidadTotalDeCripto) {
+		if (stockDisponible.getCantidad() < cantidadTotalDeCripto) {
 			
 			menuCompra.mostrarError("Ha habido error en la compra porque el stock en el sistema no es suficiente.");
 			return;
 			
 		}
 		
-		String resumen = cantidadTotalDeCripto + " " + siglaCripto;
+		String resumen = "Compra " +cantidadTotalDeCripto + " " + siglaCripto;
 
 		Transaccion t = new Transaccion(resumen, LocalDateTime.now());
 		
@@ -93,7 +97,7 @@ public class RealizarCompraListener implements ActionListener{
 
 			}
 
-			FactoryDAO.getStockDAO().sumarCantidadStock(siglaCripto, -cantidadTotalDeCripto);
+			stockDAO.sumarCantidadStock(siglaCripto, -cantidadTotalDeCripto);
 			amfDAO.sumarCantidadActivoFiduciaria(siglaFiat, idUsuario,-cantidadDeFiat);
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);
