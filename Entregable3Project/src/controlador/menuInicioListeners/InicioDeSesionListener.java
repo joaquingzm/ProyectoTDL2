@@ -3,13 +3,10 @@ package controlador.menuInicioListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.List;
 
-
+import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
-import modelos.ActivoCripto;
-import modelos.ActivoMonedaFiduciaria;
 import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -49,22 +46,17 @@ public class InicioDeSesionListener implements ActionListener{
 			return;
 		}
 		
-		List<ActivoCripto> listaActivosCripto = null;
-		List<ActivoMonedaFiduciaria> listaActivosFIAT = null;
-		
-		try {
-			listaActivosCripto =FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
-			listaActivosFIAT = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		
-		
 		
 		framePrincipal.getMenuMisActivos().actualizarUsuario(usuario);
 		framePrincipal.getMenuCotizaciones().actualizarUsuario(usuario);
-		framePrincipal.getMenuMisActivos().actualizarActivos(listaActivosCripto, listaActivosFIAT);
-				
+
+		try {
+			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);
 		
 		menuInicio.realizarAccionesDeSalidaDelMenu();

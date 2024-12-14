@@ -1,0 +1,16 @@
+--- 	VISTA	---
+
+GENERAL: Tema mostrar errores, debería ser cada menú el que los muestra o el frame
+principal?
+			-- REVISAR CON OCTA --
+
+menuMisActivos: IDEA: hacer que halla una combobox para poder elegir la moneda en la
+que mostrar mis activos.
+
+---		CONTROLADOR ---
+
+-- menuInicioListeners
+(EXCEPCIONES TMB)
+InicioDeSesionListener: Deberíamos hacer excepciones para cuando uno de estos errores
+en los que no se llena un campo sucede, para poder modularizar el chequeo y ponerle
+un throw de la excepcion que hagamos.

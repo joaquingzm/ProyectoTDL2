@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import controlador.menuMisActivosListeners.CotizacionesListener;
 import controlador.menuMisActivosListeners.ExportarCSVListener;
+import controlador.menuMisActivosListeners.GenerarDatosDePruebaListener;
 import controlador.menuMisActivosListeners.OperacionesListener;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
@@ -24,6 +25,7 @@ public class MenuMisActivos extends JPanel{
 	private Encabezado encabezado;
 	private CentroMisActivos centroMisActivos; 
 	private JButton exportarCSV;
+	private JButton generarDatosDePrueba;
 	private JButton operaciones;
 	private JButton cotizaciones;
 	
@@ -32,6 +34,7 @@ public class MenuMisActivos extends JPanel{
 		centroMisActivos = new CentroMisActivos();
 		encabezado = new Encabezado();
 		exportarCSV = new JButton();
+		generarDatosDePrueba = new JButton();
 		operaciones = new JButton();
 		cotizaciones = new JButton();
 		
@@ -41,12 +44,14 @@ public class MenuMisActivos extends JPanel{
 		cotizaciones.setPreferredSize(new Dimension(200,30));
 		
 		exportarCSV.setText("Exportar como CSV");
+		generarDatosDePrueba.setText("Generar Datos de Prueba");
 		operaciones.setText("Mis Operaciones");
 		cotizaciones.setText("Cotizaciones");
 		
 		exportarCSV.addActionListener(new ExportarCSVListener());
 		operaciones.addActionListener(new OperacionesListener());
 		cotizaciones.addActionListener(new CotizacionesListener());
+		generarDatosDePrueba.addActionListener(new GenerarDatosDePruebaListener());
 		
 		this.setLayout(new GridBagLayout());
 

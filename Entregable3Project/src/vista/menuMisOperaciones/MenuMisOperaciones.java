@@ -1,8 +1,10 @@
 package vista.menuMisOperaciones;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -29,6 +31,8 @@ public class MenuMisOperaciones extends JPanel{
 		misOperacionesScrollPane = new JScrollPane(misOperacionesList);
 		volver = new JButton("Volver");
 		
+		misOperacionesScrollPane.setPreferredSize(new Dimension(300,200));
+		
 		volver.addActionListener(new VolverListener());
 		
 		this.setLayout(new GridBagLayout());
@@ -49,7 +53,7 @@ public class MenuMisOperaciones extends JPanel{
 		
 		misOperacionesListModel.removeAllElements();
 		for(Transaccion t : transaccion) {
-			misOperacionesListModel.addElement(t.toString());
+			misOperacionesListModel.addElement(t.getfechaYHora().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))+" "+t.getResumen());
 		}
 	}
 }

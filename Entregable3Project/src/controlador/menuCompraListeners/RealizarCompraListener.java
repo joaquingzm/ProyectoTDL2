@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
 import daos.ActivoCriptoDAO;
 import daos.ActivoMonedaFiduciariaDAO;
@@ -58,17 +59,9 @@ public class RealizarCompraListener implements ActionListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-				
-		try {
-			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		Criptomoneda cm;
 		ActivoMonedaFiduciaria amf;
-		//Stock stockDisponible;
 		
 		try {
 			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto);
@@ -80,6 +73,7 @@ public class RealizarCompraListener implements ActionListener{
 			return;
 		}
 		
+		//-- Chequeo de condiciones
 
 		if (amf == null) {
 			menuCompra.mostrarError("Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
@@ -91,6 +85,13 @@ public class RealizarCompraListener implements ActionListener{
 			return;
 		}
 		
+		
+		try {
+			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		double cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
 		
@@ -104,6 +105,9 @@ public class RealizarCompraListener implements ActionListener{
 			return;
 			
 		}
+		//--
+		
+		//-- Calculo de la compra y almacenamiento en la base de datos
 		
 		String resumen = "Compra " +cantidadTotalDeCripto + " " + siglaCripto;
 
@@ -124,7 +128,6 @@ public class RealizarCompraListener implements ActionListener{
 
 			amfDAO.sumarCantidadActivoFiduciaria(idFIAT, idUsuario,-cantidadDeFiat);
 			stDAO.sumarCantidadStock(idCripto, -cantidadTotalDeCripto);
-			amfDAO.sumarCantidadActivoFiduciaria(idFIAT, idUsuario,-cantidadDeFiat);
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);
 			
@@ -133,7 +136,27 @@ public class RealizarCompraListener implements ActionListener{
 			e1.printStackTrace();
 			return;
 		}
+		
+		//--
+		
+		//-- Se reflejan los cambios en los menues correspondientes
+		try {
+			GestorDeActualizaciones.actualizarMenuCotizaciones();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
+		//--
+		
+		
 		GestorDeDatosDelControlador.comenzarTimer();
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
@@ -150,5 +173,4 @@ public class RealizarCompraListener implements ActionListener{
 		}
 		return direccion;
 	}
-
 }

@@ -26,13 +26,21 @@ public class CompraYSwapListener extends MouseAdapter{
 		
 		String sigla = menuCotizaciones.extraerSigla(coords);
 		
+		int idCripto = -1;
+		try {
+			idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(sigla);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Stock stock = null;
 		
 		if(menuCotizaciones.seAccionoComprar(coords)) {
 			System.out.println("Se accionó compra, "+sigla);
 			
 			try {
-				stock = FactoryDAO.getStockDAO().buscarStock(sigla);
+				stock = FactoryDAO.getStockDAO().buscarStock(idCripto);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
