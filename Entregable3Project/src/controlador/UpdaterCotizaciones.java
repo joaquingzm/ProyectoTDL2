@@ -26,7 +26,7 @@ public class UpdaterCotizaciones extends TimerTask {
 	
 	@Override
 	public void run() {
-		Map<String, Double> preciosCriptomonedas = null;
+		Map<Integer, Double> preciosCriptomonedas = null;
 		
 	    try {
 	    	
@@ -51,7 +51,7 @@ public class UpdaterCotizaciones extends TimerTask {
 		
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
-		for (String llave : preciosCriptomonedas.keySet()) {
+		for (int llave : preciosCriptomonedas.keySet()) {
 			
 			try {
 				System.out.println("Actualizando");
@@ -67,9 +67,9 @@ public class UpdaterCotizaciones extends TimerTask {
 
 	}
 	
-	private static Map<String, Double> parsear(String cuerpoRespuesta) {
+	private static Map<Integer, Double> parsear(String cuerpoRespuesta) {
 
-		Map<String, Double> preciosCriptomonedas = new LinkedHashMap<String, Double>();
+		Map<Integer, Double> preciosCriptomonedas = new LinkedHashMap<Integer, Double>();
 		JSONObject json = new JSONObject(cuerpoRespuesta);
 		List<Criptomoneda> listaCriptos = null;
 		
@@ -81,8 +81,15 @@ public class UpdaterCotizaciones extends TimerTask {
 
 		for (Criptomoneda criptomoneda : listaCriptos) {
 			String sigla = criptomoneda.getSigla();
+			int idCripto = -1;
+			try {
+				idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(sigla);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String nombre = criptomoneda.getNombre();
-			preciosCriptomonedas.put(sigla.toUpperCase(), json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
+			preciosCriptomonedas.put(idCripto, json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
 		}
 
 		return preciosCriptomonedas;

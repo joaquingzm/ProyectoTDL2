@@ -10,7 +10,7 @@ public interface MonedaFiduciariaDAO {
 	
 	List<MonedaFiduciaria> listarMonedasFiduciarias() throws SQLException;
 	
-	MonedaFiduciaria buscarMonedaFiduciaria(String sigla) throws SQLException;
+	MonedaFiduciaria buscarMonedaFiduciaria(int idFIAT) throws SQLException;
 	
 	boolean estaVacia() throws SQLException; 
 	

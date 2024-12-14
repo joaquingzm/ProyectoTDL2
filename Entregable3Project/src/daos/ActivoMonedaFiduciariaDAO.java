@@ -13,7 +13,7 @@ public interface ActivoMonedaFiduciariaDAO {
 
 	List<ActivoMonedaFiduciaria> listarActivosFiduciarios() throws SQLException;
 	
-	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla, int idUsuario) throws SQLException;
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(int idFIAT, int idUsuario) throws SQLException;
 	
 	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios(int idUsuario) throws SQLException;
 }

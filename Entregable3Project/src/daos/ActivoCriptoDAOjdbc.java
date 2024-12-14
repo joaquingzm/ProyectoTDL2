@@ -40,16 +40,16 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		String sql = " SELECT * FROM ACTIVO_CRIPTO";
 	
 		LinkedList<ActivoCripto> listaActivosCripto = new LinkedList<ActivoCripto>();
-		CriptomonedaDAO cm = FactoryDAO.getCriptomonedaDAO();
+		CriptomonedaDAO cmDAO = FactoryDAO.getCriptomonedaDAO();
 
 		ResultSet resul = stmt.executeQuery(sql);
 
 		while(resul.next()) {		
-			String sigla = resul.getString("SIGLA");
+			int idCripto = resul.getInt("ID_CRIPTO");
 			double cantidad = resul.getDouble("CANTIDAD");
 			String direccion = resul.getString("DIRECCION");
-			Criptomoneda cripto = cm.buscarCriptomoneda(sigla);
-			ActivoCripto a = new ActivoCripto(cantidad,direccion,cripto);
+			Criptomoneda cm = cmDAO.buscarCriptomoneda(idCripto);
+			ActivoCripto a = new ActivoCripto(cantidad,direccion,cm);
 			listaActivosCripto.add(a);
 
 		}
@@ -77,11 +77,13 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 	
 	@Override
-	public ActivoCripto buscarActivoCripto(String sigla, int idUsuario) throws SQLException {
+	public ActivoCripto buscarActivoCripto(int idCripto, int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE SIGLA = '"+sigla+"' AND ID_USUARIO = " + idUsuario;
+		CriptomonedaDAO cmDAO = FactoryDAO.getCriptomonedaDAO();
+			
+		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE ID_CRIPTO = '"+idCripto+"' AND ID_USUARIO = " + idUsuario;
 		ActivoCripto ac = null;
 		
 		ResultSet resul = stmt.executeQuery(sql);
@@ -89,7 +91,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		if (resul.next()) {
 			String direc = resul.getString("DIRECCION");
 			double cant = resul.getDouble("CANTIDAD");
-			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
+			Criptomoneda cm = cmDAO.buscarCriptomoneda(idCripto);
 			ac = new ActivoCripto(cant, direc, cm);
 		}
 		resul.close();
@@ -123,11 +125,12 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 
 	@Override
-	public boolean tieneActivoCripto(int idUsuario, String sigla) throws SQLException {
+	public boolean tieneActivoCripto(int idUsuario, int idCripto) throws SQLException {
 	
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		String sql = "SELECT * FROM ACTIVO_CRIPTO ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE ID_USUARIO = "+idUsuario+" AND SIGLA = '"+sigla+"'";
+		String sql = "SELECT * FROM ACTIVO_CRIPTO WHERE ID_USUARIO = "+idUsuario+" AND ID_CRIPTO = '"+idCripto
+				+"'";
 	    		
 		ResultSet resul = stmt.executeQuery(sql);
 		

@@ -9,11 +9,11 @@ public interface StockDAO {
 	
 	public void insertarStock(Stock stock) throws SQLException;
 	
-	public Stock buscarStock(String sigla) throws SQLException;
+	public Stock buscarStock(int idStock ) throws SQLException;
 	
 	List<Stock> listarStock() throws SQLException;
 	
-	public void sumarCantidadStock(String sigla,double cantidad) throws SQLException;
+	public void sumarCantidadStock(int idStock,double cantidad) throws SQLException;
 	 
-	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException;
+	public void cambiarCantidadStock(int idStock, double cantidad) throws SQLException;
 }

@@ -16,22 +16,24 @@ public class StockDAOjdbc implements StockDAO{
 	@Override
 	public void insertarStock(Stock stock) throws SQLException {
 		
+		int idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(stock.getCriptomoneda().getSigla());
+		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "INSERT INTO STOCK (CANTIDAD,SIGLA) VALUES ("
+		String sql = "INSERT INTO STOCK (CANTIDAD,ID_CRIPTO) VALUES ("
 				+ stock.getCantidad()
 				+ ","
-				+ "'" + stock.getCriptomoneda().getSigla()
-				+ "')";
+				+ idCripto
+				+ ")";
 
 		stmt.executeUpdate(sql);
 		stmt.close();
 	}
 	
 	@Override
-	public Stock buscarStock(String sigla) throws SQLException {
+	public Stock buscarStock(int idCripto) throws SQLException {
 
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT * FROM STOCK ac JOIN CRIPTOMONEDA c ON ac.ID_CRIPTO = c.ID WHERE SIGLA = '"+sigla+"'";	
+		String sql = "SELECT * FROM STOCK WHERE ID_CRIPTO = '"+idCripto+"'";	
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
@@ -39,7 +41,7 @@ public class StockDAOjdbc implements StockDAO{
 		
 		if (resul.next()) {
 			double cantidad = resul.getDouble("cantidad");
-			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla);
+			Criptomoneda cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto);
 			stock = new Stock(cantidad,cm);
 		}
 		resul.close();
@@ -57,13 +59,16 @@ public class StockDAOjdbc implements StockDAO{
 		LinkedList<Stock> listaStocks = new LinkedList<Stock>();
 		Stock stock = null;
 		Criptomoneda cm = null;
+		CriptomonedaDAO cmDAO = FactoryDAO.getCriptomonedaDAO();
+		
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		while(resul.next()) {
-			String sigla = resul.getString("SIGLA");
+			int idCripto = resul.getInt("ID_CRIPTO");
 			double cantidad = resul.getDouble("CANTIDAD");
-			cm = new Criptomoneda(FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getNombre(), sigla, FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(sigla).getVolatilidad());
+			cm = cmDAO.buscarCriptomoneda(idCripto);
+			cm = new Criptomoneda(cm.getNombre(), cm.getSigla(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto).getPrecioEnDolar(), FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto).getVolatilidad());
 			stock = new Stock(cantidad, cm);
 			listaStocks.add(stock);
 		}
@@ -75,12 +80,12 @@ public class StockDAOjdbc implements StockDAO{
 	}
 
 	@Override
-	public void sumarCantidadStock(String sigla, double cantidad) throws SQLException {
+	public void sumarCantidadStock(int idCripto, double cantidad) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT CANTIDAD FROM STOCK WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT CANTIDAD FROM STOCK WHERE ID_CRIPTO = '"+idCripto+"'";
 		
 		ResultSet resul = stmt.executeQuery(sql);
-		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE SIGLA = '"+sigla+"'";
+		sql = "UPDATE STOCK SET CANTIDAD = "+(resul.getDouble("CANTIDAD")+cantidad)+" WHERE ID_CRIPTO = "+idCripto;
 		
 		stmt.executeUpdate(sql);
 		
@@ -89,10 +94,10 @@ public class StockDAOjdbc implements StockDAO{
 	}
 	
 	@Override
-	public void cambiarCantidadStock(String sigla, double cantidad) throws SQLException {
+	public void cambiarCantidadStock(int idCripto, double cantidad) throws SQLException {
 	
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "UPDATE STOCK SET CANTIDAD = "+cantidad+" WHERE SIGLA = '"+sigla+"'";
+		String sql = "UPDATE STOCK SET CANTIDAD = "+cantidad+" WHERE ID_CRIPTO = "+idCripto;
 		
 		stmt.executeUpdate(sql);
 		

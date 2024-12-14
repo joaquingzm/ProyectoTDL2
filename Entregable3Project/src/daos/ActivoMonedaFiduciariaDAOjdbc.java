@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import controlador.GestorDeDatosDelControlador;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
@@ -16,9 +17,14 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 	public void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException{
 
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (SIGLA,CANTIDAD) VALUES ('"
-				+ act.getMonedaFIAT().getSigla()
-				+ "',"
+		
+		int idFIAT = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciariaId(act.getMonedaFIAT().getSigla());
+		
+		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (ID_FIAT, ID_USUARIO, CANTIDAD) VALUES ("
+				+ idFIAT
+				+ ","
+				+ GestorDeDatosDelControlador.getIdUsuario()
+				+ ","
 				+ act.getCantidad() 
 				+ ")";
 
@@ -39,9 +45,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		while(resul.next()) {		
-			String sigla = resul.getString("SIGLA");
+			int idFIAT = resul.getInt("ID_FIAt");
 			double cantidad = resul.getDouble("CANTIDAD");
-			MonedaFiduciaria monedaFiduciaria = mfDAO.buscarMonedaFiduciaria(sigla);
+			MonedaFiduciaria monedaFiduciaria = mfDAO.buscarMonedaFiduciaria(idFIAT);
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
 			listaActivosMonedaFiduciaria.add(a);
 
@@ -69,10 +75,9 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		stmt.close();
 	}
 	@Override
-	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(String sigla, int idUsuario) throws SQLException {
+	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(int idFIAT, int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		int idFIAT = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciariaId(sigla);
 		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_FIAT = '"+idFIAT+"' AND ID_USUARIO = " + idUsuario;
 		
 		ActivoMonedaFiduciaria amf = null;
@@ -82,7 +87,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		
 		if (resul.next()) {
 			cant = resul.getDouble("CANTIDAD");
-			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(sigla);
+			MonedaFiduciaria mf = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciaria(idFIAT);
 			amf = new ActivoMonedaFiduciaria(cant, mf);
 		}
 		resul.close();

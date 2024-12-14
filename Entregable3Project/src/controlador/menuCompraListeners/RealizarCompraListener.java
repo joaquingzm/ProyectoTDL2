@@ -16,7 +16,6 @@ import daos.StockDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
-import modelos.Stock;
 import modelos.Transaccion;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -39,7 +38,6 @@ public class RealizarCompraListener implements ActionListener{
 
 		double cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
 		double stockDisponible = 0;
-		
 		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
 		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
 
@@ -62,7 +60,7 @@ public class RealizarCompraListener implements ActionListener{
 		}
 				
 		try {
-			stockDisponible = stDAO.buscarStock(menuCompra.extraerSiglaDeCriptomoneda()).getCantidad();
+			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -70,10 +68,11 @@ public class RealizarCompraListener implements ActionListener{
 		
 		Criptomoneda cm;
 		ActivoMonedaFiduciaria amf;
+		//Stock stockDisponible;
 		
 		try {
-			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto); //Solo se puede comprar de las criptomonedas que uno tenga??
-			amf = amfDAO.buscarActivoMonedaFiduciaria(siglaFiat, idUsuario);
+			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto);
+			amf = amfDAO.buscarActivoMonedaFiduciaria(idFIAT, idUsuario);
 			
 		} catch (SQLException e1) {
 			
@@ -106,13 +105,13 @@ public class RealizarCompraListener implements ActionListener{
 			
 		}
 		
-		String resumen = cantidadTotalDeCripto + " " + siglaCripto;
+		String resumen = "Compra " +cantidadTotalDeCripto + " " + siglaCripto;
 
 		Transaccion t = new Transaccion(resumen, LocalDateTime.now());
 		
 		try {
 			
-			if (acDAO.tieneActivoCripto(idUsuario, siglaCripto)) {	
+			if (!acDAO.tieneActivoCripto(idUsuario, idCripto)) {	
 
 				String direccion = generarDireccion();
 				acDAO.insertarActivoCripto(new ActivoCripto(cantidadTotalDeCripto, direccion, cm), idUsuario);
@@ -123,7 +122,8 @@ public class RealizarCompraListener implements ActionListener{
 
 			}
 
-			FactoryDAO.getStockDAO().sumarCantidadStock(siglaCripto, -cantidadTotalDeCripto);
+			amfDAO.sumarCantidadActivoFiduciaria(idFIAT, idUsuario,-cantidadDeFiat);
+			stDAO.sumarCantidadStock(idCripto, -cantidadTotalDeCripto);
 			amfDAO.sumarCantidadActivoFiduciaria(idFIAT, idUsuario,-cantidadDeFiat);
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);

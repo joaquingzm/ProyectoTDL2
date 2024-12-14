@@ -6,6 +6,8 @@ import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
 import modelos.Criptomoneda;
+import modelos.InformacionDeCriptomonedas;
+import modelos.InformacionDeMonedasFiduciarias;
 import modelos.MonedaFiduciaria;
 import vista.FramePrincipal;
 
@@ -38,23 +40,17 @@ public class Controlador {
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
 		
 		if (cDAO.estaVacia()) {
-			c = new Criptomoneda("Bitcoin", "BTC", 1, 0);
-			cDAO.insertarCriptomoneda(c);
-			c = new Criptomoneda("Ethereum", "ETH", 1, 0);
-			cDAO.insertarCriptomoneda(c);
-			c = new Criptomoneda("Usd-coin", "USDC", 1, 0);
-			cDAO.insertarCriptomoneda(c);
-			c = new Criptomoneda("Tether", "USDT", 1, 0);
-			cDAO.insertarCriptomoneda(c);
-			c = new Criptomoneda("Dogecoin", "DOGE", 1, 0);
-			cDAO.insertarCriptomoneda(c);
 			
-			m = new MonedaFiduciaria("Peso argentino","ARS",(1/1036), "Argentina");
-			mfDAO.insertarMonedaFiduciaria(m);
-			m = new MonedaFiduciaria("Dolar estadounidense","USD",1, "Estados Unidos");
-			mfDAO.insertarMonedaFiduciaria(m);
-			m = new MonedaFiduciaria("EURO","EUR",1.056, "Brasil");
-			mfDAO.insertarMonedaFiduciaria(m);
+			for (InformacionDeCriptomonedas infoDeCripto : InformacionDeCriptomonedas.values()) {
+				c = new Criptomoneda(infoDeCripto.getNombre(), infoDeCripto.getSigla(), infoDeCripto.getPrecioEnDolar(), infoDeCripto.getVolatilidad());
+				cDAO.insertarCriptomoneda(c);
+			}
+
+			for (InformacionDeMonedasFiduciarias infoDeFiat : InformacionDeMonedasFiduciarias.values()) {
+				m = new MonedaFiduciaria(infoDeFiat.getNombre(), infoDeFiat.getSigla(), infoDeFiat.getPrecioEnDolar(), infoDeFiat.getPaisEmisor());
+				mfDAO.insertarMonedaFiduciaria(m);
+			}
+
 		}
 		
 	}

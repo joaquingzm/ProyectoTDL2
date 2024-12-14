@@ -101,14 +101,14 @@ public class MenuCotizaciones extends JPanel {
 	}
 
 
-	public void actualizarPrecios(Map<String,Double> preciosCriptomonedas) {
+	public void actualizarPrecios(Map<Integer, Double> preciosCriptomonedas) {
 		
 		/*Recibe una LinkedHashMap, por lo cual el Map conserva el orden de inserción y, por ende, se respeta el mismo orden en el que 
 		 * se subieron las criptomonedas a la base de datos (ese orden se encuentra en la clase Controlador)*/
 
 		int i=0;
 		
-		for (String llave : preciosCriptomonedas.keySet()) {
+		for (int llave : preciosCriptomonedas.keySet()) {
 			cotizacionesTableModel.setValueAt(preciosCriptomonedas.get(llave), i, 3); 
 			i++;
 		}

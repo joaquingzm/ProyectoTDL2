@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controlador.menuMisActivosListeners.CotizacionesListener;
