@@ -39,32 +39,29 @@ public class RealizarCompraListener implements ActionListener{
 
 		double cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
 		double stockDisponible = 0;
+		
 		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
 		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
 
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
 		int idFIAT = -1;
-		
-		try {
-			idFIAT = mfDAO.buscarMonedaFiduciariaId(siglaFiat);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		int idCripto = -1;
 		
 		try {
+			
+			idFIAT = mfDAO.buscarMonedaFiduciariaId(siglaFiat);
 			idCripto = cDAO.buscarCriptomonedaId(siglaCripto);
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return;
 		}
 		
 		Criptomoneda cm;
 		ActivoMonedaFiduciaria amf;
 		
 		try {
-			cm = FactoryDAO.getCriptomonedaDAO().buscarCriptomoneda(idCripto);
+			cm = cDAO.buscarCriptomoneda(idCripto);
 			amf = amfDAO.buscarActivoMonedaFiduciaria(idFIAT, idUsuario);
 			
 		} catch (SQLException e1) {
@@ -87,10 +84,13 @@ public class RealizarCompraListener implements ActionListener{
 		
 		
 		try {
+			
 			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
+			return;
 		}
 		
 		double cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
@@ -142,16 +142,13 @@ public class RealizarCompraListener implements ActionListener{
 		//-- Se reflejan los cambios en los menues correspondientes
 		try {
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
+			return;
+			
 		}
 
 		//--
