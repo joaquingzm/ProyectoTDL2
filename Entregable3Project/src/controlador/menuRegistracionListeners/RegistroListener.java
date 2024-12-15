@@ -9,6 +9,7 @@ import daos.FactoryDAO;
 import daos.PersonaDAO;
 import daos.UsuarioDAO;
 import modelos.Persona;
+import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 import vista.menuRegistracion.MenuRegistracion;
@@ -37,7 +38,7 @@ public class RegistroListener implements ActionListener{
 			menuRegistracion.mostrarError("No se aceptaron los Terminos y Condiciones.");
 			return;
 		}
-		
+
 		UsuarioDAO usrDAO= FactoryDAO.getUsuarioDAO();
 		
 		//CAMBIAR POR NUESTRA EXCEPCION !!!!
@@ -51,18 +52,20 @@ public class RegistroListener implements ActionListener{
 		}
 		
 		PersonaDAO pDAO = FactoryDAO.getPersonaDAO();
+		Persona persona = new Persona(nombre,apellido);
+		Usuario usuario = new Usuario(persona,email,contraseña,aceptoTerminosCondiciones);
 		int IdPersona = -1;
 		
 		try {
 			
-			IdPersona = pDAO.buscarId(nombre, apellido);
+			IdPersona = pDAO.buscarId(persona);
 			
 			if (IdPersona < 0) {
 				Persona p = new Persona(nombre, apellido); 
 				IdPersona = pDAO.insertarPersona(p);
 			}
 			
-			usrDAO.insertarUsuario(IdPersona, email, contraseña, aceptoTerminosCondiciones);
+			usrDAO.insertarUsuario(usuario);
 			
 		} catch (SQLException exc) {
 			

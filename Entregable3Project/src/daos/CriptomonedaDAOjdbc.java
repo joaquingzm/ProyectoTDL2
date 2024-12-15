@@ -75,10 +75,10 @@ public class CriptomonedaDAOjdbc implements CriptomonedaDAO{
 	}
 	
 	@Override
-	public int buscarCriptomonedaId(String sigla) throws SQLException {
+	public int buscarCriptomonedaId(Criptomoneda cm) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID FROM CRIPTOMONEDA WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT ID FROM CRIPTOMONEDA WHERE SIGLA = '"+cm.getSigla()+"'";
 		
 		int id = -1;
 		

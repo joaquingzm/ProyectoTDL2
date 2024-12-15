@@ -30,10 +30,10 @@ public class InicioDeSesionListener implements ActionListener{
 		}
 		
 		int idUsuario = -1;
-		Usuario usuario = null;
+		Usuario usuario = ;
 		
 		try {
-			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
+			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(usuario);
 			if (idUsuario < 0) {
 				menuInicio.mostrarError("La información ingresada no corresponde a ningun usuario.");
 				return;

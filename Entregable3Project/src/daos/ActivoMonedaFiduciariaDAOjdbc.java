@@ -18,7 +18,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		int idFIAT = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciariaId(act.getMonedaFIAT().getSigla());
+		int idFIAT = FactoryDAO.getMonedaFiduciariaDAO().buscarMonedaFiduciariaId(act.getMonedaFIAT());
 		
 		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (ID_FIAT, ID_USUARIO, CANTIDAD) VALUES ("
 				+ idFIAT

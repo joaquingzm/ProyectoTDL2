@@ -90,10 +90,10 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 	}
 	
 	@Override
-	public int buscarMonedaFiduciariaId(String sigla) throws SQLException {
+	public int buscarMonedaFiduciariaId(MonedaFiduciaria mf) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID FROM MONEDA_FIDUCIARIA WHERE SIGLA = '"+sigla+"'";
+		String sql = "SELECT ID FROM MONEDA_FIDUCIARIA WHERE SIGLA = '"+mf.getSigla()+"'";
 		
 		int id = -1;
 		

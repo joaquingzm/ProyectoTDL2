@@ -20,7 +20,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		String sql = "INSERT INTO ACTIVO_CRIPTO (ID_USUARIO,ID_CRIPTO,CANTIDAD,DIRECCION) VALUES ("
 				+ idUsuario
 				+ ","
-				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(act.getCriptomoneda().getSigla())
+				+ FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(act.getCriptomoneda())
 				+ ","
 				+ act.getCantidad() 
 				+ ",'"

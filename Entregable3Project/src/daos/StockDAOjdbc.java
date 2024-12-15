@@ -16,7 +16,7 @@ public class StockDAOjdbc implements StockDAO{
 	@Override
 	public void insertarStock(Stock stock) throws SQLException {
 		
-		int idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(stock.getCriptomoneda().getSigla());
+		int idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(stock.getCriptomoneda());
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO STOCK (CANTIDAD,ID_CRIPTO) VALUES ("

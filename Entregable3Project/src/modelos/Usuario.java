@@ -38,7 +38,7 @@ public class Usuario {
 		this.password = password;
 	}
 	
-	public boolean isAcepta_terminos() {
+	public boolean getAcepta_terminos() {
 		return acepta_terminos;
 	}
 	

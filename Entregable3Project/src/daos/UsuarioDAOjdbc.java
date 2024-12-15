@@ -11,17 +11,17 @@ import singletones.MyConnection;
 public class UsuarioDAOjdbc implements UsuarioDAO {
 
 	@Override
-	public int insertarUsuario(int IdPersona, String email, String contraseña, boolean terminosYCondiciones) throws SQLException {
+	public int insertarUsuario(Usuario usuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO USUARIO (ID_PERSONA, EMAIL, PASSWORD, ACEPTA_TERMINOS) VALUES ('"
-				+ IdPersona
+				+ FactoryDAO.getPersonaDAO().buscarId(usuario.getPersona())
 				+ "','"
-				+ email
+				+ usuario.getEmail()
 				+ "','"
-				+ contraseña
+				+ usuario.getPassword()
 				+ "',"
-				+ terminosYCondiciones
+				+ usuario.getAcepta_terminos()
 				+ ")";
 
 		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
@@ -40,10 +40,10 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 	}
 
 	@Override
-	public int buscarId(String email, String contraseña) throws SQLException {
+	public int buscarId(Usuario usuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD = '" + contraseña + "'";
+		String sql = "SELECT ID FROM USUARIO WHERE EMAIL = '" + usuario.getEmail() + "' AND PASSWORD = '" + usuario.getPassword() + "'";
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		int idUsuario = -1;
@@ -56,25 +56,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 		stmt.close();
 		return idUsuario;
 	}
-
-	@Override
-	public int getIdPersona(int idUsuario) throws SQLException {
-		
-		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID_PERSONA FROM USUARIO WHERE ID ="+idUsuario;
-		
-		ResultSet resul = stmt.executeQuery(sql);
-		int idPersona = -1;
-		
-		if (resul.next()) {
-			idPersona = resul.getInt("ID");
-		}
-		
-		resul.close();
-		stmt.close();
-		return idPersona;
-	}
-
+	
 	@Override
 	public boolean existeEmail(String email) throws SQLException{
 		

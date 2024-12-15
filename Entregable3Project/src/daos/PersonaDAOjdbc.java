@@ -59,10 +59,10 @@ public class PersonaDAOjdbc implements PersonaDAO{
 	}
 	
 	@Override
-	public int buscarId(String nombre, String apellido) throws SQLException {
+	public int buscarId(Persona persona) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID FROM PERSONA WHERE NOMBRE = '" + nombre + "' AND APELLIDO = '" + apellido + "'";
+		String sql = "SELECT ID FROM PERSONA WHERE NOMBRE = '" + persona.getNombre() + "' AND APELLIDO = '" + persona.getApellido() + "'";
 		//Se supone que no pueden existir dos o mas personas con el mismo nombre y apellido
 		
 		int idUsuario = -1;
