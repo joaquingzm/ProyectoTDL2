@@ -45,7 +45,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		ResultSet resul = stmt.executeQuery(sql);
 		
 		while(resul.next()) {		
-			int idFIAT = resul.getInt("ID_FIAt");
+			int idFIAT = resul.getInt("ID_FIAT");
 			double cantidad = resul.getDouble("CANTIDAD");
 			MonedaFiduciaria monedaFiduciaria = mfDAO.buscarMonedaFiduciaria(idFIAT);
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);

@@ -61,13 +61,13 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 	public int getIdPersona(int idUsuario) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT ID_PERSONA FROM USUARIO WHERE ID ="+idUsuario;
+		String sql = "SELECT ID_PERSONA FROM USUARIO WHERE ID = "+idUsuario;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		int idPersona = -1;
 		
 		if (resul.next()) {
-			idPersona = resul.getInt("ID");
+			idPersona = resul.getInt("ID_PERSONA");
 		}
 		
 		resul.close();
@@ -79,7 +79,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 	public boolean existeEmail(String email) throws SQLException{
 		
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT EMAIL FROM USUARIO WHERE EMAIL='"+email+"'";
+		String sql = "SELECT EMAIL FROM USUARIO WHERE EMAIL = '" + email + "'";
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
@@ -95,7 +95,7 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 	@Override
 	public Usuario buscarUsuario(int id) throws SQLException {
 		Statement stmt = MyConnection.getCon().createStatement();
-		String sql = "SELECT * FROM USUARIO WHERE ID="+id;
+		String sql = "SELECT * FROM USUARIO WHERE ID = " + id;
 		
 		ResultSet resul = stmt.executeQuery(sql);
 		
@@ -112,6 +112,9 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 		Persona persona = FactoryDAO.getPersonaDAO().buscarPersona(idPersona);
 				
 		Usuario usuario = new Usuario(persona, email, password, aceptaTerminos);
+		
+		resul.close();
+		stmt.close();
 		
 		return usuario;
 	}
