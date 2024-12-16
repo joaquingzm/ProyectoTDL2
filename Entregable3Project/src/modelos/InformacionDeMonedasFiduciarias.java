@@ -2,7 +2,7 @@ package modelos;
 
 public enum InformacionDeMonedasFiduciarias {
 
-	ARS("Peso argentino","ARS",(1/1036), "Argentina"),
+	ARS("Peso argentino","ARS",0.000965251, "Argentina"),
 	USD("Dolar estadounidense","USD",1, "Estados Unidos"),
 	EUR("Euro","EUR",1.056, "EUROPA");
 
