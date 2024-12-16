@@ -16,4 +16,7 @@ public interface StockDAO {
 	public void sumarCantidadStock(int idCripto,double cantidad) throws SQLException;
 	 
 	public void cambiarCantidadStock(int idCripto, double cantidad) throws SQLException;
+
+	public boolean existeStock(int idCripto) throws SQLException;
+	
 }

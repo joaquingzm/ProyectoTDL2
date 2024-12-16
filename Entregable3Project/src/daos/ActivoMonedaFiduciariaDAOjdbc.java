@@ -14,7 +14,7 @@ import singletones.MyConnection;
 public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 
 	@Override
-	public void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act) throws SQLException{
+	public void insertarActivoMonedaFiduciaria(ActivoMonedaFiduciaria act, int idUsuario) throws SQLException{
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		
@@ -23,7 +23,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		String sql = "INSERT INTO ACTIVO_MONEDA_FIDUCIARIA (ID_FIAT, ID_USUARIO, CANTIDAD) VALUES ("
 				+ idFIAT
 				+ ","
-				+ GestorDeDatosDelControlador.getIdUsuario()
+				+ idUsuario
 				+ ","
 				+ act.getCantidad() 
 				+ ")";
@@ -74,6 +74,18 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		resul.close();
 		stmt.close();
 	}
+	
+	@Override
+	public void cambiarCantidadActivoMonedaFiduciaria(int idFIAT, int idUsuario, double cantidad) throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "UPDATE ACTIVO_MONEDA_FIDUCIARIA SET CANTIDAD = "+cantidad+" WHERE ID_FIAT = '"+idFIAT+"' AND ID_USUARIO = " + idUsuario;
+
+		stmt.executeUpdate(sql);
+		
+		stmt.close();
+	}
+	
 	@Override
 	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(int idFIAT, int idUsuario) throws SQLException {
 		
@@ -123,7 +135,7 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		
-		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_USUARIO = "+idUsuario+" AND ID_CRIPTO = '"+idFIAT+"'";
+		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_USUARIO = "+idUsuario+" AND ID_FIAT = '"+idFIAT+"'";
 	    		
 		ResultSet resul = stmt.executeQuery(sql);
 		

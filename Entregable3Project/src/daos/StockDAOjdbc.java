@@ -103,4 +103,20 @@ public class StockDAOjdbc implements StockDAO{
 		
 		stmt.close();
 	}
+	
+	@Override
+	public boolean existeStock(int idCripto) throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		
+		String sql = "SELECT * FROM STOCK WHERE ID_CRIPTO = "+idCripto;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if(resul.next()) {
+			return true;
+		}
+		
+		return false;
+		}
 }

@@ -49,7 +49,10 @@ public class Controlador {
 				cDAO.insertarCriptomoneda(c);
 				stockDAO.insertarStock(new Stock(0, c));
 			}
-
+		}
+		
+		if(mfDAO.estaVacia()) {
+			
 			for (InformacionDeMonedasFiduciarias infoDeFiat : InformacionDeMonedasFiduciarias.values()) {
 				m = new MonedaFiduciaria(infoDeFiat.getNombre(), infoDeFiat.getSigla(), infoDeFiat.getPrecioEnDolar(), infoDeFiat.getPaisEmisor());
 				mfDAO.insertarMonedaFiduciaria(m);
