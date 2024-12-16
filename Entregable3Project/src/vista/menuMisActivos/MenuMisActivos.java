@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controlador.menuMisActivosListeners.CotizacionesListener;
@@ -98,9 +97,7 @@ public class MenuMisActivos extends JPanel{
 		encabezado.actualizarUsuario(usuario);
 	}
 	
-	public void mostrarExito(String exito) {
-		JOptionPane.showMessageDialog(null, exito, "EXITO", JOptionPane.INFORMATION_MESSAGE);
-	}
+
 	
 	
 }

@@ -26,9 +26,10 @@ public class OperacionesListener implements ActionListener {
 		
 		try {
 			listaTransacciones = FactoryDAO.getTransaccionDAO().listarTransacciones(idUsuario);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
 		}
 
 		menuMisOperaciones.actualizarOperaciones(listaTransacciones);

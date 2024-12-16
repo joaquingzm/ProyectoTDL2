@@ -1,15 +1,9 @@
 package excepciones;
 
-public class DataException extends Exception{
+public abstract class DataException extends Exception{
 
-	private String problemaPrincipal = "Ha habido un problema con los campos completados: ";
+	public abstract String getProblemaCuerpo();
 
-	public String getProblemaPrincipal() {
-		return problemaPrincipal;
-	}
-
-	public void setProblemaPrincipal(String problemaPrincipal) {
-		this.problemaPrincipal = problemaPrincipal;
-	}
+	public abstract String getProblemaTitulo();
 	
 }

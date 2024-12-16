@@ -26,12 +26,13 @@ public class CompraYSwapListener extends MouseAdapter{
 		
 		String sigla = menuCotizaciones.extraerSigla(coords);
 		
-		int idCripto = -1;
+		int idCripto;
+		
 		try {
 			idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(sigla);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			return;
 		}
 		
 		Stock stock = null;
@@ -41,8 +42,10 @@ public class CompraYSwapListener extends MouseAdapter{
 			
 			try {
 				stock = FactoryDAO.getStockDAO().buscarStock(idCripto);
+				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+				return;
 			}
 			
 			framePrincipal.getMenuCompra().cargarMoneda(stock);
@@ -54,10 +57,11 @@ public class CompraYSwapListener extends MouseAdapter{
 			try {
 				listaFIATs = FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+				return;
 			}
 			
-		    GestorDeDatosDelControlador.getFramePrincipal().getMenuCompra().cargarSelectorFIAT(listaFIATs);
+			framePrincipal.getMenuCompra().cargarSelectorFIAT(listaFIATs);
 			
 			framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOMPRA.name());
 			

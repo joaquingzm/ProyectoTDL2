@@ -1,6 +1,6 @@
 package excepciones;
 
-public class CheckboxRegistracionException extends DataException{
+public class CheckboxException extends DataException{
 
 	private String problemaTitulo = "Error con la aceptación de terminos y condiciones";
 	private String problemaCuerpo = "No se aceptaron los Terminos y Condiciones.";
@@ -13,9 +13,6 @@ public class CheckboxRegistracionException extends DataException{
 		return problemaCuerpo;
 	}
 	
-	public String getProblemaTotalCuerpo() {
-		return this.getProblemaPrincipal() + problemaCuerpo;
-	}
 
 	
 }

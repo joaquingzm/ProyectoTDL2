@@ -130,7 +130,7 @@ public class FramePrincipal extends JFrame {
 	}
 	
 	public static void mostrarAviso(String titulo, String cuerpo) {
-		JOptionPane.showMessageDialog(null, cuerpo, titulo, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, cuerpo, titulo, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 }

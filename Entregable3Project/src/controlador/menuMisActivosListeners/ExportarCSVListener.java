@@ -44,10 +44,9 @@ public class ExportarCSVListener implements ActionListener{
 			misActivosCripto = FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
 			misActivosFiat = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 			
-			e1.printStackTrace();
-			framePrincipal.mostrarError("Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), "Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 		
@@ -73,12 +72,11 @@ public class ExportarCSVListener implements ActionListener{
 			
 			salida.close();
 			
-			menuMisActivos.mostrarExito("Se ha creado el archivo CSV correspondiente a los activos del usuario de ID " + idUsuario + ".");
+			FramePrincipal.mostrarAviso("EXITO", "Se ha creado el archivo CSV correspondiente a los activos del usuario de ID " + idUsuario + ".");
 			
-		} catch (IOException e1) {
+		} catch (IOException exc) {
 			
-			e1.printStackTrace();
-			framePrincipal.mostrarError("Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), "Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 

@@ -18,9 +18,10 @@ public class CotizacionesListener implements ActionListener{
 		
 		try {
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
 		}
 		
 		GestorDeDatosDelControlador.comenzarTimer();

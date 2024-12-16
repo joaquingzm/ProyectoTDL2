@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import vista.FramePrincipal;
+
 public class MyConnection {
 
 	private static Connection con = null;
@@ -19,7 +21,7 @@ public class MyConnection {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("ERROR: " + e.getMessage());	
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 		}
 	}
 	
@@ -34,7 +36,7 @@ public class MyConnection {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("ERROR: " + e.getMessage());	
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 		}
 	}
 	

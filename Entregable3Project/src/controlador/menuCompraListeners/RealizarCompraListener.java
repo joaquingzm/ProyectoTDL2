@@ -44,41 +44,35 @@ public class RealizarCompraListener implements ActionListener{
 		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
 
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
-		int idFIAT = -1;
-		int idCripto = -1;
+		int idFIAT;
+		int idCripto;
+		Criptomoneda cm;
+		ActivoMonedaFiduciaria amf;
 		
 		try {
 			
 			idFIAT = mfDAO.buscarMonedaFiduciariaId(siglaFiat);
 			idCripto = cDAO.buscarCriptomonedaId(siglaCripto);
 			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return;
-		}
-		
-		Criptomoneda cm;
-		ActivoMonedaFiduciaria amf;
-		
-		try {
 			cm = cDAO.buscarCriptomoneda(idCripto);
 			amf = amfDAO.buscarActivoMonedaFiduciaria(idFIAT, idUsuario);
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 			
-			e1.printStackTrace();
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
+		
 		
 		//-- Chequeo de condiciones
 
 		if (amf == null) {
-			framePrincipal.mostrarError("Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
+			FramePrincipal.mostrarAviso("No existe activo fiduciario", "Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
 			return;
 		}
 		
 		if (amf.getCantidad() < cantidadDeFiat) {
-			framePrincipal.mostrarError("Ha habido un error en la compra porque no le alcanza el dinero.");
+			FramePrincipal.mostrarAviso("Dinero insuficiente", "Ha habido un error en la compra porque no le alcanza el dinero.");
 			return;
 		}
 		
@@ -87,21 +81,20 @@ public class RealizarCompraListener implements ActionListener{
 			
 			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 
-			e1.printStackTrace();
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
 		
-		double cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
 		
+		double cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
 		double cantidadTotalDeCripto = cantidadTotalDeDolares / cm.getPrecioEnDolar();
 		
-		
-		
+
 		if (stockDisponible < cantidadTotalDeCripto) {
 			
-			framePrincipal.mostrarError("Ha habido error en la compra porque el stock en el sistema no es suficiente.");
+			FramePrincipal.mostrarAviso("Stock insuficiente", "Ha habido error en la compra porque el stock en el sistema no es suficiente.");
 			return;
 			
 		}
@@ -131,9 +124,9 @@ public class RealizarCompraListener implements ActionListener{
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 			
-			e1.printStackTrace();
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
 		
@@ -144,9 +137,9 @@ public class RealizarCompraListener implements ActionListener{
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 			
-			e1.printStackTrace();
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 			
 		}

@@ -8,17 +8,16 @@ import java.util.Random;
 
 import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
-import daos.ActivoCriptoDAO;
 import daos.ActivoMonedaFiduciariaDAO;
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
 import daos.StockDAO;
-import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
+import vista.FramePrincipal;
 
 public class GenerarDatosDePruebaListener implements ActionListener{
 
@@ -31,8 +30,8 @@ public class GenerarDatosDePruebaListener implements ActionListener{
 			GestorDeActualizaciones.actualizarMenuMisActivos(GestorDeDatosDelControlador.getIdUsuario());
 			generarStock();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			return;
 		}
 	}
 

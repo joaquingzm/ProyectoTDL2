@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
+import excepciones.DataException;
+import excepciones.TextFieldException;
 import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -24,25 +26,32 @@ public class InicioDeSesionListener implements ActionListener{
 		String emailTexto = menuInicio.extraerEmail();
 		String contraseñaTexto = menuInicio.extraerContraseña();
 		
-		if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
-			framePrincipal.mostrarError("Algunos de los campos solicitados no se completó.");
+		try {
+			if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) throw new TextFieldException();
+			
+		} catch (DataException exc) {
+			
+			FramePrincipal.mostrarAviso(exc.getProblemaTitulo(), exc.getProblemaCuerpo());
 			return;
 		}
+
 		
-		int idUsuario = -1;
+		int idUsuario;
 		Usuario usuario = null;
 		
 		try {
+			
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
+			
 			if (idUsuario < 0) {
-				framePrincipal.mostrarError("La información ingresada no corresponde a ningun usuario.");
+				FramePrincipal.mostrarAviso("Información inexistente", "La información ingresada no corresponde a ningun usuario.");
 				return;
 			}
 			usuario = FactoryDAO.getUsuarioDAO().buscarUsuario(idUsuario);
 			
-		} catch (SQLException e1) {
+		} catch (SQLException exc) {
 			
-			e1.printStackTrace();
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
 		
@@ -52,9 +61,10 @@ public class InicioDeSesionListener implements ActionListener{
 
 		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
 		}
 		
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);
