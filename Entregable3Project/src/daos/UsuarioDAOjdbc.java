@@ -56,6 +56,24 @@ public class UsuarioDAOjdbc implements UsuarioDAO {
 		stmt.close();
 		return idUsuario;
 	}
+	
+	@Override
+	public int buscarId(String email, String contraseña) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT ID FROM USUARIO WHERE EMAIL = '" + email + "' AND PASSWORD = '" + contraseña + "'";
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		int idUsuario = -1;
+		
+		if (resul.next()) {
+			idUsuario = resul.getInt("ID");
+		}
+		
+		resul.close();
+		stmt.close();
+		return idUsuario;
+	}
 
 	@Override
 	public boolean existeEmail(String email) throws SQLException{

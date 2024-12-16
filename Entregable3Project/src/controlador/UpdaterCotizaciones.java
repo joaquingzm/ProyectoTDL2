@@ -72,22 +72,31 @@ public class UpdaterCotizaciones extends TimerTask {
 		Map<Integer, Double> preciosCriptomonedas = new LinkedHashMap<Integer, Double>();
 		JSONObject json = new JSONObject(cuerpoRespuesta);
 		List<Criptomoneda> listaCriptos = null;
+		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
 		try {
-			listaCriptos = FactoryDAO.getCriptomonedaDAO().listarCriptomonedas();
+			
+			listaCriptos = cDAO.listarCriptomonedas();
+			
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
+			return preciosCriptomonedas;
 		}
 
 		for (Criptomoneda criptomoneda : listaCriptos) {
 			String sigla = criptomoneda.getSigla();
-			int idCripto = -1;
+			int idCripto;
+			
 			try {
-				idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(sigla);
+				idCripto = cDAO.buscarCriptomonedaId(sigla);
+				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
+				break;
 			}
+			
 			String nombre = criptomoneda.getNombre();
 			preciosCriptomonedas.put(idCripto, json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
 		}

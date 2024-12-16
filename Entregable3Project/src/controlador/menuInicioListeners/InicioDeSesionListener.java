@@ -30,10 +30,10 @@ public class InicioDeSesionListener implements ActionListener{
 		}
 		
 		int idUsuario = -1;
-		Usuario usuario = ;
+		Usuario usuario;
 		
 		try {
-			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(usuario);
+			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			if (idUsuario < 0) {
 				menuInicio.mostrarError("La información ingresada no corresponde a ningun usuario.");
 				return;
@@ -52,9 +52,10 @@ public class InicioDeSesionListener implements ActionListener{
 
 		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return;
 		}
 		
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);

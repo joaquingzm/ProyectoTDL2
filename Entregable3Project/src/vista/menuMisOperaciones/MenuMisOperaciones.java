@@ -49,10 +49,10 @@ public class MenuMisOperaciones extends JPanel{
 		
 	}
 	
-	public void actualizarOperaciones(List<Transaccion> transaccion) {
+	public void actualizarOperaciones(List<Transaccion> transacciones) {
 		
 		misOperacionesListModel.removeAllElements();
-		for(Transaccion t : transaccion) {
+		for(Transaccion t : transacciones) {
 			misOperacionesListModel.addElement(t.getfechaYHora().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))+" "+t.getResumen());
 		}
 	}

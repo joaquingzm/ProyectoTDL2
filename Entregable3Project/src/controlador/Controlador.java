@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
+import daos.StockDAO;
 import modelos.Criptomoneda;
 import modelos.InformacionDeCriptomonedas;
 import modelos.InformacionDeMonedasFiduciarias;
 import modelos.MonedaFiduciaria;
+import modelos.Stock;
 import vista.FramePrincipal;
 
 public class Controlador {
@@ -38,12 +40,14 @@ public class Controlador {
 		
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
+		StockDAO stockDAO = FactoryDAO.getStockDAO();
 		
 		if (cDAO.estaVacia()) {
 			
 			for (InformacionDeCriptomonedas infoDeCripto : InformacionDeCriptomonedas.values()) {
 				c = new Criptomoneda(infoDeCripto.getNombre(), infoDeCripto.getSigla(), infoDeCripto.getPrecioEnDolar(), infoDeCripto.getVolatilidad());
 				cDAO.insertarCriptomoneda(c);
+				stockDAO.insertarStock(new Stock(0, c));
 			}
 
 			for (InformacionDeMonedasFiduciarias infoDeFiat : InformacionDeMonedasFiduciarias.values()) {

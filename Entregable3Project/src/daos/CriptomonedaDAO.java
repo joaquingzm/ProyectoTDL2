@@ -15,6 +15,8 @@ public interface CriptomonedaDAO {
 	
 	int buscarCriptomonedaId(Criptomoneda cm) throws SQLException;
 	
+	int buscarCriptomonedaId(String sigla) throws SQLException;
+	
 	void actualizarPrecioEnDolar(int idCripto, double precioEnDolar) throws SQLException;
 	
 	boolean estaVacia() throws SQLException; 

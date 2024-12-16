@@ -10,6 +10,8 @@ public interface UsuarioDAO {
 	int insertarUsuario(Usuario usuario) throws SQLException;
 	
 	int buscarId(Usuario usuario) throws SQLException;
+	
+	int buscarId(String email, String contraseña) throws SQLException;
 
 	boolean existeEmail(String email) throws SQLException;
 	

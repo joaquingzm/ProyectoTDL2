@@ -54,15 +54,14 @@ public class RegistroListener implements ActionListener{
 		PersonaDAO pDAO = FactoryDAO.getPersonaDAO();
 		Persona persona = new Persona(nombre,apellido);
 		Usuario usuario = new Usuario(persona,email,contraseña,aceptoTerminosCondiciones);
-		int IdPersona = -1;
+		int IdPersona;
 		
 		try {
 			
 			IdPersona = pDAO.buscarId(persona);
 			
 			if (IdPersona < 0) {
-				Persona p = new Persona(nombre, apellido); 
-				IdPersona = pDAO.insertarPersona(p);
+				pDAO.insertarPersona(persona);
 			}
 			
 			usrDAO.insertarUsuario(usuario);
@@ -70,10 +69,13 @@ public class RegistroListener implements ActionListener{
 		} catch (SQLException exc) {
 			
 			exc.printStackTrace();  //Que hariamos aca????????????
+			return;
 		}
 		
 		menuRegistracion.realizarAccionesDeSalidaDelMenu();
 		
-		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUINICIO.name());	}
+		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUINICIO.name());	
+		
+	}
 
 }

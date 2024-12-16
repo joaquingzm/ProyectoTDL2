@@ -108,5 +108,25 @@ public class MonedaFiduciariaDAOjdbc implements MonedaFiduciariaDAO {
 		
 		return id;
 	}
+	
+	@Override
+	public int buscarMonedaFiduciariaId(String sigla) throws SQLException {
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "SELECT ID FROM MONEDA_FIDUCIARIA WHERE SIGLA = '" + sigla + "'";
+		
+		int id = -1;
+		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if (resul.next()) {
+			id = resul.getInt("ID");
+		}
+		resul.close();
+		
+		stmt.close();
+		
+		return id;
+	}
 
 }

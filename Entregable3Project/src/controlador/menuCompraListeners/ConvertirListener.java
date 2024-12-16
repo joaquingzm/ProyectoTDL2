@@ -25,19 +25,15 @@ public class ConvertirListener implements ActionListener{
 		double cantidadNumero = menuCompra.extraerCantidadAConvertir();
 		
 		int idFIAT = -1;
+		int idCripto = -1;
+		
 		try {
 			idFIAT = mDAO.buscarMonedaFiduciariaId(menuCompra.extraerSiglaDeMonedaAConvertir());
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		int idCripto = -1;
-		try {
 			idCripto = cDAO.buscarCriptomonedaId(menuCompra.extraerSiglaDeCriptomoneda());
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return;
 		}
 		
 		double precioEnDolarDeMonedaFiduciaria=0;
@@ -46,17 +42,13 @@ public class ConvertirListener implements ActionListener{
 		
 		try {
 			precioEnDolarDeMonedaFiduciaria = mDAO.buscarMonedaFiduciaria(idFIAT).getPrecioEnDolar();
+			precioEnDolarDeCriptomoneda = cDAO.buscarCriptomoneda(idCripto).getPrecioEnDolar();
+			
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return;
 		}
 		
-		try {
-			precioEnDolarDeCriptomoneda = cDAO.buscarCriptomoneda(idCripto).getPrecioEnDolar();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		double cantidadTotalDeDolares;
 		double cantidadTotalDeCripto;
 		

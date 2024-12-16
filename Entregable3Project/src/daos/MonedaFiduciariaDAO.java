@@ -14,5 +14,7 @@ public interface MonedaFiduciariaDAO {
 	
 	boolean estaVacia() throws SQLException; 
 	
-	public int buscarMonedaFiduciariaId(MonedaFiduciaria m) throws SQLException;
+	int buscarMonedaFiduciariaId(MonedaFiduciaria m) throws SQLException;
+	
+	int buscarMonedaFiduciariaId(String sigla) throws SQLException;
 }
