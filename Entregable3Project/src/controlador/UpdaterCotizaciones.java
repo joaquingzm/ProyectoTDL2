@@ -26,6 +26,8 @@ public class UpdaterCotizaciones extends TimerTask {
 	
 	@Override
 	public void run() {
+		
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		Map<Integer, Double> preciosCriptomonedas = null;
 		
 	    try {
@@ -43,11 +45,10 @@ public class UpdaterCotizaciones extends TimerTask {
 	    	
 	    } catch (IOException | InterruptedException e) {
 	    	
-	    	e.printStackTrace();
+	    	FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 	    	return;
 	    }
 	    
-		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
@@ -56,13 +57,15 @@ public class UpdaterCotizaciones extends TimerTask {
 			try {
 				System.out.println("Actualizando");
 				cDAO.actualizarPrecioEnDolar(llave, preciosCriptomonedas.get(llave));
+				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				
+				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 				return;
 			}
 			
 		}
-		System.out.println("");
+		
 		framePrincipal.getMenuCotizaciones().actualizarPrecios(preciosCriptomonedas);;
 
 	}
@@ -78,27 +81,19 @@ public class UpdaterCotizaciones extends TimerTask {
 			
 			listaCriptos = cDAO.listarCriptomonedas();
 			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			return preciosCriptomonedas;
-		}
-
-		for (Criptomoneda criptomoneda : listaCriptos) {
-			String sigla = criptomoneda.getSigla();
-			int idCripto;
-			
-			try {
+			for (Criptomoneda criptomoneda : listaCriptos) {
+				String sigla = criptomoneda.getSigla();
+				int idCripto;
+				
 				idCripto = cDAO.buscarCriptomonedaId(sigla);
 				
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-				break;
+				String nombre = criptomoneda.getNombre();
+				preciosCriptomonedas.put(idCripto, json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
 			}
 			
-			String nombre = criptomoneda.getNombre();
-			preciosCriptomonedas.put(idCripto, json.getJSONObject(nombre.toLowerCase()).getDouble("usd"));
+		} catch (SQLException e) {
+			
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 		}
 
 		return preciosCriptomonedas;

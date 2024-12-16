@@ -31,8 +31,8 @@ public class ConvertirListener implements ActionListener{
 			idFIAT = mDAO.buscarMonedaFiduciariaId(menuCompra.extraerSiglaDeMonedaAConvertir());
 			idCripto = cDAO.buscarCriptomonedaId(menuCompra.extraerSiglaDeCriptomoneda());
 			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
 		
@@ -44,8 +44,8 @@ public class ConvertirListener implements ActionListener{
 			precioEnDolarDeMonedaFiduciaria = mDAO.buscarMonedaFiduciaria(idFIAT).getPrecioEnDolar();
 			precioEnDolarDeCriptomoneda = cDAO.buscarCriptomoneda(idCripto).getPrecioEnDolar();
 			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
 		}
 		

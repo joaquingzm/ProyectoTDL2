@@ -3,6 +3,7 @@ package vista;
 import java.awt.CardLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import controlador.FramePrincipalListeners.CierreListener;
@@ -126,6 +127,10 @@ public class FramePrincipal extends JFrame {
 
 	public void setMenuMisOperaciones(MenuMisOperaciones menuMisOperaciones) {
 		this.menuMisOperaciones = menuMisOperaciones;
+	}
+	
+	public static void mostrarAviso(String titulo, String cuerpo) {
+		JOptionPane.showMessageDialog(null, cuerpo, titulo, JOptionPane.ERROR_MESSAGE);
 	}
 	
 }

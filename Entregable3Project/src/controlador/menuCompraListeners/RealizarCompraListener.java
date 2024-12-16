@@ -73,12 +73,12 @@ public class RealizarCompraListener implements ActionListener{
 		//-- Chequeo de condiciones
 
 		if (amf == null) {
-			menuCompra.mostrarError("Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
+			framePrincipal.mostrarError("Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
 			return;
 		}
 		
 		if (amf.getCantidad() < cantidadDeFiat) {
-			menuCompra.mostrarError("Ha habido un error en la compra porque no le alcanza el dinero.");
+			framePrincipal.mostrarError("Ha habido un error en la compra porque no le alcanza el dinero.");
 			return;
 		}
 		
@@ -101,7 +101,7 @@ public class RealizarCompraListener implements ActionListener{
 		
 		if (stockDisponible < cantidadTotalDeCripto) {
 			
-			menuCompra.mostrarError("Ha habido error en la compra porque el stock en el sistema no es suficiente.");
+			framePrincipal.mostrarError("Ha habido error en la compra porque el stock en el sistema no es suficiente.");
 			return;
 			
 		}

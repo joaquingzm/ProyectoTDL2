@@ -147,8 +147,4 @@ public class MenuCompra extends JPanel{
 		textEquilavenciaEnFIAT.setText("Equivale a... "+cantidad+" "+sigla.getText());
 	}
 	
-	public void mostrarError(String error) {
-		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
-	}
-	
 }

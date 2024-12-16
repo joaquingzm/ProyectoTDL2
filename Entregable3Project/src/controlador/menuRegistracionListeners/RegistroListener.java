@@ -30,12 +30,12 @@ public class RegistroListener implements ActionListener{
 		boolean aceptoTerminosCondiciones = menuRegistracion.seAceptaronTerminosYCondiciones();
 		
 		if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
-			menuRegistracion.mostrarError("Algunos de los campos solicitados no se completó.");
+			framePrincipal.mostrarError("Algunos de los campos solicitados no se completó.");
 			return;
 		}
 		
 		if (!aceptoTerminosCondiciones) {
-			menuRegistracion.mostrarError("No se aceptaron los Terminos y Condiciones.");
+			framePrincipal.mostrarError("No se aceptaron los Terminos y Condiciones.");
 			return;
 		}
 
@@ -47,7 +47,7 @@ public class RegistroListener implements ActionListener{
 				throw new SQLException();
 			}
 		} catch (SQLException e1) {
-			menuRegistracion.mostrarError("El email propuesto esta asociado a otro usuario.");
+			framePrincipal.mostrarError("El email propuesto esta asociado a otro usuario.");
 			return;
 		}
 		

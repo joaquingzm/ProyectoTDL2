@@ -16,6 +16,7 @@ import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
+import vista.FramePrincipal;
 import vista.menuMisActivos.MenuMisActivos;
 
 public class ExportarCSVListener implements ActionListener{
@@ -24,7 +25,8 @@ public class ExportarCSVListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
-		MenuMisActivos menuMisActivos = GestorDeDatosDelControlador.getFramePrincipal().getMenuMisActivos();
+		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
+		MenuMisActivos menuMisActivos = framePrincipal.getMenuMisActivos();
 		
 		//Con las 3 lineas siguientes se puede obtener la dirección de ejecución actual (comunmente será la del JAR)
 		Path rutaActual = Paths.get("").toAbsolutePath();
@@ -45,7 +47,7 @@ public class ExportarCSVListener implements ActionListener{
 		} catch (SQLException e1) {
 			
 			e1.printStackTrace();
-			menuMisActivos.mostrarError("Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			framePrincipal.mostrarError("Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 		
@@ -76,7 +78,7 @@ public class ExportarCSVListener implements ActionListener{
 		} catch (IOException e1) {
 			
 			e1.printStackTrace();
-			menuMisActivos.mostrarError("Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			framePrincipal.mostrarError("Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 

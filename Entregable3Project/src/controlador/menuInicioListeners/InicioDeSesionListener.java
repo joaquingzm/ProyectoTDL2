@@ -25,7 +25,7 @@ public class InicioDeSesionListener implements ActionListener{
 		String contraseñaTexto = menuInicio.extraerContraseña();
 		
 		if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) {
-			menuInicio.mostrarError("Algunos de los campos solicitados no se completó.");
+			framePrincipal.mostrarError("Algunos de los campos solicitados no se completó.");
 			return;
 		}
 		
@@ -35,7 +35,7 @@ public class InicioDeSesionListener implements ActionListener{
 		try {
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			if (idUsuario < 0) {
-				menuInicio.mostrarError("La información ingresada no corresponde a ningun usuario.");
+				framePrincipal.mostrarError("La información ingresada no corresponde a ningun usuario.");
 				return;
 			}
 			usuario = FactoryDAO.getUsuarioDAO().buscarUsuario(idUsuario);

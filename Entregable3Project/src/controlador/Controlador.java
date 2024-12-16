@@ -21,8 +21,8 @@ public class Controlador {
 			MetodosDelSistema.creaciónDeTablasEnBD();
 			crearMonedas();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			return;
 		}
 		
 		FramePrincipal framePrincipal = new FramePrincipal();

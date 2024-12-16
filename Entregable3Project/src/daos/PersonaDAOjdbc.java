@@ -12,7 +12,7 @@ import singletones.MyConnection;
 public class PersonaDAOjdbc implements PersonaDAO{
 
 	@Override
-	public int insertarPersona(Persona persona) throws SQLException {
+	public void insertarPersona(Persona persona) throws SQLException {
 		
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "INSERT INTO PERSONA (NOMBRE,APELLIDO) VALUES ('"
@@ -21,19 +21,9 @@ public class PersonaDAOjdbc implements PersonaDAO{
 				+ persona.getApellido()
 				+ "')";
 
-		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-		
-		ResultSet llavesAutoGeneradas = stmt.getGeneratedKeys();
-		int idPersona = -1;
-		
-		if (llavesAutoGeneradas.next()) {
-			idPersona = llavesAutoGeneradas.getInt(1);
-		}
-		
-		llavesAutoGeneradas.close();
+		stmt.executeUpdate(sql);
 		
 		stmt.close();
-		return idPersona;
 	}
 
 	@Override

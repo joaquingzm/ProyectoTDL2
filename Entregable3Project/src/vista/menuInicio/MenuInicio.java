@@ -91,8 +91,5 @@ public class MenuInicio extends JPanel{
 		return contraseña.getText();
 	}
 
-	public void mostrarError(String error) {
-		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
-	}
 }
  

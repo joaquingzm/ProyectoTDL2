@@ -145,8 +145,4 @@ public class MenuRegistracion extends JPanel {
 	public boolean seAceptaronTerminosYCondiciones() {
 		return terminosCondicionesCaja.isSelected();
 	}
-	
-	public void mostrarError(String error) {
-		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
-	}
 }

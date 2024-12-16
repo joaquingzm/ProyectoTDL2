@@ -6,7 +6,7 @@ import modelos.Persona;
 
 public interface PersonaDAO {
 	
-	int insertarPersona(Persona persona) throws SQLException;
+	void insertarPersona(Persona persona) throws SQLException;
 	//Ver si es necesario
 	//Persona buscarPersona(String nombres) throws SQLException;
 	

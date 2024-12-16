@@ -98,10 +98,6 @@ public class MenuMisActivos extends JPanel{
 		encabezado.actualizarUsuario(usuario);
 	}
 	
-	public void mostrarError(String error) {
-		JOptionPane.showMessageDialog(null, error, "ERROR", JOptionPane.ERROR_MESSAGE);
-	}
-	
 	public void mostrarExito(String exito) {
 		JOptionPane.showMessageDialog(null, exito, "EXITO", JOptionPane.INFORMATION_MESSAGE);
 	}
