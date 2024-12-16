@@ -16,4 +16,6 @@ public interface ActivoMonedaFiduciariaDAO {
 	public ActivoMonedaFiduciaria buscarActivoMonedaFiduciaria(int idFIAT, int idUsuario) throws SQLException;
 	
 	public List<ActivoMonedaFiduciaria> listarActivosFiduciarios(int idUsuario) throws SQLException;
+
+	public boolean tieneActivoMonedaFiduciaria(int idUsuario, int idFIAT) throws SQLException;
 }

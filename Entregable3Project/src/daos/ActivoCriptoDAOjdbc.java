@@ -61,7 +61,7 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 	}
 
 	@Override
-	public void sumarCantidadActivoCripto(int idCripto, int idUsuario, Double cantidad) throws SQLException {
+	public void sumarCantidadActivoCripto(int idCripto, int idUsuario, double cantidad) throws SQLException {
 
 		Statement stmt = MyConnection.getCon().createStatement();
 		String sql = "SELECT CANTIDAD FROM ACTIVO_CRIPTO WHERE ID_CRIPTO = '"+idCripto+"' AND ID_USUARIO = " + idUsuario;
@@ -73,6 +73,17 @@ public class ActivoCriptoDAOjdbc implements ActivoCriptoDAO {
 		stmt.executeUpdate(sql);
 		
 		resul.close();
+		stmt.close();
+	}
+	
+	@Override
+	public void cambiarCantidadActivoCripto(int idCripto, int idUsuario, double cantidad) throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		String sql = "UPDATE ACTIVO_CRIPTO SET CANTIDAD = "+cantidad+" WHERE ID_CRIPTO = '"+idCripto+"' AND ID_USUARIO = " + idUsuario;
+
+		stmt.executeUpdate(sql);
+		
 		stmt.close();
 	}
 	

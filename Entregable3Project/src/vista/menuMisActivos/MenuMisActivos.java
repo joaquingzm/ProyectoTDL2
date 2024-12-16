@@ -40,6 +40,7 @@ public class MenuMisActivos extends JPanel{
 		
 		centroMisActivos.setPreferredSize(new Dimension(500,200));
 		exportarCSV.setPreferredSize(new Dimension(200,30));
+		generarDatosDePrueba.setPreferredSize(new Dimension(200,30));
 		operaciones.setPreferredSize(new Dimension(200,30));
 		cotizaciones.setPreferredSize(new Dimension(200,30));
 		
@@ -49,9 +50,9 @@ public class MenuMisActivos extends JPanel{
 		cotizaciones.setText("Cotizaciones");
 		
 		exportarCSV.addActionListener(new ExportarCSVListener());
+		generarDatosDePrueba.addActionListener(new GenerarDatosDePruebaListener());
 		operaciones.addActionListener(new OperacionesListener());
 		cotizaciones.addActionListener(new CotizacionesListener());
-		generarDatosDePrueba.addActionListener(new GenerarDatosDePruebaListener());
 		
 		this.setLayout(new GridBagLayout());
 
@@ -68,13 +69,18 @@ public class MenuMisActivos extends JPanel{
 		gbc.gridy = 1;
 		this.add(centroMisActivos,gbc);
 		
+		gbc.gridwidth = 1;
+		
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		this.add(exportarCSV,gbc);
 		
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		this.add(generarDatosDePrueba,gbc);
+		
 		gbc.gridx = 0;
 		gbc.gridy = 3;
-		gbc.gridwidth = 1;
 		this.add(operaciones,gbc);
 		
 		gbc.gridx = 1;

@@ -14,3 +14,9 @@ que mostrar mis activos.
 InicioDeSesionListener: Deberíamos hacer excepciones para cuando uno de estos errores
 en los que no se llena un campo sucede, para poder modularizar el chequeo y ponerle
 un throw de la excepcion que hagamos.
+
+-- menuMisActivosListeners
+
+GenerarDatosDePruebaListener: En este estoy haciendo métodos que generan activos, 
+debería ponerle un throw sqlexception? Qué pasa si además quiero que tiren más exceps?
+

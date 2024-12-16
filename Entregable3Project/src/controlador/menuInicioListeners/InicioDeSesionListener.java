@@ -30,7 +30,7 @@ public class InicioDeSesionListener implements ActionListener{
 		}
 		
 		int idUsuario = -1;
-		Usuario usuario;
+		Usuario usuario = null;
 		
 		try {
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
@@ -52,10 +52,9 @@ public class InicioDeSesionListener implements ActionListener{
 
 		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
-			
 		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			return;
 		}
 		
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);

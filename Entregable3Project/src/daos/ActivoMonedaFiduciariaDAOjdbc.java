@@ -119,5 +119,19 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 		return listaActivosMonedaFiduciaria;
 	}
 
+	public boolean tieneActivoMonedaFiduciaria(int idUsuario, int idFIAT) throws SQLException{
+		
+		Statement stmt = MyConnection.getCon().createStatement();
+		
+		String sql = "SELECT * FROM ACTIVO_MONEDA_FIDUCIARIA WHERE ID_USUARIO = "+idUsuario+" AND ID_CRIPTO = '"+idFIAT+"'";
+	    		
+		ResultSet resul = stmt.executeQuery(sql);
+		
+		if(resul.next()) {
+			return true;
+		}
+		
+		return false;
+	}
 
 }
