@@ -39,7 +39,7 @@ public class CentroMisActivos extends JPanel{
 	}
 	
 	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
-		
+		System.out.println(mf.getSigla());
 		Object[][] datos = this.recuperarDatos(listaActivosCripto, listaActivosFIAT);
 		this.nombresColumnas[2] = "Monto("+mf.getSigla()+")";
 		modelo.setDataVector(datos, this.nombresColumnas);

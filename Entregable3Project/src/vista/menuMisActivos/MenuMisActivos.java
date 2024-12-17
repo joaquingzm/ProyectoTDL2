@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -32,12 +33,14 @@ public class MenuMisActivos extends JPanel{
 	private JButton generarDatosDePrueba;
 	private JButton operaciones;
 	private JButton cotizaciones;
+	private MonedaFiduciaria mf;
 	
 	public MenuMisActivos() {
 		
 		encabezado = new Encabezado();
 		selectorFIAT = new JComboBox<String>();
-		centroMisActivos = new CentroMisActivos(InformacionDeMonedasFiduciarias.USD.getMonedaFiduciaria());
+		centroMisActivos = new CentroMisActivos(InformacionDeMonedasFiduciarias.ARS.getMonedaFiduciaria());
+		mf = InformacionDeMonedasFiduciarias.ARS.getMonedaFiduciaria();
 		exportarCSV = new JButton();
 		generarDatosDePrueba = new JButton();
 		operaciones = new JButton();
@@ -98,7 +101,6 @@ public class MenuMisActivos extends JPanel{
 	}
 	
 	public void actualizarActivos(List<ActivoCripto> listaActivosCripto , List<ActivoMonedaFiduciaria> listaActivosFIAT) {
-		
 		centroMisActivos.actualizarTabla(listaActivosCripto, listaActivosFIAT);
 	}
 	
@@ -108,27 +110,21 @@ public class MenuMisActivos extends JPanel{
 	}
 	
 	public String extraerSiglaSelectorFIAT() {
-		Object siglaElegida = selectorFIAT.getSelectedItem();
-		if(siglaElegida!=null) return siglaElegida.toString();
-		else {			
-			System.out.println(selectorFIAT.getItemAt(0));
-			selectorFIAT.setSelectedIndex(0);
-			return selectorFIAT.getSelectedItem().toString();
-		}
+	
+		return selectorFIAT.getSelectedItem().toString();
 	}
 	
 	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
-		
-		selectorFIAT.removeAllItems();
+	
+		DefaultComboBoxModel<String> nuevoModeloComboBox = new DefaultComboBoxModel<String>();
 		for(MonedaFiduciaria m : listaFIATs) {
-			selectorFIAT.addItem(m.getSigla());
-			System.out.println("añadiendo");
+			nuevoModeloComboBox.addElement(m.getSigla());
 		}
-		
+		selectorFIAT.setModel(nuevoModeloComboBox);
 	}
 	
 	public void actualizarMonedaFIAT(MonedaFiduciaria mf) {
-		
+		this.mf = mf;
 		this.centroMisActivos.actualizarMonedaFIAT(mf);
 	}
 	

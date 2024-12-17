@@ -58,6 +58,18 @@ public class InicioDeSesionListener implements ActionListener{
 		
 		GestorDeDatosDelControlador.setIdUsuario(idUsuario);
 		
+		List<MonedaFiduciaria> listaFIATs = null;
+		
+		try {
+			listaFIATs = FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
+			
+		} catch (SQLException exc3) {
+			FramePrincipal.mostrarAviso(exc3.getClass().getSimpleName(), exc3.getMessage());
+			return;
+		}
+		
+		framePrincipal.getMenuMisActivos().cargarSelectorFIAT(listaFIATs);
+		
 		menuInicio.realizarAccionesDeSalidaDelMenu();
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUMISACTIVOS.name());		
