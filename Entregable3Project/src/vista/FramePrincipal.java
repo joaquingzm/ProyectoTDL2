@@ -86,6 +86,9 @@ public class FramePrincipal extends JFrame {
 		menuCotizaciones.cambiarColorBackgroundEncabezado(colorBackground);
 		menuCotizaciones.cambiarColorForegroundEncabezado(colorForeground);
 		
+		menuMisOperaciones.cambiarBackgroundColorBotones(colorBackgroundBotones);
+		menuMisOperaciones.cambiarForegroundColorBotones(colorForegroundBotones);
+		
 		panelPrincipal.add(menuInicio, IdentificadoresDePaneles.MENUINICIO.name());
 		panelPrincipal.add(menuRegistracion, IdentificadoresDePaneles.MENUREGISTRACION.name());
 		panelPrincipal.add(menuCompra, IdentificadoresDePaneles.MENUCOMPRA.name());
