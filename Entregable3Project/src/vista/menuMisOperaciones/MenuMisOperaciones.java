@@ -1,5 +1,6 @@
 package vista.menuMisOperaciones;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -47,6 +48,14 @@ public class MenuMisOperaciones extends JPanel{
 		gbc.gridy = 1;
 		this.add(volver,gbc);
 		
+	}
+	
+	public void cambiarBackgroundColorBotones(Color color) {
+		volver.setBackground(color);
+	}
+	
+	public void cambiarForegroundColorBotones(Color color) {
+		volver.setForeground(color);
 	}
 	
 	public void actualizarOperaciones(List<Transaccion> transacciones) {

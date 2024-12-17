@@ -5,9 +5,12 @@ import java.util.List;
 
 import daos.ActivoCriptoDAO;
 import daos.FactoryDAO;
+import daos.MonedaFiduciariaDAO;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
+import modelos.MonedaFiduciaria;
+import vista.menuMisActivos.MenuMisActivos;
 
 public class GestorDeActualizaciones {
 
@@ -16,7 +19,7 @@ public class GestorDeActualizaciones {
 		List<ActivoCripto> listaActivosCripto = null;
 		List<ActivoMonedaFiduciaria> listaActivosFIAT = null;
 
-		listaActivosCripto =FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
+		listaActivosCripto = FactoryDAO.getActivoCriptoDAO().listarActivosCripto(idUsuario);
 		listaActivosFIAT = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
 		
 		GestorDeDatosDelControlador.getFramePrincipal().getMenuMisActivos().actualizarActivos(listaActivosCripto, listaActivosFIAT);
@@ -40,5 +43,20 @@ public class GestorDeActualizaciones {
 		GestorDeDatosDelControlador.getFramePrincipal().getMenuCotizaciones().actualizarTabla(tieneActivo, listaCriptos);
 		
 
+	}
+	
+	public static void actualizarMenuMisActivosFIAT() throws SQLException{
+
+		MenuMisActivos menuMisActivos = GestorDeDatosDelControlador.getFramePrincipal().getMenuMisActivos();
+		
+		String siglaElegida = menuMisActivos.extraerSiglaSelectorFIAT();
+		
+		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
+		int idMF;
+		MonedaFiduciaria mf = null;
+		idMF = mfDAO.buscarMonedaFiduciariaId(siglaElegida);
+		mf = mfDAO.buscarMonedaFiduciaria(idMF);
+
+		menuMisActivos.actualizarMonedaFIAT(mf);
 	}
 }
