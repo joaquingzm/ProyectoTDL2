@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import controlador.GestorDeActualizaciones;
+import excepciones.InformacionExcepciones;
+import vista.FramePrincipal;
 
 
 public class SelectorDeFiatListener implements ActionListener{
@@ -15,8 +17,8 @@ public class SelectorDeFiatListener implements ActionListener{
 		try {
 			GestorDeActualizaciones.actualizarMenuMisActivosFIAT();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
+			return;
 		}
 	}
 

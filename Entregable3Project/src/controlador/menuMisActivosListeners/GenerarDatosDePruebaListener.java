@@ -26,7 +26,6 @@ public class GenerarDatosDePruebaListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		try {
-			//generarActivosCripto();
 			generarActivosFIAT();
 			GestorDeActualizaciones.actualizarMenuMisActivos(GestorDeDatosDelControlador.getIdUsuario());
 			generarStock();
@@ -36,47 +35,6 @@ public class GenerarDatosDePruebaListener implements ActionListener{
 		}
 	}
 
-	
-/*
-	private void generarActivosCripto() throws SQLException{
-		
-		List<Criptomoneda> listaC = null;
-		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
-		ActivoCriptoDAO aCDAO = FactoryDAO.getActivoCriptoDAO();
-	
-		listaC = cDAO.listarCriptomonedas();
-		
-		Random random = new Random();
-		ActivoCripto aC = null;
-		double cantAC = 0;
-		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
-		int idCripto = 0;
-		
-		for(Criptomoneda c : listaC) {
-			idCripto = cDAO.buscarCriptomonedaId(c);
-			cantAC = (random.nextDouble() * 1000000)/c.getPrecioEnDolar();
-			if(aCDAO.tieneActivoCripto(idUsuario, idCripto)) {
-				aCDAO.cambiarCantidadActivoCripto(idCripto, idUsuario, cantAC);
-			}
-			else {
-				aC = new ActivoCripto(cantAC,generarDireccion(),c);
-				aCDAO.insertarActivoCripto(aC, idUsuario);
-			}
-		}
-		
-	}
-	
-	private String generarDireccion() {
-		Random random = new Random();
-		String direccion=null;
-		int largo = 10;
-		for (int i=0;i<largo;i++) {
-			int digito = random.nextInt(10);
-			direccion+=""+digito+"";
-		}
-		return direccion;
-	}
-*/
 	private void generarActivosFIAT() throws SQLException{
 		
 		List<MonedaFiduciaria> listaMF = null;
