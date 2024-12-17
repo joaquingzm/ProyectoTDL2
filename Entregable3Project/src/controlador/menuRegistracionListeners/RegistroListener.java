@@ -8,6 +8,10 @@ import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import daos.PersonaDAO;
 import daos.UsuarioDAO;
+import excepciones.CheckboxException;
+import excepciones.DataException;
+import excepciones.ExistenciaEmailException;
+import excepciones.TextFieldException;
 import modelos.Persona;
 import modelos.Usuario;
 import vista.FramePrincipal;
@@ -29,27 +33,22 @@ public class RegistroListener implements ActionListener{
 		String contraseña = menuRegistracion.extraerContraseña();
 		boolean aceptoTerminosCondiciones = menuRegistracion.seAceptaronTerminosYCondiciones();
 		
-		if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contraseña.isEmpty()) {
-			FramePrincipal.mostrarAviso("Campos incompletos", "Algunos de los campos solicitados no se completó.");
-			return;
-		}
-		
-		if (!aceptoTerminosCondiciones) {
-			FramePrincipal.mostrarAviso("Campos incompletos", "No se aceptaron los Terminos y Condiciones.");
-			return;
-		}
-
 		UsuarioDAO usrDAO= FactoryDAO.getUsuarioDAO();
 		
-		//CAMBIAR POR NUESTRA EXCEPCION !!!!
 		try {
-			if (usrDAO.existeEmail(email)) {
-				throw new SQLException();
-			}
-		} catch (SQLException e1) {
-			FramePrincipal.mostrarAviso("Existe mail", "El email propuesto esta asociado a otro usuario.");
+			if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || contraseña.isEmpty()) throw new TextFieldException();
+			if (!aceptoTerminosCondiciones) throw new CheckboxException();
+			if (usrDAO.existeEmail(email)) throw new ExistenciaEmailException();
+			
+		} catch (DataException exc1) {
+			FramePrincipal.mostrarAviso(exc1.getProblemaTitulo(), exc1.getProblemaCuerpo());
+			return;
+			
+		} catch (SQLException exc2) {
+			FramePrincipal.mostrarAviso(exc2.getClass().getSimpleName(), exc2.getMessage());
 			return;
 		}
+		
 		
 		PersonaDAO pDAO = FactoryDAO.getPersonaDAO();
 		Persona persona = new Persona(nombre,apellido);

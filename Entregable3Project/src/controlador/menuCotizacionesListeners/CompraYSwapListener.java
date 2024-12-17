@@ -39,23 +39,15 @@ public class CompraYSwapListener extends MouseAdapter{
 		
 		if(menuCotizaciones.seAccionoComprar(coords)) {
 			System.out.println("Se accionó compra, "+sigla);
-			
-			try {
-				stock = FactoryDAO.getStockDAO().buscarStock(idCripto);
-				
-			} catch (SQLException e) {
-				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
-				return;
-			}
-			
-			framePrincipal.getMenuCompra().cargarMoneda(stock);
-			
 			GestorDeDatosDelControlador.terminarTimer();
 			
 			List<MonedaFiduciaria> listaFIATs = null;
 			
 			try {
+				stock = FactoryDAO.getStockDAO().buscarStock(idCripto);
+				framePrincipal.getMenuCompra().cargarMoneda(stock);
 				listaFIATs = FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
+				
 			} catch (SQLException e) {
 				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
 				return;

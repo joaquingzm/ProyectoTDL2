@@ -22,25 +22,26 @@ public class ConvertirListener implements ActionListener{
 		MonedaFiduciariaDAO mDAO = FactoryDAO.getMonedaFiduciariaDAO();
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
-		double cantidadNumero = menuCompra.extraerCantidadAConvertir();
+		double cantidadNumero;
+		
+		try {
+			cantidadNumero = menuCompra.extraerCantidadAConvertir();
+			
+		} catch(NumberFormatException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
+		}
 		
 		int idFIAT = -1;
 		int idCripto = -1;
+		
+		double precioEnDolarDeMonedaFiduciaria=0;
+		double precioEnDolarDeCriptomoneda=0;
 		
 		try {
 			idFIAT = mDAO.buscarMonedaFiduciariaId(menuCompra.extraerSiglaDeMonedaAConvertir());
 			idCripto = cDAO.buscarCriptomonedaId(menuCompra.extraerSiglaDeCriptomoneda());
 			
-		} catch (SQLException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
-			return;
-		}
-		
-		double precioEnDolarDeMonedaFiduciaria=0;
-		double precioEnDolarDeCriptomoneda=0;
-		
-		
-		try {
 			precioEnDolarDeMonedaFiduciaria = mDAO.buscarMonedaFiduciaria(idFIAT).getPrecioEnDolar();
 			precioEnDolarDeCriptomoneda = cDAO.buscarCriptomoneda(idCripto).getPrecioEnDolar();
 			
@@ -49,15 +50,10 @@ public class ConvertirListener implements ActionListener{
 			return;
 		}
 		
-		double cantidadTotalDeDolares;
-		double cantidadTotalDeCripto;
+
+		double cantidadTotalDeDolares = precioEnDolarDeMonedaFiduciaria * cantidadNumero;
 		
-		
-	
-		
-		cantidadTotalDeDolares = precioEnDolarDeMonedaFiduciaria * cantidadNumero;
-		
-		cantidadTotalDeCripto = cantidadTotalDeDolares / precioEnDolarDeCriptomoneda;
+		double cantidadTotalDeCripto = cantidadTotalDeDolares / precioEnDolarDeCriptomoneda;
 		
 		menuCompra.actualizarConversion(cantidadTotalDeCripto);
 		
