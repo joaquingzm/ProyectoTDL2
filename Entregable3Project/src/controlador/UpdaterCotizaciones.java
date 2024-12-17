@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
+import excepciones.InformacionExcepciones;
 import modelos.Criptomoneda;
 import vista.FramePrincipal;
 
@@ -43,9 +44,14 @@ public class UpdaterCotizaciones extends TimerTask {
 	    		System.out.println("Error: " + respuesta.statusCode());
 	    	}
 	    	
-	    } catch (IOException | InterruptedException e) {
+	    } catch (IOException e) {
 	    	
-	    	FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+	    	FramePrincipal.mostrarAviso(InformacionExcepciones.IyO.getTitulo(), InformacionExcepciones.IyO.getCuerpo());
+	    	return;
+	    	
+	    } catch (InterruptedException e) {
+	    	
+	    	FramePrincipal.mostrarAviso(InformacionExcepciones.INTERRUPCION.getTitulo(), InformacionExcepciones.INTERRUPCION.getCuerpo());
 	    	return;
 	    }
 	    
@@ -60,7 +66,7 @@ public class UpdaterCotizaciones extends TimerTask {
 				
 			} catch (SQLException e) {
 				
-				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+				FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 				return;
 			}
 			
@@ -93,7 +99,7 @@ public class UpdaterCotizaciones extends TimerTask {
 			
 		} catch (SQLException e) {
 			
-			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 		}
 
 		return preciosCriptomonedas;

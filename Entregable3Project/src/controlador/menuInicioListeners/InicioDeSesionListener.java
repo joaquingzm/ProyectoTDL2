@@ -9,6 +9,7 @@ import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import excepciones.DataException;
 import excepciones.ExistenciaUsuarioException;
+import excepciones.InformacionExcepciones;
 import excepciones.TextFieldException;
 import modelos.Usuario;
 import vista.FramePrincipal;
@@ -50,7 +51,7 @@ public class InicioDeSesionListener implements ActionListener{
 			return;
 			
 		} catch (SQLException exc2) {
-			FramePrincipal.mostrarAviso(exc2.getClass().getSimpleName(), exc2.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

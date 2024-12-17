@@ -6,6 +6,7 @@ import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
 import daos.StockDAO;
+import excepciones.InformacionExcepciones;
 import modelos.Criptomoneda;
 import modelos.InformacionDeCriptomonedas;
 import modelos.InformacionDeMonedasFiduciarias;
@@ -20,8 +21,8 @@ public class Controlador {
 		try {
 			MetodosDelSistema.creaciónDeTablasEnBD();
 			crearMonedas();
-		} catch (SQLException e) {
-			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

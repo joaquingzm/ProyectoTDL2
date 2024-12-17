@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
+import excepciones.InformacionExcepciones;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
 
@@ -20,7 +21,7 @@ public class CotizacionesListener implements ActionListener{
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
 			
 		} catch (SQLException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

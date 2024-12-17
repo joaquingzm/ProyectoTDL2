@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import excepciones.InformacionExcepciones;
 import vista.FramePrincipal;
 
 public class MyConnection {
@@ -21,7 +22,7 @@ public class MyConnection {
 			
 		} catch (SQLException e) {
 			
-			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 		}
 	}
 	

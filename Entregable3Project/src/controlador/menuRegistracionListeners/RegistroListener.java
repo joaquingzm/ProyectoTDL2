@@ -11,6 +11,7 @@ import daos.UsuarioDAO;
 import excepciones.CheckboxException;
 import excepciones.DataException;
 import excepciones.ExistenciaEmailException;
+import excepciones.InformacionExcepciones;
 import excepciones.TextFieldException;
 import modelos.Persona;
 import modelos.Usuario;
@@ -45,7 +46,7 @@ public class RegistroListener implements ActionListener{
 			return;
 			
 		} catch (SQLException exc2) {
-			FramePrincipal.mostrarAviso(exc2.getClass().getSimpleName(), exc2.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		
@@ -67,7 +68,7 @@ public class RegistroListener implements ActionListener{
 			
 		} catch (SQLException exc) {
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

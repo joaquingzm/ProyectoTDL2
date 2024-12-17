@@ -12,6 +12,7 @@ import java.util.List;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
+import excepciones.InformacionExcepciones;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
@@ -46,7 +47,7 @@ public class ExportarCSVListener implements ActionListener{
 			
 		} catch (SQLException exc) {
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), "Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), "Ha ocurrido una excepción correspondiente a la base de datos en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 		
@@ -76,7 +77,7 @@ public class ExportarCSVListener implements ActionListener{
 			
 		} catch (IOException exc) {
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), "Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
+			FramePrincipal.mostrarAviso(InformacionExcepciones.IyO.getTitulo(), "Ha ocurrido una excepción de E/S en la creación del archivo CSV del usuario de ID " + idUsuario + ".");
 			return;
 		}
 

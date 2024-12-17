@@ -15,7 +15,6 @@ public class CancelarListener implements ActionListener{
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		
-		
 		GestorDeDatosDelControlador.comenzarTimer();
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());

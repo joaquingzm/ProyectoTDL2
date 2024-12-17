@@ -7,6 +7,7 @@ import java.util.List;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
+import excepciones.InformacionExcepciones;
 import modelos.Transaccion;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -28,7 +29,7 @@ public class OperacionesListener implements ActionListener {
 			listaTransacciones = FactoryDAO.getTransaccionDAO().listarTransacciones(idUsuario);
 			
 		} catch (SQLException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 

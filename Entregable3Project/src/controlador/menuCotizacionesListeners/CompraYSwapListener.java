@@ -8,6 +8,7 @@ import java.util.List;
 
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
+import excepciones.InformacionExcepciones;
 import modelos.MonedaFiduciaria;
 import modelos.Stock;
 import vista.FramePrincipal;
@@ -30,8 +31,9 @@ public class CompraYSwapListener extends MouseAdapter{
 		
 		try {
 			idCripto = FactoryDAO.getCriptomonedaDAO().buscarCriptomonedaId(sigla);
+			
 		} catch (SQLException e) {
-			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		
@@ -49,7 +51,7 @@ public class CompraYSwapListener extends MouseAdapter{
 				listaFIATs = FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
 				
 			} catch (SQLException e) {
-				FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+				FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 				return;
 			}
 			

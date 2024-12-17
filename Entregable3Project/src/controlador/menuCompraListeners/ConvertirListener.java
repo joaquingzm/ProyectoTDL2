@@ -8,6 +8,7 @@ import controlador.GestorDeDatosDelControlador;
 import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
+import excepciones.InformacionExcepciones;
 import vista.FramePrincipal;
 import vista.menuCompra.MenuCompra;
 
@@ -28,7 +29,7 @@ public class ConvertirListener implements ActionListener{
 			cantidadNumero = menuCompra.extraerCantidadAConvertir();
 			
 		} catch(NumberFormatException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.NUMBERFORMAT.getTitulo(), InformacionExcepciones.NUMBERFORMAT.getCuerpo());
 			return;
 		}
 		
@@ -46,7 +47,7 @@ public class ConvertirListener implements ActionListener{
 			precioEnDolarDeCriptomoneda = cDAO.buscarCriptomoneda(idCripto).getPrecioEnDolar();
 			
 		} catch (SQLException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

@@ -19,6 +19,7 @@ import excepciones.CantidadStockException;
 import excepciones.CompraNulaException;
 import excepciones.DataException;
 import excepciones.ExistenciaActivoFiduciarioException;
+import excepciones.InformacionExcepciones;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
@@ -42,7 +43,7 @@ public class RealizarCompraListener implements ActionListener{
 			cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
 			
 		} catch(NumberFormatException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.NUMBERFORMAT.getTitulo(), InformacionExcepciones.NUMBERFORMAT.getCuerpo());
 			return;
 		}
 		
@@ -83,7 +84,7 @@ public class RealizarCompraListener implements ActionListener{
 			
 		} catch (SQLException exc) {
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		
@@ -139,7 +140,7 @@ public class RealizarCompraListener implements ActionListener{
 			
 		} catch (SQLException exc) {
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 		

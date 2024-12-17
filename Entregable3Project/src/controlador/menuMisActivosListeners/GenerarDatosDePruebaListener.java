@@ -13,6 +13,7 @@ import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
 import daos.StockDAO;
+import excepciones.InformacionExcepciones;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
@@ -30,7 +31,7 @@ public class GenerarDatosDePruebaListener implements ActionListener{
 			GestorDeActualizaciones.actualizarMenuMisActivos(GestorDeDatosDelControlador.getIdUsuario());
 			generarStock();
 		} catch (SQLException e) {
-			FramePrincipal.mostrarAviso(e.getClass().getSimpleName(), e.getMessage());
+			FramePrincipal.mostrarAviso(InformacionExcepciones.SQL.getTitulo(), InformacionExcepciones.SQL.getCuerpo());
 			return;
 		}
 	}
