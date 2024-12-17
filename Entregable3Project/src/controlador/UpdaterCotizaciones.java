@@ -55,7 +55,6 @@ public class UpdaterCotizaciones extends TimerTask {
 		for (int llave : preciosCriptomonedas.keySet()) {
 			
 			try {
-				System.out.println("Actualizando");
 				cDAO.actualizarPrecioEnDolar(llave, preciosCriptomonedas.get(llave));
 				
 			} catch (SQLException e) {

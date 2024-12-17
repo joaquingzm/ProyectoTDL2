@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -62,6 +63,18 @@ public class Encabezado extends JPanel{
         this.add(cerrarSesion, gbc);
 	}
 
+	public void cambiarColorBackground(Color color) {
+		this.setBackground(color);
+		nombreYApellido.setBackground(color);
+		this.cerrarSesion.setBackground(color);
+	}
+	
+	public void cambiarColorForeground(Color color) {
+		this.setForeground(color);
+		nombreYApellido.setForeground(color);
+		this.cerrarSesion.setForeground(color);
+	}
+	
 	public void actualizarUsuario(Usuario usuario) {
 		Persona persona = usuario.getPersona();
 		nombreYApellido.setText(persona.getNombre()+"   "+persona.getApellido());

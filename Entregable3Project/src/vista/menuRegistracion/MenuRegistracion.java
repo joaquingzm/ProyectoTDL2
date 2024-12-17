@@ -1,5 +1,6 @@
 package vista.menuRegistracion;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -123,6 +124,25 @@ public class MenuRegistracion extends JPanel {
 		email.setText("");
 		contraseña.setText("");
 		terminosCondicionesCaja.setSelected(false);
+	}
+	
+	public void cambiarColorLabels(Color color) {
+		nombreLabel.setForeground(color);
+		apellidoLabel.setForeground(color);;
+		emailLabel.setForeground(color);;
+		contraseñaLabel.setForeground(color);;
+		terminosCondicionesCaja.setForeground(color);;
+		terminosCondicionesLabel.setForeground(color);;
+	}
+	
+	public void cambiarBackgroundColorBotones(Color color) {
+		registrar.setBackground(color);
+		volver.setBackground(color);
+	}
+	
+	public void cambiarForegroundColorBotones(Color color) {
+		registrar.setForeground(color);
+		volver.setForeground(color);
 	}
 	
 	public String extraerNombre() {

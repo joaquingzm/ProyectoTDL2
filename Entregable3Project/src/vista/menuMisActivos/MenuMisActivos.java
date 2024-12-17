@@ -1,5 +1,6 @@
 package vista.menuMisActivos;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,20 +34,18 @@ public class MenuMisActivos extends JPanel{
 	private JButton generarDatosDePrueba;
 	private JButton operaciones;
 	private JButton cotizaciones;
-	private MonedaFiduciaria mf;
 	
 	public MenuMisActivos() {
 		
 		encabezado = new Encabezado();
 		selectorFIAT = new JComboBox<String>();
 		centroMisActivos = new CentroMisActivos(InformacionDeMonedasFiduciarias.ARS.getMonedaFiduciaria());
-		mf = InformacionDeMonedasFiduciarias.ARS.getMonedaFiduciaria();
 		exportarCSV = new JButton();
 		generarDatosDePrueba = new JButton();
 		operaciones = new JButton();
 		cotizaciones = new JButton();
 		
-		centroMisActivos.setPreferredSize(new Dimension(500,200));
+		centroMisActivos.setPreferredSize(new Dimension(500,300));
 		exportarCSV.setPreferredSize(new Dimension(200,30));
 		generarDatosDePrueba.setPreferredSize(new Dimension(200,30));
 		operaciones.setPreferredSize(new Dimension(200,30));
@@ -66,38 +65,82 @@ public class MenuMisActivos extends JPanel{
 		this.setLayout(new GridBagLayout());
 
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(10,10,10,10);
+		gbc.insets = new Insets(10, 10, 5, 10);
 		gbc.weightx = 1;
-		
+		gbc.weighty = 0;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		this.add(encabezado,gbc);
+		gbc.anchor = GridBagConstraints.WEST; 
+		gbc.weightx = 1; 
+		this.add(encabezado, gbc);
+
 		
 		gbc.gridx = 1;
-		this.add(selectorFIAT,gbc);
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.weightx = 0; 
+		this.add(selectorFIAT, gbc);
 
-		gbc.gridwidth = 2;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		this.add(centroMisActivos,gbc);
-		
-		gbc.gridwidth = 1;
-		
-		gbc.gridx = 0;
+		gbc.gridwidth = 2;
+		gbc.weighty = 1; 
+		gbc.fill = GridBagConstraints.BOTH;
+		this.add(centroMisActivos, gbc);
+
+		gbc.gridwidth = 1; 
+		gbc.weighty = 0;
+		gbc.insets = new Insets(5, 5, 5, 5); 
+		gbc.fill = GridBagConstraints.NONE; 
+
 		gbc.gridy = 2;
-		this.add(exportarCSV,gbc);
-		
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		this.add(generarDatosDePrueba,gbc);
-		
 		gbc.gridx = 0;
-		gbc.gridy = 3;
-		this.add(operaciones,gbc);
-		
+		gbc.anchor = GridBagConstraints.WEST;
+		this.add(exportarCSV, gbc);
+
 		gbc.gridx = 1;
+		gbc.anchor = GridBagConstraints.EAST;
+		this.add(generarDatosDePrueba, gbc);
+
 		gbc.gridy = 3;
-		this.add(cotizaciones,gbc);
+		gbc.gridx = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		this.add(operaciones, gbc);
+
+		gbc.gridx = 1;
+		gbc.anchor = GridBagConstraints.EAST;
+		this.add(cotizaciones, gbc);
+	}
+	
+	public void cambiarColorBackgroundEncabezado(Color color) {
+		encabezado.cambiarColorBackground(color);
+	}
+
+	public void cambiarColorForegroundEncabezado(Color color) {
+		encabezado.cambiarColorForeground(color);;
+	}
+	
+	public void cambiarColorBackgroundBotones(Color color) {
+		exportarCSV.setBackground(color);
+		generarDatosDePrueba.setBackground(color);
+		operaciones.setBackground(color);
+		cotizaciones.setBackground(color);
+	}
+	
+	public void cambiarColorForegroundBotones(Color color) {
+		exportarCSV.setForeground(color);
+		generarDatosDePrueba.setForeground(color);
+		operaciones.setForeground(color);
+		cotizaciones.setForeground(color);
+	}
+	
+	public void cambiarColorBackgroundTablas(Color color) {
+		centroMisActivos.cambiarColorBackgroundTabla(color);
+	}
+	
+	public void cambiarColorForegroundTablas(Color color) {
+		centroMisActivos.cambiarColorForegroundTabla(color);
 	}
 	
 	public void actualizarActivos(List<ActivoCripto> listaActivosCripto , List<ActivoMonedaFiduciaria> listaActivosFIAT) {
@@ -121,10 +164,10 @@ public class MenuMisActivos extends JPanel{
 			nuevoModeloComboBox.addElement(m.getSigla());
 		}
 		selectorFIAT.setModel(nuevoModeloComboBox);
+		selectorFIAT.setSelectedItem(centroMisActivos.getMonedaFIATSigla());
 	}
 	
 	public void actualizarMonedaFIAT(MonedaFiduciaria mf) {
-		this.mf = mf;
 		this.centroMisActivos.actualizarMonedaFIAT(mf);
 	}
 	

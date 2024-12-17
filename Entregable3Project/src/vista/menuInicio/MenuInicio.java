@@ -1,5 +1,6 @@
 package vista.menuInicio;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -77,7 +78,23 @@ public class MenuInicio extends JPanel{
 		gbc.gridwidth = 2;
 		this.add(registro,gbc);
 	}
+	
+	public void cambiarColorBackgroundBotones(Color color) {
+		registro.setBackground(color);
+		inicioDeSesion.setBackground(color);
+	}
 
+	public void cambiarColorForegroundBotones(Color color) {
+		registro.setForeground(color);
+		inicioDeSesion.setForeground(color);
+	}
+	
+	public void cambiarColorLabels(Color color) {
+		emailLabel.setForeground(color);
+		contraseñaLabel.setForeground(color);
+	}
+	
+	
 	public void realizarAccionesDeSalidaDelMenu() {
 		email.setText("");
 		contraseña.setText("");

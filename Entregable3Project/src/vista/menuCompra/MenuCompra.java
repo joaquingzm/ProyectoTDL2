@@ -1,5 +1,6 @@
 package vista.menuCompra;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -61,14 +62,20 @@ public class MenuCompra extends JPanel{
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridwidth = 3;
-		this.add(stockDisponible,gbc);
-		
-		gbc.gridwidth = 1;
-		
-		gbc.gridx = 1;
+		gbc.gridwidth = 1; 
+		gbc.weightx = 0;
+		gbc.insets = new Insets(10, 10, 10, 5); 
+		gbc.anchor = GridBagConstraints.WEST; 
+		this.add(stockDisponible, gbc);
+
+		gbc.gridx = 1; 
 		gbc.gridy = 0;
-		this.add(sigla,gbc);
+		gbc.insets = new Insets(10, 5, 10, 10); 
+		gbc.weightx = 1; 
+		gbc.anchor = GridBagConstraints.WEST;
+		this.add(sigla, gbc);
+
+		gbc.insets = new Insets(10,10,10,10);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -104,6 +111,26 @@ public class MenuCompra extends JPanel{
 		gbc.gridx = 2;
 		gbc.gridy = 4;
 		this.add(cancelar,gbc);
+	}
+	
+	public void cambiarColorLabels(Color color) {
+		stockDisponible.setForeground(color);;
+		sigla.setForeground(color);;
+		precioDeCompra.setForeground(color);;
+		textCantidadDeFIAT.setForeground(color);;
+		textEquilavenciaEnFIAT.setForeground(color);;
+	}
+	
+	public void cambiarBackgroundColorBotones(Color color) {
+		convertir.setBackground(color);
+		realizarCompra.setBackground(color);
+		cancelar.setBackground(color);
+	}
+	
+	public void cambiarForegroundColorBotones(Color color) {
+		convertir.setForeground(color);
+		realizarCompra.setForeground(color);
+		cancelar.setForeground(color);
 	}
 	
 	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {

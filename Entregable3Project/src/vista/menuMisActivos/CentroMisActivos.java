@@ -1,6 +1,7 @@
 package vista.menuMisActivos;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,7 @@ import vista.MiModeloDeTabla;
 public class CentroMisActivos extends JPanel{
 
 	private JTable activos;
+	private JScrollPane activosScrollPane;
 	private MiModeloDeTabla modelo;
 	private String[] nombresColumnas;
 	private MonedaFiduciaria mf;
@@ -26,7 +28,7 @@ public class CentroMisActivos extends JPanel{
 		
 		modelo = new MiModeloDeTabla(null, nombresColumnas);
 		activos = new JTable(modelo);
-		JScrollPane scrollPane = new JScrollPane(activos);
+		activosScrollPane = new JScrollPane(activos);
 		mf = mfInicial;
 		
 		activos.setRowHeight(64);
@@ -34,8 +36,17 @@ public class CentroMisActivos extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 	    this.nombresColumnas = new String[]{"", "Cripto", "Monto()"};
-		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(activosScrollPane, BorderLayout.CENTER);
 		
+	}
+	
+	public void cambiarColorBackgroundTabla(Color color) {
+		activos.setBackground(color);
+		activosScrollPane.setBackground(color);
+	}
+	
+	public void cambiarColorForegroundTabla(Color color) {
+		activos.setForeground(color);
 	}
 	
 	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
@@ -92,4 +103,7 @@ public class CentroMisActivos extends JPanel{
 		}
 	}
 	
+	public String getMonedaFIATSigla() {
+		return mf.getSigla();
+	}
 }

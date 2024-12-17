@@ -1,8 +1,10 @@
 package vista.menuCotizaciones;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Point;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class MenuCotizaciones extends JPanel {
 
 	public MenuCotizaciones(){
 		
-		nombresColumnas = new String[]{"","Cripto","Sigla","Precio de Compra","",""};
+		nombresColumnas = new String[]{"","Cripto","Sigla","Precio(USD)","",""};
 		cotizacionesTableModel = new MiModeloDeTabla(null,nombresColumnas);
 		encabezado = new Encabezado();
 		volver = new JButton("Volver");
@@ -51,26 +53,64 @@ public class MenuCotizaciones extends JPanel {
 		cotizacionesTable.addMouseListener(new CompraYSwapListener());
 		
 		this.setLayout(new GridBagLayout());
-		
+
 		GridBagConstraints gbc = new GridBagConstraints();
-		 	
-		gbc.weightx = 1;
-		
-		gbc.gridwidth = 2;
-		
+		gbc.insets = new Insets(10, 10, 5, 10); // Espaciado
+		gbc.weightx = 1; 
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		// Encabezado: alineado a la izquierda
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		this.add(encabezado,gbc);
-		
+		gbc.gridwidth = 2;
+		gbc.anchor = GridBagConstraints.WEST;
+		this.add(encabezado, gbc);
+
+		// ScrollPane para la tabla: tamaño normalizado y expansión
+		cotizacionesScrollPane.setPreferredSize(new Dimension(500, 300)); // Tamaño fijo
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		this.add(cotizacionesScrollPane,gbc);
-		
+		gbc.gridwidth = 2;
+		gbc.weighty = 1; // Expansión vertical
+		gbc.fill = GridBagConstraints.BOTH;
+		this.add(cotizacionesScrollPane, gbc);
+
+		// Botón "Volver": alineado a la izquierda
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		this.add(volver,gbc);
-		
+		gbc.gridwidth = 1;
+		gbc.weighty = 0; 
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.fill = GridBagConstraints.NONE;
+		this.add(volver, gbc);
+
+
 	}
+	
+	public void cambiarColorBackgroundEncabezado(Color color) {
+		encabezado.cambiarColorBackground(color);
+	}
+
+	public void cambiarColorForegroundEncabezado(Color color) {
+		encabezado.cambiarColorForeground(color);;
+	}
+	
+	public void cambiarColorBackgroundBotones(Color color) {
+		volver.setBackground(color);
+	}
+	
+	public void cambiarColorForegroundBotones(Color color) {
+		volver.setForeground(color);
+	}
+	
+	public void cambiarColorBackgroundTablas(Color color) {
+		cotizacionesTable.setBackground(color);
+	}
+	
+	public void cambiarColorForegroundTablas(Color color) {
+		cotizacionesTable.setForeground(color);
+	}
+	
 
 	public void actualizarTabla(Boolean[] tieneActivo, List<Criptomoneda> listaCriptos) {
 				
