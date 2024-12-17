@@ -2,8 +2,8 @@ package excepciones;
 
 public class TextFieldException extends DataException{
 
-	private String problemaTitulo = "Error en rellenar campos";
-	private String problemaCuerpo = "No se completó alguno de los campos solicitados.";
+	private String problemaTitulo = "Campos incompletos";
+	private String problemaCuerpo = "No se completó alguno/s de los campos solicitados.";
 	
 	public String getProblemaTitulo() {
 		return problemaTitulo;

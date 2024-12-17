@@ -14,6 +14,11 @@ import daos.CriptomonedaDAO;
 import daos.FactoryDAO;
 import daos.MonedaFiduciariaDAO;
 import daos.StockDAO;
+import excepciones.CantidadActivoFiduciarioException;
+import excepciones.CantidadStockException;
+import excepciones.CompraNulaException;
+import excepciones.DataException;
+import excepciones.ExistenciaActivoFiduciarioException;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
@@ -31,17 +36,34 @@ public class RealizarCompraListener implements ActionListener{
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuCompra menuCompra = framePrincipal.getMenuCompra();
 		
+		double cantidadDeFiat;
+		
+		try {
+			cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
+			
+		} catch(NumberFormatException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
+		}
+		
+		try {
+			if (cantidadDeFiat == 0) throw new CompraNulaException();
+			
+		} catch (DataException exc) {
+			FramePrincipal.mostrarAviso(exc.getProblemaTitulo(), exc.getProblemaCuerpo());
+			return;
+		}
+		
+		double stockDisponible = 0;
+		
+		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
+		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
+		
 		MonedaFiduciariaDAO mfDAO = FactoryDAO.getMonedaFiduciariaDAO();
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		ActivoMonedaFiduciariaDAO amfDAO = FactoryDAO.getActivoMonedaFiduciariaDAO();
 		ActivoCriptoDAO acDAO = FactoryDAO.getActivoCriptoDAO();
 		StockDAO stDAO = FactoryDAO.getStockDAO();
-
-		double cantidadDeFiat = menuCompra.extraerCantidadAConvertir();
-		double stockDisponible = 0;
-		
-		String siglaFiat = menuCompra.extraerSiglaDeMonedaAConvertir();
-		String siglaCripto = menuCompra.extraerSiglaDeCriptomoneda();
 
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
 		int idFIAT;
@@ -57,6 +79,8 @@ public class RealizarCompraListener implements ActionListener{
 			cm = cDAO.buscarCriptomoneda(idCripto);
 			amf = amfDAO.buscarActivoMonedaFiduciaria(idFIAT, idUsuario);
 			
+			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
+			
 		} catch (SQLException exc) {
 			
 			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
@@ -65,42 +89,28 @@ public class RealizarCompraListener implements ActionListener{
 		
 		
 		//-- Chequeo de condiciones
-
-		if (amf == null) {
-			FramePrincipal.mostrarAviso("No existe activo fiduciario", "Ha habido un error en la compra porque el activo fiduciario a utilizar no se encuentra entre sus activos.");
-			return;
-		}
 		
-		if (amf.getCantidad() < cantidadDeFiat) {
-			FramePrincipal.mostrarAviso("Dinero insuficiente", "Ha habido un error en la compra porque no le alcanza el dinero.");
-			return;
-		}
-		
+		double cantidadTotalDeDolares;
+		double cantidadTotalDeCripto;
 		
 		try {
 			
-			stockDisponible = stDAO.buscarStock(idCripto).getCantidad();
+			if (amf == null) throw new ExistenciaActivoFiduciarioException();
+			if (amf.getCantidad() < cantidadDeFiat) throw new CantidadActivoFiduciarioException();
 			
-		} catch (SQLException exc) {
-
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
+			cantidadTotalDeCripto = cantidadTotalDeDolares / cm.getPrecioEnDolar();
+			
+			if (stockDisponible < cantidadTotalDeCripto) throw new CantidadStockException();
+			
+		} catch (DataException exc) {
+			FramePrincipal.mostrarAviso(exc.getProblemaTitulo(), exc.getProblemaCuerpo());
 			return;
 		}
 		
-		
-		double cantidadTotalDeDolares = cantidadDeFiat * amf.getMonedaFIAT().getPrecioEnDolar();
-		double cantidadTotalDeCripto = cantidadTotalDeDolares / cm.getPrecioEnDolar();
-		
-
-		if (stockDisponible < cantidadTotalDeCripto) {
-			
-			FramePrincipal.mostrarAviso("Stock insuficiente", "Ha habido error en la compra porque el stock en el sistema no es suficiente.");
-			return;
-			
-		}
 		//--
 		
-		//-- Calculo de la compra y almacenamiento en la base de datos
+		//-- Calculo de la compra, almacenamiento en la base de datos y se reflejan los cambios en los menues correspondientes
 		
 		String resumen = "Compra " +cantidadTotalDeCripto + " " + siglaCripto;
 
@@ -124,16 +134,6 @@ public class RealizarCompraListener implements ActionListener{
 
 			FactoryDAO.getTransaccionDAO().insertarTransaccion(t, idUsuario);
 			
-		} catch (SQLException exc) {
-			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
-			return;
-		}
-		
-		//--
-		
-		//-- Se reflejan los cambios en los menues correspondientes
-		try {
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
 			
@@ -141,11 +141,9 @@ public class RealizarCompraListener implements ActionListener{
 			
 			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
 			return;
-			
 		}
-
-		//--
 		
+		//--
 		
 		GestorDeDatosDelControlador.comenzarTimer();
 		
@@ -153,7 +151,7 @@ public class RealizarCompraListener implements ActionListener{
 		
 	}
 	
-	private static String generarDireccion() {
+	private String generarDireccion() {
 		Random random = new Random();
 		String direccion=null;
 		int largo = 10;

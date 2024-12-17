@@ -8,6 +8,7 @@ import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import excepciones.DataException;
+import excepciones.ExistenciaUsuarioException;
 import excepciones.TextFieldException;
 import modelos.Usuario;
 import vista.FramePrincipal;
@@ -26,44 +27,30 @@ public class InicioDeSesionListener implements ActionListener{
 		String emailTexto = menuInicio.extraerEmail();
 		String contraseñaTexto = menuInicio.extraerContraseña();
 		
-		try {
-			if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) throw new TextFieldException();
-			
-		} catch (DataException exc) {
-			
-			FramePrincipal.mostrarAviso(exc.getProblemaTitulo(), exc.getProblemaCuerpo());
-			return;
-		}
-
-		
 		int idUsuario;
 		Usuario usuario = null;
 		
 		try {
+			if (emailTexto.isEmpty() || contraseñaTexto.isEmpty()) throw new TextFieldException();
 			
 			idUsuario = FactoryDAO.getUsuarioDAO().buscarId(emailTexto, contraseñaTexto);
 			
-			if (idUsuario < 0) {
-				FramePrincipal.mostrarAviso("Información inexistente", "La información ingresada no corresponde a ningun usuario.");
-				return;
-			}
+			if (idUsuario < 0) throw new ExistenciaUsuarioException();
+			
 			usuario = FactoryDAO.getUsuarioDAO().buscarUsuario(idUsuario);
 			
-		} catch (SQLException exc) {
+			framePrincipal.getMenuMisActivos().actualizarUsuario(usuario);
+			framePrincipal.getMenuCotizaciones().actualizarUsuario(usuario);
 			
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
-			return;
-		}
-		
-		
-		framePrincipal.getMenuMisActivos().actualizarUsuario(usuario);
-		framePrincipal.getMenuCotizaciones().actualizarUsuario(usuario);
-
-		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
 			
-		} catch (SQLException exc) {
-			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+		} catch (DataException exc1) {
+			
+			FramePrincipal.mostrarAviso(exc1.getProblemaTitulo(), exc1.getProblemaCuerpo());
+			return;
+			
+		} catch (SQLException exc2) {
+			FramePrincipal.mostrarAviso(exc2.getClass().getSimpleName(), exc2.getMessage());
 			return;
 		}
 		

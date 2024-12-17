@@ -127,8 +127,8 @@ public class MenuCompra extends JPanel{
 	
 	public Double extraerCantidadAConvertir() throws NumberFormatException{
 		
-		Double cant = Double.parseDouble(cantidadDeFIAT.getText());
-		return cant;
+		Double cantidadAConvertir = Double.parseDouble(cantidadDeFIAT.getText());
+		return cantidadAConvertir;
 	}
 	
 	public String extraerSiglaDeMonedaAConvertir() {
