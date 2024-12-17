@@ -29,7 +29,7 @@ public class FramePrincipal extends JFrame {
 	public FramePrincipal() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(600,450);
+		this.setSize(700,600);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Billetera Virtual");
 		

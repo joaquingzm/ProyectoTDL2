@@ -150,7 +150,6 @@ public class RealizarCompraListener implements ActionListener{
 		GestorDeDatosDelControlador.comenzarTimer();
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
-		
 	}
 	
 	private static String generarDireccion() {

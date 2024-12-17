@@ -7,14 +7,18 @@ import java.awt.Insets;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import controlador.menuMisActivosListeners.SelectorDeFiatListener;
 import controlador.menuMisActivosListeners.CotizacionesListener;
 import controlador.menuMisActivosListeners.ExportarCSVListener;
 import controlador.menuMisActivosListeners.GenerarDatosDePruebaListener;
 import controlador.menuMisActivosListeners.OperacionesListener;
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
+import modelos.InformacionDeMonedasFiduciarias;
+import modelos.MonedaFiduciaria;
 import modelos.Usuario;
 import vista.Encabezado;
 
@@ -22,6 +26,7 @@ import vista.Encabezado;
 public class MenuMisActivos extends JPanel{
 	
 	private Encabezado encabezado;
+	private JComboBox<String> selectorFIAT;
 	private CentroMisActivos centroMisActivos; 
 	private JButton exportarCSV;
 	private JButton generarDatosDePrueba;
@@ -30,8 +35,9 @@ public class MenuMisActivos extends JPanel{
 	
 	public MenuMisActivos() {
 		
-		centroMisActivos = new CentroMisActivos();
 		encabezado = new Encabezado();
+		selectorFIAT = new JComboBox<String>();
+		centroMisActivos = new CentroMisActivos(InformacionDeMonedasFiduciarias.USD.getMonedaFiduciaria());
 		exportarCSV = new JButton();
 		generarDatosDePrueba = new JButton();
 		operaciones = new JButton();
@@ -48,6 +54,7 @@ public class MenuMisActivos extends JPanel{
 		operaciones.setText("Mis Operaciones");
 		cotizaciones.setText("Cotizaciones");
 		
+		selectorFIAT.addActionListener(new SelectorDeFiatListener());
 		exportarCSV.addActionListener(new ExportarCSVListener());
 		generarDatosDePrueba.addActionListener(new GenerarDatosDePruebaListener());
 		operaciones.addActionListener(new OperacionesListener());
@@ -61,9 +68,12 @@ public class MenuMisActivos extends JPanel{
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridwidth = 2;
 		this.add(encabezado,gbc);
 		
+		gbc.gridx = 1;
+		this.add(selectorFIAT,gbc);
+
+		gbc.gridwidth = 2;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		this.add(centroMisActivos,gbc);
@@ -97,7 +107,30 @@ public class MenuMisActivos extends JPanel{
 		encabezado.actualizarUsuario(usuario);
 	}
 	
-
+	public String extraerSiglaSelectorFIAT() {
+		Object siglaElegida = selectorFIAT.getSelectedItem();
+		if(siglaElegida!=null) return siglaElegida.toString();
+		else {			
+			System.out.println(selectorFIAT.getItemAt(0));
+			selectorFIAT.setSelectedIndex(0);
+			return selectorFIAT.getSelectedItem().toString();
+		}
+	}
+	
+	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
+		
+		selectorFIAT.removeAllItems();
+		for(MonedaFiduciaria m : listaFIATs) {
+			selectorFIAT.addItem(m.getSigla());
+			System.out.println("añadiendo");
+		}
+		
+	}
+	
+	public void actualizarMonedaFIAT(MonedaFiduciaria mf) {
+		
+		this.centroMisActivos.actualizarMonedaFIAT(mf);
+	}
 	
 	
 }

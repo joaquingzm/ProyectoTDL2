@@ -107,7 +107,7 @@ public class MenuCompra extends JPanel{
 	}
 	
 	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {
-
+	
 		selectorFIAT.removeAllItems();
 		for(MonedaFiduciaria m : listaFIATs) {
 			selectorFIAT.addItem(m.getSigla());

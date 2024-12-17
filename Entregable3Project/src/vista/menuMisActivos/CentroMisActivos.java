@@ -20,18 +20,20 @@ public class CentroMisActivos extends JPanel{
 	private JTable activos;
 	private MiModeloDeTabla modelo;
 	private String[] nombresColumnas;
+	private MonedaFiduciaria mf;
 	
-	public CentroMisActivos() {
+	public CentroMisActivos(MonedaFiduciaria mfInicial) {
 		
 		modelo = new MiModeloDeTabla(null, nombresColumnas);
 		activos = new JTable(modelo);
 		JScrollPane scrollPane = new JScrollPane(activos);
+		mf = mfInicial;
 		
 		activos.setRowHeight(64);
 		activos.setAutoCreateRowSorter(true);
 		
 		this.setLayout(new BorderLayout());
-	    this.nombresColumnas = new String[]{"", "Cripto", "Monto($)"};
+	    this.nombresColumnas = new String[]{"", "Cripto", "Monto()"};
 		this.add(scrollPane, BorderLayout.CENTER);
 		
 	}
@@ -39,6 +41,7 @@ public class CentroMisActivos extends JPanel{
 	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
 		
 		Object[][] datos = this.recuperarDatos(listaActivosCripto, listaActivosFIAT);
+		this.nombresColumnas[2] = "Monto("+mf.getSigla()+")";
 		modelo.setDataVector(datos, this.nombresColumnas);
 	}
 	
@@ -58,7 +61,7 @@ public class CentroMisActivos extends JPanel{
 			c = aC.getCriptomoneda();
 			datos[i][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+c.getSigla()+".png"));
 			datos[i][1] = c.getNombre();
-			datos[i][2] = aC.getCantidad() * c.getPrecioEnDolar();
+			datos[i][2] = (aC.getCantidad() * c.getPrecioEnDolar())/mf.getPrecioEnDolar();
 		}
 		for(int i=0;i<dimFilasAF;i++) {
 			aF = listaActivosFIAT.get(i);
@@ -69,6 +72,24 @@ public class CentroMisActivos extends JPanel{
 		}
 		
 		return datos;
+	}
+	
+	public void actualizarMonedaFIAT(MonedaFiduciaria nuevaMF) {
+	
+		this.actualizarMonedaFIATEnTabla(nuevaMF);
+		this.nombresColumnas[2] = "Monto("+nuevaMF.getSigla()+")";
+		modelo.setColumnIdentifiers(nombresColumnas);
+		this.mf = nuevaMF;
+		
+	}
+	
+	private void actualizarMonedaFIATEnTabla(MonedaFiduciaria nuevaMF) {
+		
+		for(int i=0;i<modelo.getRowCount();i++) {
+			double precioEnViejaMF = (double) modelo.getValueAt(i,2);
+			double precioEnNuevaMoneda = (precioEnViejaMF*this.mf.getPrecioEnDolar()/nuevaMF.getPrecioEnDolar());
+			modelo.setValueAt(precioEnNuevaMoneda, i, 2);
+		}
 	}
 	
 }

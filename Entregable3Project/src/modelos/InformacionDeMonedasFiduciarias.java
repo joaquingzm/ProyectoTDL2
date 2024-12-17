@@ -34,6 +34,8 @@ public enum InformacionDeMonedasFiduciarias {
 		return paisEmisor;
 	}
 
-
+	public MonedaFiduciaria getMonedaFiduciaria() {
+		return new MonedaFiduciaria(nombre,sigla,precioEnDolar,paisEmisor);
+	}
 	
 }

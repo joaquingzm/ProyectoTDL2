@@ -3,12 +3,14 @@ package controlador.menuInicioListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 import controlador.GestorDeActualizaciones;
 import controlador.GestorDeDatosDelControlador;
 import daos.FactoryDAO;
 import excepciones.DataException;
 import excepciones.TextFieldException;
+import modelos.MonedaFiduciaria;
 import modelos.Usuario;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
@@ -59,6 +61,17 @@ public class InicioDeSesionListener implements ActionListener{
 		framePrincipal.getMenuMisActivos().actualizarUsuario(usuario);
 		framePrincipal.getMenuCotizaciones().actualizarUsuario(usuario);
 
+		List<MonedaFiduciaria> listaFIATs = null;
+		
+		try {
+			listaFIATs = FactoryDAO.getMonedaFiduciariaDAO().listarMonedasFiduciarias();
+		} catch (SQLException exc) {
+			FramePrincipal.mostrarAviso(exc.getClass().getSimpleName(), exc.getMessage());
+			return;
+		}
+		
+		framePrincipal.getMenuMisActivos().cargarSelectorFIAT(listaFIATs);
+		
 		try {
 			GestorDeActualizaciones.actualizarMenuMisActivos(idUsuario);
 			
