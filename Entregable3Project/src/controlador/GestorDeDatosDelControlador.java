@@ -11,6 +11,7 @@ public class GestorDeDatosDelControlador {
 	private static int IdUsuario;
 	private static FramePrincipal framePrincipal;
 	private static Timer timer = null;
+	private static double porcentajeComision = 2;
 
 	public static int getIdUsuario() {
 		return IdUsuario;
@@ -28,11 +29,11 @@ public class GestorDeDatosDelControlador {
 		GestorDeDatosDelControlador.framePrincipal = framePrincipal;
 	}
 	
-	public static void comenzarTimer() {
+	public static void comenzarTimer(int delay) {
         if (timer == null) {
             timer = new Timer(); 
             TimerTask updaterCotizaciones = new UpdaterCotizaciones();
-            timer.schedule(updaterCotizaciones,0,60000);
+            timer.schedule(updaterCotizaciones,delay,60000);
         }
 	}
 	
@@ -42,5 +43,13 @@ public class GestorDeDatosDelControlador {
 	            timer.cancel();
 	            timer = null;
 	        } 
+	}
+
+	public static double getPorcentajeComision() {
+		return porcentajeComision;
+	}
+
+	public static void setPorcentajeComision(double porcentajeComision) {
+		GestorDeDatosDelControlador.porcentajeComision = porcentajeComision;
 	}
 }

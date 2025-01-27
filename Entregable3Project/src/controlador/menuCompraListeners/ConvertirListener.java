@@ -23,7 +23,7 @@ public class ConvertirListener implements ActionListener{
 		MonedaFiduciariaDAO mDAO = FactoryDAO.getMonedaFiduciariaDAO();
 		CriptomonedaDAO cDAO = FactoryDAO.getCriptomonedaDAO();
 		
-		double cantidadNumero;
+		double cantidadNumero, porcentajeComision= GestorDeDatosDelControlador.getPorcentajeComision();
 		
 		try {
 			cantidadNumero = menuCompra.extraerCantidadAConvertir();
@@ -51,12 +51,19 @@ public class ConvertirListener implements ActionListener{
 			return;
 		}
 		
+		// -- Determinación de las cantidades de importancia
 
 		double cantidadTotalDeDolares = precioEnDolarDeMonedaFiduciaria * cantidadNumero;
 		
 		double cantidadTotalDeCripto = cantidadTotalDeDolares / precioEnDolarDeCriptomoneda;
 		
-		menuCompra.actualizarConversion(cantidadTotalDeCripto);
+		double comisionEnCripto = cantidadTotalDeCripto * (porcentajeComision / 100);
+		
+		double cantidadRestanteDeCripto = cantidadTotalDeCripto - comisionEnCripto;
+		
+		
+		menuCompra.actualizarConversion(cantidadRestanteDeCripto);
+		menuCompra.actualizarComision(comisionEnCripto);
 		
 	}
 
