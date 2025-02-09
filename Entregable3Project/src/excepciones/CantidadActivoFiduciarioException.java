@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class CantidadActivoFiduciarioException extends DataException{
 
 	private String problemaTitulo = "Dinero insuficiente";

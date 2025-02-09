@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class TextFieldException extends DataException{
 
 	private String problemaTitulo = "Campos incompletos";

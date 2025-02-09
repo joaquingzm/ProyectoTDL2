@@ -23,6 +23,23 @@ public class GestorDeActualizaciones {
 		listaActivosFIAT = FactoryDAO.getActivoMonedaFiduciariaDAO().listarActivosFiduciarios(idUsuario);
 		
 		GestorDeDatosDelControlador.getFramePrincipal().getMenuMisActivos().actualizarActivos(listaActivosCripto, listaActivosFIAT);
+		GestorDeDatosDelControlador.getFramePrincipal().getMenuMisActivos().actualizarBalance(calcularBalance(listaActivosCripto, listaActivosFIAT));
+		
+	}
+	
+	private static double calcularBalance(List<ActivoCripto> listaActivosCripto,List<ActivoMonedaFiduciaria> listaActivosFIAT) {
+		
+		double balance = 0;
+		
+		for(ActivoCripto aC : listaActivosCripto) {
+			balance = balance + aC.getCantidad()*aC.getCriptomoneda().getPrecioEnDolar();
+		}
+		
+		for(ActivoMonedaFiduciaria aF : listaActivosFIAT) {
+			balance = balance + aF.getCantidad()*aF.getMonedaFIAT().getPrecioEnDolar();
+		}
+		
+		return balance;
 	}
 	
 	public static void actualizarMenuCotizaciones() throws SQLException {
@@ -42,7 +59,6 @@ public class GestorDeActualizaciones {
 		
 		GestorDeDatosDelControlador.getFramePrincipal().getMenuCotizaciones().actualizarTabla(tieneActivo, listaCriptos);
 		
-
 	}
 	
 	public static void actualizarMenuMisActivosFIAT() throws SQLException{

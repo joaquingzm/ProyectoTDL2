@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class ExistenciaUsuarioException extends DataException{
 
 	private String problemaTitulo = "Información inexistente";

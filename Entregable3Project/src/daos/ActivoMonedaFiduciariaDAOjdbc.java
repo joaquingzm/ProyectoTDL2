@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import controlador.GestorDeDatosDelControlador;
 import modelos.ActivoMonedaFiduciaria;
 import modelos.MonedaFiduciaria;
 import singletones.MyConnection;
@@ -50,7 +49,6 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 			MonedaFiduciaria monedaFiduciaria = mfDAO.buscarMonedaFiduciaria(idFIAT);
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
 			listaActivosMonedaFiduciaria.add(a);
-
 		}
 		resul.close();
 		
@@ -123,7 +121,6 @@ public class ActivoMonedaFiduciariaDAOjdbc implements ActivoMonedaFiduciariaDAO{
 			MonedaFiduciaria monedaFiduciaria = new MonedaFiduciaria(resul.getString("NOMBRE"), resul.getString("SIGLA"), resul.getDouble("PRECIO_EN_DOLAR"), resul.getString("PAIS_EMISOR"));
 			ActivoMonedaFiduciaria a = new ActivoMonedaFiduciaria(cantidad, monedaFiduciaria);
 			listaActivosMonedaFiduciaria.add(a);
-
 		}
 		resul.close();
 		

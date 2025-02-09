@@ -18,7 +18,6 @@ import modelos.ActivoMonedaFiduciaria;
 import modelos.Criptomoneda;
 import modelos.MonedaFiduciaria;
 import vista.FramePrincipal;
-import vista.menuMisActivos.MenuMisActivos;
 
 public class ExportarCSVListener implements ActionListener{
 
@@ -26,8 +25,6 @@ public class ExportarCSVListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		int idUsuario = GestorDeDatosDelControlador.getIdUsuario();
-		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
-		MenuMisActivos menuMisActivos = framePrincipal.getMenuMisActivos();
 		
 		//Con las 3 lineas siguientes se puede obtener la dirección de ejecución actual (comunmente será la del JAR)
 		Path rutaActual = Paths.get("").toAbsolutePath();

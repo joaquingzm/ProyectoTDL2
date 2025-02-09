@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controlador.menuMisActivosListeners.SelectorDeFiatListener;
@@ -28,6 +29,8 @@ import vista.Encabezado;
 public class MenuMisActivos extends JPanel{
 	
 	private Encabezado encabezado;
+	private JPanel panelBalanceYSelectorFIAT;
+	private JLabel balance;
 	private JComboBox<String> selectorFIAT;
 	private CentroMisActivos centroMisActivos; 
 	private JButton exportarCSV;
@@ -38,12 +41,24 @@ public class MenuMisActivos extends JPanel{
 	public MenuMisActivos() {
 		
 		encabezado = new Encabezado();
+		panelBalanceYSelectorFIAT = new JPanel(new GridBagLayout());
+		balance = new JLabel("");
 		selectorFIAT = new JComboBox<String>();
 		centroMisActivos = new CentroMisActivos(InformacionDeMonedasFiduciarias.ARS.getMonedaFiduciaria());
 		exportarCSV = new JButton();
 		generarDatosDePrueba = new JButton();
 		operaciones = new JButton();
 		cotizaciones = new JButton();
+		
+		GridBagConstraints gbcPanelBS = new GridBagConstraints();
+		gbcPanelBS.insets = new Insets(5, 5, 5, 5);
+		gbcPanelBS.gridx = 0; 
+		gbcPanelBS.gridy = 0; 
+		gbcPanelBS.anchor = GridBagConstraints.EAST;
+		panelBalanceYSelectorFIAT.add(balance, gbcPanelBS);
+
+		gbcPanelBS.gridy = 1;
+		panelBalanceYSelectorFIAT.add(selectorFIAT, gbcPanelBS);
 		
 		centroMisActivos.setPreferredSize(new Dimension(500,300));
 		exportarCSV.setPreferredSize(new Dimension(200,30));
@@ -80,7 +95,7 @@ public class MenuMisActivos extends JPanel{
 		gbc.gridx = 1;
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.weightx = 0; 
-		this.add(selectorFIAT, gbc);
+		this.add(panelBalanceYSelectorFIAT, gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -115,24 +130,30 @@ public class MenuMisActivos extends JPanel{
 	
 	public void cambiarColorBackgroundEncabezado(Color color) {
 		encabezado.cambiarColorBackground(color);
+		panelBalanceYSelectorFIAT.setBackground(color);
 	}
 
 	public void cambiarColorForegroundEncabezado(Color color) {
-		encabezado.cambiarColorForeground(color);;
+		encabezado.cambiarColorForeground(color);
+		balance.setForeground(color);
 	}
 	
 	public void cambiarColorBackgroundBotones(Color color) {
 		exportarCSV.setBackground(color);
+		encabezado.cambiarColorBackgroundBotones(color);
 		generarDatosDePrueba.setBackground(color);
 		operaciones.setBackground(color);
 		cotizaciones.setBackground(color);
+		selectorFIAT.setBackground(color);
 	}
 	
 	public void cambiarColorForegroundBotones(Color color) {
 		exportarCSV.setForeground(color);
+		encabezado.cambiarColorForegroundBotones(color);
 		generarDatosDePrueba.setForeground(color);
 		operaciones.setForeground(color);
 		cotizaciones.setForeground(color);
+		selectorFIAT.setForeground(color);
 	}
 	
 	public void cambiarColorBackgroundTablas(Color color) {
@@ -148,8 +169,11 @@ public class MenuMisActivos extends JPanel{
 	}
 	
 	public void actualizarUsuario(Usuario usuario) {
-		
 		encabezado.actualizarUsuario(usuario);
+	}
+	
+	public void actualizarBalance(double balance) {
+		this.balance.setText("Balance(USD): "+balance);
 	}
 	
 	public String extraerSiglaSelectorFIAT() {
@@ -170,6 +194,7 @@ public class MenuMisActivos extends JPanel{
 	public void actualizarMonedaFIAT(MonedaFiduciaria mf) {
 		this.centroMisActivos.actualizarMonedaFIAT(mf);
 	}
+	
 	
 	
 }

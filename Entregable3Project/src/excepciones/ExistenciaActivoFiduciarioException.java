@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class ExistenciaActivoFiduciarioException extends DataException{
 
 	private String problemaTitulo = "Error con la existencia de un activo fiduciario";

@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class CantidadStockException extends DataException{
 
 	private String problemaTitulo = "Stock insuficiente";

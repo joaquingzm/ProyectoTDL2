@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import controlador.FramePrincipalListeners.CierreListener;
 import vista.menuCompra.MenuCompra;
-import vista.menuCotizaciones.MenuCotizaciones;
+import vista.menuCotizaciones.MenuCotizaciones2;
 import vista.menuInicio.MenuInicio;
 import vista.menuMisActivos.MenuMisActivos;
 import vista.menuMisOperaciones.MenuMisOperaciones;
@@ -17,7 +17,7 @@ import vista.menuRegistracion.MenuRegistracion;
 
 @SuppressWarnings("serial")
 public class FramePrincipal extends JFrame {
-
+	
 	private static Color colorBackground = Color.decode("#2B2B2B");
 	private static Color colorForeground = Color.decode("#FFFFFF");
 	private static Color colorBackgroundBotones = Color.decode("#3C3F41");
@@ -30,12 +30,12 @@ public class FramePrincipal extends JFrame {
 	private MenuInicio menuInicio;
 	private MenuRegistracion menuRegistracion;
 	private MenuCompra menuCompra;
-	private MenuCotizaciones menuCotizaciones;
+	private MenuCotizaciones2 menuCotizaciones;
 	private MenuMisActivos menuMisActivos;
 	private MenuMisOperaciones menuMisOperaciones;
 
 	public FramePrincipal() {
-
+	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(700,600);
 		this.setLocationRelativeTo(null);
@@ -49,7 +49,7 @@ public class FramePrincipal extends JFrame {
 		menuRegistracion = new MenuRegistracion();
 		menuCompra = new MenuCompra();
 		menuMisActivos = new MenuMisActivos();
-		menuCotizaciones = new MenuCotizaciones();
+		menuCotizaciones = new MenuCotizaciones2();
 		menuMisOperaciones = new MenuMisOperaciones();
 		
 		menuInicio.setBackground(Color.decode("#2B2B2B"));
@@ -101,13 +101,17 @@ public class FramePrincipal extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		cardLayout.show(panelPrincipal, IdentificadoresDePaneles.MENUINICIO.name());
 		
-        this.addWindowListener(new CierreListener());
+		cambiarMenu(IdentificadoresDePaneles.MENUINICIO.name());
+       
+		this.addWindowListener(new CierreListener());
+        
 	}
+	
 
 	public void cambiarMenu(String identificador) {
-		
 		cardLayout.show(panelPrincipal, identificador);
-		
+	    IdentificadoresDePaneles id = IdentificadoresDePaneles.valueOf(identificador);
+	    this.setTitle("Billetera Virtual - " + id.getTitulo());
 	}
 	
 	public JPanel getPanelPrincipal() {
@@ -150,11 +154,11 @@ public class FramePrincipal extends JFrame {
 		this.menuCompra = menuCompra;
 	}
 
-	public MenuCotizaciones getMenuCotizaciones() {
+	public MenuCotizaciones2 getMenuCotizaciones() {
 		return menuCotizaciones;
 	}
 
-	public void setMenuCotizaciones(MenuCotizaciones menuCotizaciones) {
+	public void setMenuCotizaciones(MenuCotizaciones2 menuCotizaciones) {
 		this.menuCotizaciones = menuCotizaciones;
 	}
 
@@ -179,3 +183,7 @@ public class FramePrincipal extends JFrame {
 	}
 	
 }
+
+
+
+

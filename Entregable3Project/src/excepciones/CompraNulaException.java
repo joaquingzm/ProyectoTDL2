@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class CompraNulaException extends DataException{
 
 	private String problemaTitulo = "Error en la compra";

@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class ExistenciaEmailException extends DataException{
 
 	private String problemaTitulo = "Existe el Email";

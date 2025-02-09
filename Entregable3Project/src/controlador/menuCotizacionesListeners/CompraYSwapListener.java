@@ -13,7 +13,7 @@ import modelos.MonedaFiduciaria;
 import modelos.Stock;
 import vista.FramePrincipal;
 import vista.IdentificadoresDePaneles;
-import vista.menuCotizaciones.MenuCotizaciones;
+import vista.menuCotizaciones.MenuCotizaciones2;
 
 public class CompraYSwapListener extends MouseAdapter{
 
@@ -21,7 +21,7 @@ public class CompraYSwapListener extends MouseAdapter{
 	public void mousePressed(MouseEvent arg0) {
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
-		MenuCotizaciones menuCotizaciones = framePrincipal.getMenuCotizaciones();
+		MenuCotizaciones2 menuCotizaciones = framePrincipal.getMenuCotizaciones();
 		
 		Point coords = arg0.getPoint();
 		

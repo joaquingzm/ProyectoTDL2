@@ -30,7 +30,7 @@ public class Encabezado extends JPanel{
 		this.setPreferredSize(new Dimension(400,70));
 		
 		icono = new JLabel(); //Pasarle un ImageIcon al constructor
-		cerrarSesion = new JButton("Cerrar sesion");
+		cerrarSesion = new JButton("Cerrar sesión");
 		nombreYApellido = new JLabel("");
 		cerrarSesion.addActionListener(new CerrarSesionListener());
 		
@@ -66,12 +66,18 @@ public class Encabezado extends JPanel{
 	public void cambiarColorBackground(Color color) {
 		this.setBackground(color);
 		nombreYApellido.setBackground(color);
-		this.cerrarSesion.setBackground(color);
 	}
 	
 	public void cambiarColorForeground(Color color) {
 		this.setForeground(color);
 		nombreYApellido.setForeground(color);
+	}
+	
+	public void cambiarColorBackgroundBotones(Color color) {
+		this.cerrarSesion.setBackground(color);
+	}
+	
+	public void cambiarColorForegroundBotones(Color color) {
 		this.cerrarSesion.setForeground(color);
 	}
 	

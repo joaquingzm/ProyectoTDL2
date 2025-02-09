@@ -1,5 +1,6 @@
 package excepciones;
 
+@SuppressWarnings("serial")
 public class CheckboxException extends DataException{
 
 	private String problemaTitulo = "Error con la aceptación de terminos y condiciones";

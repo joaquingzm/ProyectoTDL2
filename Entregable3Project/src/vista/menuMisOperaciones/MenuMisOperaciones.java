@@ -52,10 +52,12 @@ public class MenuMisOperaciones extends JPanel{
 	
 	public void cambiarBackgroundColorBotones(Color color) {
 		volver.setBackground(color);
+		misOperacionesList.setBackground(color);
 	}
 	
 	public void cambiarForegroundColorBotones(Color color) {
 		volver.setForeground(color);
+		misOperacionesList.setForeground(color);
 	}
 	
 	public void actualizarOperaciones(List<Transaccion> transacciones) {

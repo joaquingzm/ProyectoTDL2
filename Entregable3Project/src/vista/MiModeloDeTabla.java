@@ -24,8 +24,8 @@ public class MiModeloDeTabla extends DefaultTableModel{
 	
 	@Override
     public boolean isCellEditable(int row, int column) {
-        // Deshabilitar la edición de todas las columnas excepto la tercera (Monto)
-        return false;
+        return column == 5 || column == 4;
+		//return false;
     }
 
 }

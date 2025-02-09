@@ -125,12 +125,14 @@ public class MenuCompra extends JPanel{
 		convertir.setBackground(color);
 		realizarCompra.setBackground(color);
 		cancelar.setBackground(color);
+		selectorFIAT.setBackground(color);
 	}
 	
 	public void cambiarForegroundColorBotones(Color color) {
 		convertir.setForeground(color);
 		realizarCompra.setForeground(color);
 		cancelar.setForeground(color);
+		selectorFIAT.setForeground(color);
 	}
 	
 	public void cargarSelectorFIAT(List<MonedaFiduciaria> listaFIATs) {

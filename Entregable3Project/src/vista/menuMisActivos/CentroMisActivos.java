@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import modelos.ActivoCripto;
 import modelos.ActivoMonedaFiduciaria;
@@ -25,34 +27,51 @@ public class CentroMisActivos extends JPanel{
 	private MonedaFiduciaria mf;
 	
 	public CentroMisActivos(MonedaFiduciaria mfInicial) {
-		
-		modelo = new MiModeloDeTabla(null, nombresColumnas);
-		activos = new JTable(modelo);
-		activosScrollPane = new JScrollPane(activos);
-		mf = mfInicial;
-		
-		activos.setRowHeight(64);
-		activos.setAutoCreateRowSorter(true);
-		
-		this.setLayout(new BorderLayout());
-	    this.nombresColumnas = new String[]{"", "Cripto", "Monto()"};
-		this.add(activosScrollPane, BorderLayout.CENTER);
-		
+
+		this.nombresColumnas = new String[]{"", "Cripto", "Monto()"};
+	    
+	    modelo = new MiModeloDeTabla(null, nombresColumnas);
+	    
+	    activos = new JTable(modelo);
+	    activosScrollPane = new JScrollPane(activos);
+	    mf = mfInicial;
+	    
+	    this.setLayout(new BorderLayout());
+	    this.add(activosScrollPane, BorderLayout.CENTER);
+
+	    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+	    activos.setDefaultRenderer(Double.class, centerRenderer);
+	    activos.setDefaultRenderer(String.class, centerRenderer);
+	    activos.setRowHeight(64);
+	    activos.setAutoCreateRowSorter(true);
+	    activos.getTableHeader().setResizingAllowed(false);
+	    activos.getTableHeader().setReorderingAllowed(false);
 	}
 	
 	public void cambiarColorBackgroundTabla(Color color) {
 		activos.setBackground(color);
+		activos.getTableHeader().setBackground(color);
 		activosScrollPane.setBackground(color);
+		activosScrollPane.getViewport().setBackground(color);
 	}
 	
 	public void cambiarColorForegroundTabla(Color color) {
 		activos.setForeground(color);
+		activos.getTableHeader().setForeground(color);
 	}
 	
 	public void actualizarTabla(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT) {
+		
 		Object[][] datos = this.recuperarDatos(listaActivosCripto, listaActivosFIAT);
 		this.nombresColumnas[2] = "Monto("+mf.getSigla()+")";
-		modelo.setDataVector(datos, this.nombresColumnas);
+		
+		modelo.setRowCount(0);
+		
+		for (Object[] fila : datos) {
+			modelo.addRow(fila);
+        }
+		
 	}
 	
 	private Object[][] recuperarDatos(List<ActivoCripto> listaActivosCripto, List<ActivoMonedaFiduciaria> listaActivosFIAT){
@@ -78,7 +97,7 @@ public class CentroMisActivos extends JPanel{
 			m = aF.getMonedaFIAT();
 			datos[i+dimFilasAC][0] = new ImageIcon(getClass().getClassLoader().getResource("vista/iconos/"+m.getSigla()+".png"));
 			datos[i+dimFilasAC][1] = m.getNombre();
-			datos[i+dimFilasAC][2] = aF.getCantidad() * m.getPrecioEnDolar();
+			datos[i+dimFilasAC][2] = aF.getCantidad() * m.getPrecioEnDolar()/mf.getPrecioEnDolar();
 		}
 		
 		return datos;
@@ -94,7 +113,6 @@ public class CentroMisActivos extends JPanel{
 	}
 	
 	private void actualizarMonedaFIATEnTabla(MonedaFiduciaria nuevaMF) {
-		
 		for(int i=0;i<modelo.getRowCount();i++) {
 			double precioEnViejaMF = (double) modelo.getValueAt(i,2);
 			double precioEnNuevaMoneda = (precioEnViejaMF*this.mf.getPrecioEnDolar()/nuevaMF.getPrecioEnDolar());
