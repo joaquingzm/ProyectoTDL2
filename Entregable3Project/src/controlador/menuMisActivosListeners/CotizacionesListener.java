@@ -16,6 +16,7 @@ public class CotizacionesListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
+		int delay = 0;
 		
 		try {
 			GestorDeActualizaciones.actualizarMenuCotizaciones();
@@ -25,7 +26,7 @@ public class CotizacionesListener implements ActionListener{
 			return;
 		}
 		
-		GestorDeDatosDelControlador.comenzarTimer();
+		GestorDeDatosDelControlador.comenzarTimer(delay);
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		

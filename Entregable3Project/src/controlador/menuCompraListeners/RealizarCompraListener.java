@@ -36,6 +36,7 @@ public class RealizarCompraListener implements ActionListener{
 		
 		FramePrincipal framePrincipal = GestorDeDatosDelControlador.getFramePrincipal();
 		MenuCompra menuCompra = framePrincipal.getMenuCompra();
+		int delay = 5000;
 		
 		double cantidadDeFiat;
 		
@@ -146,7 +147,7 @@ public class RealizarCompraListener implements ActionListener{
 		
 		//--
 		
-		GestorDeDatosDelControlador.comenzarTimer();
+		GestorDeDatosDelControlador.comenzarTimer(delay);
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 	}
