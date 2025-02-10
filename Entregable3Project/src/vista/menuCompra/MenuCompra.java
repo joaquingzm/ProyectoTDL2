@@ -185,7 +185,6 @@ public class MenuCompra extends JPanel{
 	}
 	
 	public void actualizarComision(double comisionEnCripto) {
-		System.out.println("hola");
 		this.comisionEnCripto.setText("Comisión("+sigla.getText()+"): "+comisionEnCripto);
 	}
 	

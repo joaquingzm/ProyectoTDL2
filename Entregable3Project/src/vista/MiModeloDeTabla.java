@@ -1,9 +1,14 @@
 package vista;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class MiModeloDeTabla extends DefaultTableModel{
+	
+	private List<Integer> columnasEditables;
 	
 	public MiModeloDeTabla(Object[][] datos, String[] titulos) {
 		super(datos, titulos);
@@ -11,6 +16,17 @@ public class MiModeloDeTabla extends DefaultTableModel{
 	
 	public MiModeloDeTabla(String[] titulos, int cantidadDeColumnas) {
 		super(titulos, cantidadDeColumnas);
+	}
+	
+	public void setColumnasEditables(List<Integer> columnasEditables) {
+		this.columnasEditables = new LinkedList<Integer>();
+		for(Integer i : columnasEditables) {
+			this.columnasEditables.add(i);
+		}
+	}
+	
+	public List<Integer> getColumnasEditables() {
+		return columnasEditables;
 	}
 	
 	@Override
@@ -24,8 +40,13 @@ public class MiModeloDeTabla extends DefaultTableModel{
 	
 	@Override
     public boolean isCellEditable(int row, int column) {
-        return column == 5 || column == 4;
-		//return false;
+
+		if(this.columnasEditables!=null) {
+			for(Integer i : this.columnasEditables) {
+				if(column==i)return true;
+			}
+		}
+        return false;
     }
 
 }

@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,11 @@ public class MenuCotizaciones2 extends JPanel {
 		buttonEditorC = new ButtonEditor(new JCheckBox(),cotizacionesTableModel,new CompraListener());
 		buttonRendererS = new ButtonRenderer();
 		buttonEditorS = new ButtonEditor(new JCheckBox(),cotizacionesTableModel,new SwapListener());
+		
+		LinkedList<Integer> columnasEditables = new LinkedList<Integer>();
+		columnasEditables.add(4);
+		columnasEditables.add(5);
+		cotizacionesTableModel.setColumnasEditables(columnasEditables);
 		
 		cotizacionesTable.getColumn("BotonC").setCellRenderer(buttonRendererC);
 		cotizacionesTable.getColumn("BotonC").setCellEditor(buttonEditorC);
