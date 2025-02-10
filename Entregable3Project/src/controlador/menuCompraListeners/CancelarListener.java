@@ -20,6 +20,7 @@ public class CancelarListener implements ActionListener{
 		
 		framePrincipal.cambiarMenu(IdentificadoresDePaneles.MENUCOTIZACIONES.name());
 		
+		framePrincipal.getMenuCompra().realizarAccionesDeSalidaDelMenu();
 	}
 
 }

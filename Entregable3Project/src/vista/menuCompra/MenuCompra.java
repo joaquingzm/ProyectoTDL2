@@ -25,6 +25,7 @@ public class MenuCompra extends JPanel{
 	
 	private JLabel stockDisponible;
 	private JLabel sigla;
+	private JLabel comisionEnCripto;
 	private JLabel precioDeCompra;
 	private JLabel textCantidadDeFIAT;
 	private JTextField cantidadDeFIAT;
@@ -38,6 +39,7 @@ public class MenuCompra extends JPanel{
 	
 		stockDisponible = new JLabel("Stock disponible: ");
 		sigla = new JLabel("");
+		comisionEnCripto = new JLabel("");
 		precioDeCompra = new JLabel("Precio de compra: ");
 		textCantidadDeFIAT = new JLabel("Quiero comprar con ");
 		cantidadDeFIAT = new JTextField();
@@ -51,6 +53,7 @@ public class MenuCompra extends JPanel{
 		realizarCompra.addActionListener(new RealizarCompraListener());
 		cancelar.addActionListener(new CancelarListener());
 
+		comisionEnCripto.setPreferredSize(new Dimension(200,10));
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(500,200));
 		
@@ -75,47 +78,53 @@ public class MenuCompra extends JPanel{
 		gbc.anchor = GridBagConstraints.WEST;
 		this.add(sigla, gbc);
 
-		gbc.insets = new Insets(10,10,10,10);
-		
+		gbc.gridx = 0; 
+		gbc.gridy = 1; 
+		gbc.insets = new Insets(10, 10, 10, 10); 
+		gbc.anchor = GridBagConstraints.EAST; 
+		this.add(comisionEnCripto, gbc);
+
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 2;
 		this.add(precioDeCompra,gbc);
 		
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		this.add(textCantidadDeFIAT,gbc);
 		
 		gbc.gridx = 1;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		this.add(cantidadDeFIAT,gbc);
 		
 		gbc.gridx = 2;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		this.add(selectorFIAT,gbc);
 		
 		gbc.gridx = 3;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		this.add(convertir,gbc);
 		
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		gbc.gridwidth = 4;
 		this.add(textEquilavenciaEnFIAT,gbc);
 		
 		gbc.gridwidth = 1;
 		
 		gbc.gridx = 1;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		this.add(realizarCompra,gbc);
 		
 		gbc.gridx = 2;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		this.add(cancelar,gbc);
 	}
 	
 	public void cambiarColorLabels(Color color) {
 		stockDisponible.setForeground(color);;
-		sigla.setForeground(color);;
+		sigla.setForeground(color);
+		comisionEnCripto.setForeground(color);
 		precioDeCompra.setForeground(color);;
 		textCantidadDeFIAT.setForeground(color);;
 		textEquilavenciaEnFIAT.setForeground(color);;
@@ -170,9 +179,19 @@ public class MenuCompra extends JPanel{
 		return sigla.getText();
 	}
 	
-	public void actualizarConversion(Double cantidad) {
+	public void actualizarConversion(double cantidad) {
 		
 		textEquilavenciaEnFIAT.setText("Equivale a... "+cantidad+" "+sigla.getText());
 	}
 	
+	public void actualizarComision(double comisionEnCripto) {
+		System.out.println("hola");
+		this.comisionEnCripto.setText("Comisión("+sigla.getText()+"): "+comisionEnCripto);
+	}
+	
+	public void realizarAccionesDeSalidaDelMenu() {
+		comisionEnCripto.setText("");
+		cantidadDeFIAT.setText("");
+		textEquilavenciaEnFIAT.setText("Equivale a... ");
+	}
 }

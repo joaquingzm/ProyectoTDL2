@@ -61,7 +61,6 @@ public class ConvertirListener implements ActionListener{
 		
 		double cantidadRestanteDeCripto = cantidadTotalDeCripto - comisionEnCripto;
 		
-		
 		menuCompra.actualizarConversion(cantidadRestanteDeCripto);
 		menuCompra.actualizarComision(comisionEnCripto);
 		

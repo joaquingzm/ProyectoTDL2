@@ -3,12 +3,14 @@ package controlador.menuCotizacionesListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controlador.GestorDeDatosDelControlador;
+import vista.FramePrincipal;
+
 public class SwapListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		
 		String sigla = arg0.getActionCommand();
 		/*
 		int idCripto;
@@ -21,6 +23,7 @@ public class SwapListener implements ActionListener{
 			return;
 		}
 		*/
-		System.out.println("Se accionó swap, "+sigla);
+		
+		FramePrincipal.mostrarAviso("Swap", "Se seleccionó swap de la moneda con sigla: "+sigla);
 	}
 }
